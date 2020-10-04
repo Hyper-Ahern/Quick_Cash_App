@@ -29,8 +29,16 @@ public class LoginFragmentTest{
     // checks if the email text box is empty and displays appropriate message
     public void emptyEmail() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText(""));
-        onView(withId(R.id.passwordText)).perform(click());
+        onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.emailHint)).check(matches(withText("Email address missing")));
+    }
+
+    @Test
+    // checks if the password text box is empty and displays appropriate message
+    public void emptyPassword() {
+        onView(withId(R.id.passwordText)).perform(click()).perform(typeText(""));
+        onView(withId(R.id.loginBtn)).perform(click());
+        onView(withId(R.id.passwordHint)).check(matches(withText("Password missing")));
     }
 
     @Test
@@ -50,7 +58,7 @@ public class LoginFragmentTest{
     }
 
     @Test
-    // check if dialog box pops up if user logs in with Google
+    // check if dialog box pops up when user logs in with Google
     public void loginWithGoogle() {
         onView(withId(R.id.googleLoginBtn)).perform(click());
         onView(withText("Login with Google")).check(matches(isDisplayed()));
