@@ -13,7 +13,7 @@
         android:layout_marginTop="667dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,5 +47,144 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employee_email_account" />
+
+    <EditText
+        android:id="@+id/total_hours"
+        android:layout_width="157dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="Total Hours"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/generated_total_payment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/salary_per_hour"
+        app:layout_constraintTop_toBottomOf="@+id/employee_payment_account" />
+
+    <EditText
+        android:id="@+id/salary_per_hour"
+        android:layout_width="162dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="Salary/Hour"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@+id/employee_payment_account"
+        tools:layout_editor_absoluteX="33dp" />
+
+    <EditText
+        android:id="@+id/total_payment"
+        android:layout_width="156dp"
+        android:layout_height="39dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Total Payment:"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="251dp" />
+
+    <EditText
+        android:id="@+id/generated_total_payment"
+        android:layout_width="180dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        tools:layout_editor_absoluteX="201dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="308dp" />
+
+    <TextView
+        android:id="@+id/card_number_text"
+        android:layout_width="122dp"
+        android:layout_height="33dp"
+        android:text="Card Number:"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="384dp" />
+
+    <TextView
+        android:id="@+id/card_holder_text"
+        android:layout_width="122dp"
+        android:layout_height="33dp"
+        android:text="Card Holder:"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="430dp" />
+
+    <TextView
+        android:id="@+id/valid_thru_text"
+        android:layout_width="122dp"
+        android:layout_height="33dp"
+        android:text="Valid Thru:"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="492dp" />
+
+    <TextView
+        android:id="@+id/cvv_text"
+        android:layout_width="122dp"
+        android:layout_height="33dp"
+        android:text="CVV:"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="547dp" />
+
+    <TextView
+        android:id="@+id/credit_card_title"
+        android:layout_width="138dp"
+        android:layout_height="38dp"
+        android:text="Credit Card Info"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="322dp" />
+
+    <EditText
+        android:id="@+id/card_number_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Input Card Number Here"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="375dp" />
+
+    <EditText
+        android:id="@+id/card_name_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Input Your Name Here"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <EditText
+        android:id="@+id/cvv_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Input CVV Code Here"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="544dp" />
+
+    <EditText
+        android:id="@+id/valid_thru_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="ex: 01/02"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="487dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
