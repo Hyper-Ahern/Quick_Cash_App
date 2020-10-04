@@ -40,4 +40,5 @@ public class LoginFragmentTest{
         onView(withId(R.id.loginBtn)).perform(click());
         onView(withID(R.id.dashboard));
     }
+
 }
