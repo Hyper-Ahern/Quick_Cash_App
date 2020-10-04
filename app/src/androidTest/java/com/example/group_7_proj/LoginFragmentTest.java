@@ -38,7 +38,13 @@ public class LoginFragmentTest{
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
         onView(withId(R.id.loginBtn)).perform(click());
-        onView(withID(R.id.dashboard));
+        onView(withId(R.id.dashboard));
     }
 
+    @Test
+    // navigate to signup page without email and password
+    public void navToSignup() {
+        onView(withId(R.id.signupBtn)).perform(click());
+        onView(withId(R.id.signup));
+    }
 }
