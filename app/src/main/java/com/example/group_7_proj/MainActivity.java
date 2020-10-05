@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton googleLoginBtn =(ImageButton)findViewById(R.id.googleLoginBtn);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        googleLoginBtn.setOnClickListener(new View.OnClickListener(){
+        /*googleLoginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
-            }
-        });
+
+        });*/
 
 
     }
