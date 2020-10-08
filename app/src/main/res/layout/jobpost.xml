@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="324dp" />
+
+    <TextView
+        android:id="@+id/Employer"
+        android:layout_width="108dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="41dp"
+        android:text=" Employer ID"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/JobTitle"
+        app:layout_constraintEnd_toStartOf="@+id/textInputEditText"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Details"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="398dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editText"
+        android:layout_width="321dp"
+        android:layout_height="243dp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="443dp" />
+
+    <TextView
+        android:id="@+id/JobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Job Title"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="171dp" />
+
+    <TextView
+        android:id="@+id/jobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Job Title"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="334dp" />
+
+    <TextView
+        android:id="@+id/Salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salary"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="245dp" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="922dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="189dp"
+        android:layout_height="45dp"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="160dp">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="190dp"
+        android:layout_height="46dp"
+        android:hint="Name"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="93dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="189dp"
+        android:layout_height="50dp"
+        android:hint="$/Hour"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="233dp">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="157dp"
+        android:layout_height="130dp"
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="756dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="1082dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="262dp"
+        android:layout_height="49dp"
+        android:text="By clicking submit you are agreeing to the Terms and Conditions."
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="1003dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
