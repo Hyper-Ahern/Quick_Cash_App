@@ -20,7 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
-public class SignupFragmentTest {
+public class SignUpFragmentTest {
     @Rule
     public ActivityTestRule<SignupFragment> signUpTestRule = new ActivityTestRule<SignupFragment>(SignupFragment.class);
 
