@@ -1,4 +1,4 @@
-package com.example.group_7_proj;
+package com.example.group_7_proj.CustomDataTypes;
 
 public class User {
     private String name;
