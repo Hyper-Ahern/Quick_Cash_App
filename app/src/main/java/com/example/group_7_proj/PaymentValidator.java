@@ -109,7 +109,7 @@ public class PaymentValidator {
         } else {
             return false;
         }
-        return !currDate.isBefore(dateParsed);
+        return currDate.isBefore(dateParsed);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

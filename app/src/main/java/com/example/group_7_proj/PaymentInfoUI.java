@@ -43,7 +43,7 @@ public class PaymentInfoUI extends AppCompatActivity {
 
         cardNumberField = (EditText) findViewById(R.id.cardNumber);
         expiryDateField = (EditText) findViewById(R.id.expiryDate);
-        CVVField = (EditText) findViewById(R.id.expiryDate);
+        CVVField = (EditText) findViewById(R.id.CVV);
         nameField = (EditText) findViewById(R.id.cardHolderName);
         submitBtn = (Button) findViewById(R.id.paymentSubmitButton);
         statusButton = (TextView)findViewById(R.id.statusBtn);
