@@ -1,6 +1,8 @@
 package com.example.group_7_proj;
 
-public class PaymentInfoUI {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PaymentInfoUI extends AppCompatActivity {
 
 
 
