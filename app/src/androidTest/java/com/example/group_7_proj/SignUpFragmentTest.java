@@ -3,7 +3,7 @@ package com.example.group_7_proj;
 import android.app.Activity;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +22,8 @@ import static org.junit.Assert.*;
 
 public class SignUpFragmentTest {
     @Rule
-    public ActivityTestRule<SignupFragment> signUpTestRule = new ActivityTestRule<SignupFragment>(SignupFragment.class);
+    public ActivityScenarioRule<MainActivity> activityRule =
+            new ActivityScenarioRule<>(MainActivity.class);
 
     private String uName = "Name";
     private String uEmail = "email@domain.com";

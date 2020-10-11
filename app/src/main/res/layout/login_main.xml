@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/login"
     tools:context=".MainActivity">
 
     <ImageView
@@ -65,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
     <Button
-        android:id="@+id/signupBtn"
+        android:id="@+id/signUpBtnLGP"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
@@ -91,34 +92,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpBtnLGP" />
 
-    <EditText
+    <TextView
         android:id="@+id/emailHint"
         android:layout_width="167dp"
         android:layout_height="14dp"
         android:layout_marginStart="99dp"
         android:layout_marginEnd="145dp"
         android:layout_marginBottom="10dp"
-        android:ems="10"
+        android:ems="3"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:textColor="#FF5555"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
+    <TextView
+        android:id="@+id/passwordHint"
         android:layout_width="167dp"
         android:layout_height="14dp"
         android:layout_marginStart="99dp"
         android:layout_marginEnd="145dp"
         android:layout_marginBottom="14dp"
-        android:ems="10"
+        android:ems="3"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/signupBtn"
+        android:textColor="#FF5555"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/signUpBtnLGP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
