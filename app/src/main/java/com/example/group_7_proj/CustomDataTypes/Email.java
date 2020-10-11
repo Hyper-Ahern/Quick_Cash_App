@@ -11,6 +11,12 @@ public class Email {
         this.value = email;
     }
 
+    public boolean isEmpty(){
+        boolean empty = true;
+        if(!(this.value.isEmpty())) empty = false;
+        return empty;
+    }
+
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
     public boolean matchesFormat(){
         boolean valid = false;
