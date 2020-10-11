@@ -1,0 +1,35 @@
+package com.example.group_7_proj.sampledata;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Password {
+    private String value;
+
+    public Password(String password){
+        this.value = password;
+    }
+
+    boolean isLessThan8Chars(String password){
+        boolean valid = false;
+        if (!(password.length() < 8)){
+            valid = true;
+        }
+        return valid;
+    }
+
+    //Regex Pattern -min of 8 length, max of 40('random' limit); accepts at least 1 capital letter, 1 lowercase letter, at least 1 number, at least 1 symbol
+    //Symbols = !@#$%^&*()_+-=.,?;:'"`~{}[]\/
+    boolean isWeak(String password){
+        boolean valid = false;
+        Pattern passwordPattern = Pattern.compile("[A-Za-z0-9!@#$%^&*()_+-=.,?;:'\"`~{}\\[\\]\\\\/]{8,40}");
+        Matcher toMatch = passwordPattern.matcher(password);
+        valid = toMatch.matches();
+        return valid;
+    }
+
+    String returnValue(){
+        return this.value;
+    }
+
+}
