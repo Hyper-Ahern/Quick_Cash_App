@@ -10,6 +10,12 @@ public class Username {
         this.value = username;
     }
 
+    public boolean isEmpty(){
+        boolean empty = true;
+        if(!(this.value.isEmpty())) empty = false;
+        return empty;
+    }
+
     boolean tooShort(String username){
         boolean valid = false;
         if (!(username.length() < 5)){

@@ -10,6 +10,12 @@ public class Password {
         this.value = password;
     }
 
+    public boolean isEmpty(){
+        boolean empty = true;
+        if(!(this.value.isEmpty())) empty = false;
+        return empty;
+    }
+
     public boolean isLessThan8Chars(String password){
         boolean valid = false;
         if (!(password.length() < 8)){
