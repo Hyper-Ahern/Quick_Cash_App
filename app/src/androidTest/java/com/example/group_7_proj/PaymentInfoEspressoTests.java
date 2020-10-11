@@ -39,7 +39,7 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Payment Success")))
+                .check(matches(withText("Payment Success")));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")))
+                .check(matches(withText("Invalid Card")));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")))
+                .check(matches(withText("Invalid Card")));
     }
 
     @Test
@@ -111,10 +111,11 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")))
+                .check(matches(withText("Invalid Card")));
     }
 
-    public void shortCVV(){
+    @Test
+    public void longCVV(){
         onView(withId(R.id.employeeAccount))
                 .perform(typeText("UserName123"));
         onView(withId(R.id.employeeBankAccount))
@@ -134,6 +135,6 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")))
+                .check(matches(withText("Invalid Card")));
     }
 }
