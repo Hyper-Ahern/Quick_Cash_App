@@ -2,6 +2,7 @@ package com.example.group_7_proj;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -79,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
         email.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                /*Email em = new Email(email.getText().toString());*/
-                String em = email.getText().toString();
-                if(!em.equals("abc@gmail.com")){
+                Email em = new Email(email.getText().toString());
+                if(!em.matchesFormat()){
                     emailHint.setText("Email invalid");
                 }
                 else{
@@ -94,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
         password.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                /*Email em = new Email(email.getText().toString());*/
-                String pw = password.getText().toString();
-                if(!pw.equals("12345678")){
-                    passwordHint.setText("password too short");
+                Password pw = new Password(password.getText().toString());
+                if(pw.isLessThan8Chars()){
+                    passwordHint.setText("password is too short");
+                }
+                else if(pw.isWeak()){
+                    passwordHint.setText("password is weak");
                 }
                 else{
                     passwordHint.setText("");
@@ -110,26 +112,25 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                startActivity(intent);
-                /*Email em = new Email(email.getText().toString());
+                Email em = new Email(email.getText().toString());
                 Password pw = new Password(email.getText().toString());
 
                 // if invalid email or password
-                if(em.invalid() || pw.invalid()){
+                if(!em.matchesFormat() || pw.isInvalid()){
                     Toast.makeText(MainActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
                 }
 
-                // if email or password is not registered
+                /*// if email or password is not registered
                 else if(em.notReg() || pw.notReg()){
                     Toast.makeText(MainActivity.this, "Email or password is incorrect", Toast.LENGTH_LONG).show();
-                }
+                }*/
 
                 // if logs in
                 else{
-                    setContentView(R.layout.dashboard);
+                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(intent);
                     Toast.makeText(MainActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
-                }*/
+                }
             }
         });
 

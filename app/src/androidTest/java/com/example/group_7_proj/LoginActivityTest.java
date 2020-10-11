@@ -19,7 +19,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LoginFragmentTest{
+public class LoginActivityTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
@@ -47,7 +47,7 @@ public class LoginFragmentTest{
     public void invalidEmail() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abcxyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD56&*"));
-        onView(withId(R.id.loginBtn)).perform(click());
+        pressBack();
         onView(withId(R.id.emailHint)).check(matches(withText("Email invalid")));
     }
 
@@ -56,7 +56,6 @@ public class LoginFragmentTest{
     public void invalidLengthPassword() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("aB4#"));
-        onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.emailHint)).check(matches(withText("Password too short")));
     }
 
@@ -65,7 +64,6 @@ public class LoginFragmentTest{
     public void invalidTypePassword() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD4567"));
-        onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.emailHint)).check(matches(withText("Password too weak")));
     }
 

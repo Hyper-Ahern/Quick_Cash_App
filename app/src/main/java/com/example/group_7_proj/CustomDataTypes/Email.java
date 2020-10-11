@@ -12,10 +12,10 @@ public class Email {
     }
 
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
-    boolean matchesFormat(String email){
+    public boolean matchesFormat(){
         boolean valid = false;
         Pattern emailPattern = Pattern.compile("\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b");
-        Matcher toMatch = emailPattern.matcher(email);
+        Matcher toMatch = emailPattern.matcher(this.value);
         valid = toMatch.matches();
         return valid;
     }
