@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -56,7 +57,7 @@ public class LoginFragmentTest{
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("aB4#"));
         onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.emailHint)).check(matches(withText("Password too shortg")));
+        onView(withId(R.id.emailHint)).check(matches(withText("Password too short")));
     }
 
     @Test
@@ -68,6 +69,10 @@ public class LoginFragmentTest{
         onView(withId(R.id.emailHint)).check(matches(withText("Password too weak")));
     }
 
+    @Test
+    // checks if email and password matches
+    public void emailNPasswordMatches(){
+    }
 
     /**NAVIGATION**/
     @Test
@@ -75,14 +80,27 @@ public class LoginFragmentTest{
     public void navToDashboard() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
+        pressBack();
         onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.dashboard));
     }
 
     @Test
+    // checks if app is able to successfully navigate to dashboard
+    public void navOutOfDashboard() {
+        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
+        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
+        pressBack();
+        onView(withId(R.id.loginBtn)).perform(click());
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.backBtnDB)).perform(click());
+        onView(withId(R.id.login));
+    }
+
+    @Test
     // navigate to signup page without email and password
-    public void navToSignup() {
-        onView(withId(R.id.signupBtn)).perform(click());
+    public void navToSignUp() {
+        onView(withId(R.id.signUpBtnLGP)).perform(click());
         onView(withId(R.id.signup));
     }
 
