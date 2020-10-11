@@ -165,6 +165,7 @@ public class PaymentValidator {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean paymentValidate() {
         boolean cardValid = cardValidate();
         boolean dateValid = expiryDateValidate();

@@ -20,14 +20,6 @@ public class PaymentInfoEspressoTest {
 
     @Test
     public void correctPaymentInfo(){
-        onView(withId(R.id.employeeAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.employeeBankAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.salaryPerHour))
-                .perform(typeText("10"));
-        onView(withId(R.id.totalHours))
-                .perform(typeText("5"));
         onView(withId(R.id.cardNumber))
                 .perform(typeText("1111222233334444"));
         onView(withId(R.id.expiryDate))
@@ -38,20 +30,12 @@ public class PaymentInfoEspressoTest {
                 .perform(typeText("John Doe"));
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
-        onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Payment Success")));
+        onView(withId(R.id.statusBtn))
+                .check(matches(withText("Invalid Card info")));
     }
 
     @Test
     public void shortCardNumber(){
-        onView(withId(R.id.employeeAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.employeeBankAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.salaryPerHour))
-                .perform(typeText("10"));
-        onView(withId(R.id.totalHours))
-                .perform(typeText("5"));
         onView(withId(R.id.cardNumber))
                 .perform(typeText("11112222"));
         onView(withId(R.id.expiryDate))
@@ -62,20 +46,12 @@ public class PaymentInfoEspressoTest {
                 .perform(typeText("John Doe"));
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
-        onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+        onView(withId(R.id.statusBtn))
+                .check(matches(withText("Invalid Card info")));
     }
 
     @Test
     public void longCardNumber(){
-        onView(withId(R.id.employeeAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.employeeBankAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.salaryPerHour))
-                .perform(typeText("10"));
-        onView(withId(R.id.totalHours))
-                .perform(typeText("5"));
         onView(withId(R.id.cardNumber))
                 .perform(typeText("11112222333344445555"));
         onView(withId(R.id.expiryDate))
@@ -86,20 +62,12 @@ public class PaymentInfoEspressoTest {
                 .perform(typeText("John Doe"));
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
-        onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+        onView(withId(R.id.statusBtn))
+                .check(matches(withText("Invalid Card info")));
     }
 
     @Test
     public void shortCVV(){
-        onView(withId(R.id.employeeAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.employeeBankAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.salaryPerHour))
-                .perform(typeText("10"));
-        onView(withId(R.id.totalHours))
-                .perform(typeText("5"));
         onView(withId(R.id.cardNumber))
                 .perform(typeText("1111222233334444"));
         onView(withId(R.id.expiryDate))
@@ -110,20 +78,12 @@ public class PaymentInfoEspressoTest {
                 .perform(typeText("John Doe"));
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
-        onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+        onView(withId(R.id.statusBtn))
+                .check(matches(withText("Invalid Card info")));
     }
 
     @Test
     public void longCVV(){
-        onView(withId(R.id.employeeAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.employeeBankAccount))
-                .perform(typeText("UserName123"));
-        onView(withId(R.id.salaryPerHour))
-                .perform(typeText("10"));
-        onView(withId(R.id.totalHours))
-                .perform(typeText("5"));
         onView(withId(R.id.cardNumber))
                 .perform(typeText("1111222233334444"));
         onView(withId(R.id.expiryDate))
@@ -134,7 +94,7 @@ public class PaymentInfoEspressoTest {
                 .perform(typeText("John Doe"));
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
-        onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+        onView(withId(R.id.statusBtn))
+                .check(matches(withText("Invalid Card info")));
     }
 }
