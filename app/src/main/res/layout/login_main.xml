@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/passwordHint"
         android:layout_width="167dp"
         android:layout_height="14dp"
         android:layout_marginStart="99dp"
