@@ -69,7 +69,7 @@ public class FirebaseTests_US12{
 
     // check if data is stored in database
     @Test
-    public void checkIfSignUpInfoIsStoreInDatabase() {
+    public void checkIfSignUpInfoIsStoredInDatabase() {
         pressBack();
         onView(withId(R.id.name)).perform(click()).perform(typeText("abcde"));
         onView(withId(R.id.email)).perform(click()).perform(typeText("abcde@xyz.com"));
