@@ -1,4 +1,4 @@
-package com.example.group_7_proj.sampledata;
+package com.example.group_7_proj.CustomDataTypes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
