@@ -10,7 +10,7 @@ public class Password {
         this.value = password;
     }
 
-    boolean isLessThan8Chars(String password){
+    public boolean isLessThan8Chars(String password){
         boolean valid = false;
         if (!(password.length() < 8)){
             valid = true;
@@ -20,10 +20,10 @@ public class Password {
 
     //Regex Pattern -min of 8 length, max of 40('random' limit); accepts at least 1 capital letter, 1 lowercase letter, at least 1 number, at least 1 symbol
     //Symbols = !@#$%^&*()_+-=.,?;:'"`~{}[]\/
-    boolean isWeak(String password){
+    public boolean isWeak(){
         boolean valid = false;
         Pattern passwordPattern = Pattern.compile("[A-Za-z0-9!@#$%^&*()_+-=.,?;:'\"`~{}\\[\\]\\\\/]{8,40}");
-        Matcher toMatch = passwordPattern.matcher(password);
+        Matcher toMatch = passwordPattern.matcher(this.value);
         valid = toMatch.matches();
         return valid;
     }
