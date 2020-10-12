@@ -19,47 +19,66 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
 
-public class JobPost extends AppCompatActivity{
+public class JobPost{
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.jobpost);
+    private String EmployerName;
+    private String JT;
+    private String Salary;
+    private String JobDetails;
+
+    public JobPost() {}
+    public JobPost(String EN,String JT,String salary,String JobDetails)
+    {
+        this.EmployerName = EN;
+        this.JT=JT;
+        this.Salary=salary;
+        this.JobDetails=JobDetails;
     }
 
+    public String getEmployerName() {
+        return EmployerName;
+    }
 
+    public String getJobDetails() {
+        return JobDetails;
+    }
 
+    public String getJobTitle() {
+        return JT;
+    }
 
+    public String getSalary() {
+        return Salary;
+    }
 
+    public void setEmployerName(String employerName) {
+        EmployerName = employerName;
+    }
 
-//    public long Post(String word, String definition)
-//    {
-//        ContentValues initialValues = new ContentValues();
-//        initialValues.put(COL_Employer, Employer);
-//        initialValues.put(COL_JobTitle, JobTitle);
-//        initialValues.put(COL_Filtertype, Filtertype);
-//        initialValues.put(COL_Salay, Salay);
-//        initialValues.put(COL_ComInf,ComInf);
-//        return CSCI3130FIREBASE.insert(FTS_VIRTUAL_TABLE, null, initialValues);
-//    }
-    public static boolean InvalidSalary(String S)
+    public void setJobDetails(String jobDetails) {
+        JobDetails = jobDetails;
+    }
+
+    public void setJobTitle(String JT) {
+        this.JT = JT;
+    }
+
+    public void setSalary(String salary) {
+        Salary = salary;
+    }
+
+    public boolean InvalidSalary()
     {
-        Pattern p1 = Pattern.compile("[0-90-9.0-90-9]");
-        if(S.length()==0||!p1.matcher(S).find())
-        {
+        if (Salary == null) {
+            return false;
+        }
+        try {
+            double dbl = Double.parseDouble(Salary);
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
-    public static boolean InvalidEmail(String e)
-    {
 
-        if(e.length()==0||!android.util.Patterns.EMAIL_ADDRESS.matcher(e).matches())
-        //direct function for check validation https://stackoverflow.com/questions/29492168/android-util-patterns-email-address-is-validating-invalid-emails/29493187
-        {
-            return false;
-        }
-        return true;
-    }
 
 }

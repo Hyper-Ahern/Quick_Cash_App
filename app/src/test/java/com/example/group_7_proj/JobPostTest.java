@@ -7,16 +7,26 @@ public class JobPostTest
 {
 
     @Test
-    public void ValidSalary ()
+    public void InvalidSalary()
     {
-        assertTrue(JobPost.InvalidSalary("123.00"));
+        JobPost j = new JobPost("LTD","Babysister","*","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j.InvalidSalary());
     }
 
     @Test
-    public void InvalidSalary()
+    public void ValidSalary()
     {
-        assertFalse(JobPost.InvalidSalary("*"));
+        JobPost j = new JobPost("LTD","Babysister","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidSalary());
     }
+
+    @Test
+    public void InValidSalary1()
+    {
+        JobPost j = new JobPost("LTD","Babysister",null,"dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j.InvalidSalary());
+    }
+
 
     @Test
     public void GetJobTitleSuccess()
