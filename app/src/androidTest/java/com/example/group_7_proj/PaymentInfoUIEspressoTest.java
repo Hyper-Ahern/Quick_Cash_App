@@ -2,6 +2,8 @@ package com.example.group_7_proj;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.google.firebase.FirebaseApp;
+
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -16,6 +18,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 public class PaymentInfoUIEspressoTest {
+
+
 
     @Rule
     public ActivityScenarioRule<PaymentInfoUI> payInfoActivityRule

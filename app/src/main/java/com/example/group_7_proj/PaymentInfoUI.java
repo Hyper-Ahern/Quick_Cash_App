@@ -42,7 +42,7 @@ public class PaymentInfoUI extends AppCompatActivity {
         final Card card;
         card = new Card();
 
-        //final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Card");
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Card");
 
 
         cardNumberField = (EditText) findViewById(R.id.cardNumber);
@@ -69,7 +69,7 @@ public class PaymentInfoUI extends AppCompatActivity {
                     card.setExpiryDate(expiryDate);
                     card.setCVV(cvv);
                     card.setCardHolderName(cardName);
-                    //rootRef.push().setValue(card);
+                    rootRef.push().setValue(card);
                     statusButton.setText("Card info OK");
                     //Toast.makeText(PaymentInfoUI.this, "Card registration complete",Toast.LENGTH_LONG).show();
                 }
