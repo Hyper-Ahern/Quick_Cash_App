@@ -7,15 +7,15 @@ public class JobPostTest
 {
 
     @Test
-    public void GetPostSuccess()
+    public void ValidSalary ()
     {
-        assertEquals(4, 2 + 2);
+        assertTrue(JobPost.InvalidSalary("123.00"));
     }
 
     @Test
-    public void GetEmployerSuccess()
+    public void InvalidSalary()
     {
-        assertEquals(4, 2 + 2);
+        assertFalse(JobPost.InvalidSalary("*"));
     }
 
     @Test
