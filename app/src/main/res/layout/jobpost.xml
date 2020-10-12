@@ -210,7 +210,7 @@
         android:layout_marginEnd="92dp"
         android:layout_marginBottom="10dp"
         android:text="By clicking submit you are agreeing to the Terms and Conditions."
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner1" />
