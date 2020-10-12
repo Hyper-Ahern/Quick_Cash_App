@@ -11,7 +11,13 @@ public class Password {
     }
 
     public  boolean isInvalid(){
-        return isLessThan8Chars() && isWeak();
+        return isLessThan8Chars() || isWeak() || isEmpty();
+    }
+
+    public boolean isEmpty(){
+        boolean empty = true;
+        if(!(this.value.isEmpty())) empty = false;
+        return empty;
     }
 
     public boolean isLessThan8Chars(){

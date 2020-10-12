@@ -81,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Email em = new Email(email.getText().toString());
-                if(!em.matchesFormat()){
+                if(em.isEmpty()){
+                    emailHint.setText("Email missing");
+                }
+                else if(!em.matchesFormat()){
                     emailHint.setText("Email invalid");
                 }
                 else{
@@ -95,11 +98,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Password pw = new Password(password.getText().toString());
+
                 if(pw.isLessThan8Chars()){
-                    passwordHint.setText("password is too short");
+                    passwordHint.setText("Password too short");
                 }
                 else if(pw.isWeak()){
-                    passwordHint.setText("password is weak");
+                    passwordHint.setText("Password is weak");
                 }
                 else{
                     passwordHint.setText("");
@@ -113,10 +117,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Email em = new Email(email.getText().toString());
-                Password pw = new Password(email.getText().toString());
+                Password pw = new Password(password.getText().toString());
 
                 // if invalid email or password
-                if(!em.matchesFormat() || pw.isInvalid()){
+                if(em.isInvalid() || pw.isInvalid()){
+                    if(pw.isEmpty()){
+                        passwordHint.setText("Password missing");
+                    }
+                    if(em.isEmpty()){
+                        emailHint.setText("Email missing");
+                    }
                     Toast.makeText(MainActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
                 }
 

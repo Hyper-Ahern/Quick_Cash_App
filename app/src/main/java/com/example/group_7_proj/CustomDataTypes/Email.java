@@ -11,6 +11,10 @@ public class Email {
         this.value = email;
     }
 
+    public  boolean isInvalid(){
+        return !matchesFormat() || isEmpty();
+    }
+
     public boolean isEmpty(){
         boolean empty = true;
         if(!(this.value.isEmpty())) empty = false;
