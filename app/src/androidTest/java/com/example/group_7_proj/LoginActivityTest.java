@@ -25,6 +25,7 @@ public class LoginActivityTest {
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
+    /*Abdullah*/
     /**INPUT VALIDATION**/
     @Test
     // checks if the email text box is empty and displays appropriate message
@@ -70,12 +71,13 @@ public class LoginActivityTest {
     public void emailNPasswordMatches(){
     }
 
+    /*Abdullah*/
     /**NAVIGATION**/
     @Test
     // checks if app is able to successfully navigate to dashboard
     public void navToDashboard() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
+        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD12#$"));
         pressBack();
         onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.dashboard));

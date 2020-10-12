@@ -11,8 +11,16 @@ public class Email {
         this.value = email;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public  boolean isInvalid(){
-        return !matchesFormat() || isEmpty();
+        return !matchesFormat() || isEmpty(); /*Abdullah*/
     }
 
     public boolean isEmpty(){

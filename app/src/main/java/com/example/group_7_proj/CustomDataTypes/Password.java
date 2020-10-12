@@ -10,8 +10,16 @@ public class Password {
         this.value = password;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public  boolean isInvalid(){
-        return isLessThan8Chars() || isWeak() || isEmpty();
+        return isLessThan8Chars() || isWeak() || isEmpty(); /*Abdullah*/
     }
 
     public boolean isEmpty(){

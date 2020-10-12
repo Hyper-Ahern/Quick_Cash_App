@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".DashboardActivity" />/*Abdullah*/
+        <activity android:name=".LoginActivity" />/*Abdullah*/
+        <activity android:name=".SignUpActivity" />/*Abdullah*/
     </application>
 
 </manifest>
