@@ -15,7 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class PaymentInfoEspressoTest {
 
     @Rule
-    public ActivityScenarioRule<PaymentInfoUI> activityScenarioRule
+    public ActivityScenarioRule<PaymentInfoUI> payInfoActivityRule
             = new ActivityScenarioRule<>(PaymentInfoUI.class);
 
     @Test
@@ -39,7 +39,7 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Payment Success")));
+                .check(matches(withText("Payment Success")))
     }
 
     @Test
@@ -63,7 +63,7 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+                .check(matches(withText("Invalid Card")))
     }
 
     @Test
@@ -87,11 +87,11 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+                .check(matches(withText("Invalid Card")))
     }
 
     @Test
-    public void shortCVV_1(){
+    public void shortCVV(){
         onView(withId(R.id.employeeAccount))
                 .perform(typeText("UserName123"));
         onView(withId(R.id.employeeBankAccount))
@@ -111,10 +111,10 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+                .check(matches(withText("Invalid Card")))
     }
 
-    public void shortCVV_2(){
+    public void shortCVV(){
         onView(withId(R.id.employeeAccount))
                 .perform(typeText("UserName123"));
         onView(withId(R.id.employeeBankAccount))
@@ -134,6 +134,6 @@ public class PaymentInfoEspressoTest {
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.paymentSuccessText))
-                .check(matches(withText("Invalid Card")));
+                .check(matches(withText("Invalid Card")))
     }
 }
