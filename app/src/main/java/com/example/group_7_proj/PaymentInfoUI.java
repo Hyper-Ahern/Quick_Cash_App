@@ -5,9 +5,11 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +22,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentInfoUI extends AppCompatActivity {
 
@@ -42,7 +48,11 @@ public class PaymentInfoUI extends AppCompatActivity {
         final Card card;
         card = new Card();
 
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Card");
+        String firebaseFirstLevel = "user";
+        final String firebaseSecondLevel = "USER-4";
+
+
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
 
 
         cardNumberField = (EditText) findViewById(R.id.cardNumber);
@@ -69,7 +79,8 @@ public class PaymentInfoUI extends AppCompatActivity {
                     card.setExpiryDate(expiryDate);
                     card.setCVV(cvv);
                     card.setCardHolderName(cardName);
-                    rootRef.push().setValue(card);
+                    //rootRef.push().setValue(card);
+
                     statusButton.setText("Card info OK");
                     //Toast.makeText(PaymentInfoUI.this, "Card registration complete",Toast.LENGTH_LONG).show();
                 }
