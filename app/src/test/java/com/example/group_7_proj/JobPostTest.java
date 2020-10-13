@@ -44,7 +44,7 @@ public class JobPostTest
     @Test
     public void InValidJobTitle()
     {
-        JobPost j = new JobPost("LTD","","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","!","123.00","dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidJobTitle());
     }
 
@@ -57,7 +57,7 @@ public class JobPostTest
     @Test
     public void InValidJobDetails()
     {
-        JobPost j = new JobPost("LTD","","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","123.00","");
         assertFalse(j.InvalidJobDetails());
     }
 

@@ -83,12 +83,7 @@ public class JobPost{
 
 
     public boolean InvalidEmployerName() {
-        if (Salary == null) {
-            return false;
-        }
-        try {
-            double dbl = Double.parseDouble(Salary);
-        } catch (NumberFormatException nfe) {
+        if (EmployerName == null||EmployerName.equals("")) {
             return false;
         }
         return true;
@@ -97,7 +92,7 @@ public class JobPost{
     public boolean InvalidJobTitle() {
         String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
         for(int i=0;i<29;i++) {
-            if (JobTitle.containsspecialCharactersString.charAt(i))) {
+            if (JobTitle.contains(Character.toString(specialCharactersString.charAt(i)))) {
                 return false;
             }
         }
@@ -106,6 +101,9 @@ public class JobPost{
     }
 
     public boolean InvalidJobDetails() {
+        if (JobDetails == null || JobDetails.equals("")) {
+            return false;
+        }
         return true;
     }
 }
