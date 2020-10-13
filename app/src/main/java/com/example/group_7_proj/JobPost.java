@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JobPost{
@@ -81,4 +82,30 @@ public class JobPost{
     }
 
 
+    public boolean InvalidEmployerName() {
+        if (Salary == null) {
+            return false;
+        }
+        try {
+            double dbl = Double.parseDouble(Salary);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean InvalidJobTitle() {
+        String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
+        for(int i=0;i<29;i++) {
+            if (JobTitle.containsspecialCharactersString.charAt(i))) {
+                return false;
+            }
+        }
+                return true;
+
+    }
+
+    public boolean InvalidJobDetails() {
+        return true;
+    }
 }
