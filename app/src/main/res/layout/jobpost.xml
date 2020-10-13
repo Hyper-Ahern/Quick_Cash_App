@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/EmployerName"
+        android:id="@+id/employerNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/jobPostingHeader" />
 
     <EditText
-        android:id="@+id/jobDetails"
+        android:id="@+id/jobDetailsText"
         android:layout_width="215dp"
         android:layout_height="173dp"
         android:layout_marginStart="81dp"
@@ -35,10 +35,10 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/salaryInput" />
+        app:layout_constraintTop_toBottomOf="@+id/salaryInputText" />
 
     <EditText
-        android:id="@+id/jobTitle"
+        android:id="@+id/jobTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
@@ -49,10 +49,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmployerName" />
+        app:layout_constraintTop_toBottomOf="@+id/employerNameText" />
 
     <EditText
-        android:id="@+id/salaryInput"
+        android:id="@+id/salaryInputText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
@@ -63,7 +63,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/jobTitleText" />
 
     <TextView
         android:id="@+id/jobPostingHeader"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/submitJobpost"
+        android:id="@+id/submitBtnJobPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
@@ -87,5 +87,5 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/jobDetailsText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

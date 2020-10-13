@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class JobPostUI extends AppCompatActivity {
+public class JobPostActivity extends AppCompatActivity {
     EditText Employername,jobtitle,salaryinput,jobdetails;
     Button submitjobpost;
 
@@ -15,10 +15,10 @@ public class JobPostUI extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jobpost);
-        Employername = findViewById(R.id.EmployerName);
-        jobtitle = findViewById(R.id.jobTitle);
-        salaryinput = findViewById(R.id.salaryInput);
-        jobdetails = findViewById(R.id.jobDetails);
-        submitjobpost= findViewById(R.id.submitJobpost);
+        Employername = findViewById(R.id.employerNameText);
+        jobtitle = findViewById(R.id.jobTitleText);
+        salaryinput = findViewById(R.id.salaryInputText);
+        jobdetails = findViewById(R.id.jobDetailsText);
+        submitjobpost= findViewById(R.id.submitBtnJobPost);
     }
 }
