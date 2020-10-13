@@ -80,6 +80,28 @@ public class PaymentInfoUI extends AppCompatActivity {
                     card.setCVV(cvv);
                     card.setCardHolderName(cardName);
                     //rootRef.push().setValue(card);
+                      /*
+                    check if the user has card info stored, if no, add card info to the user's information
+                     */
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (!snapshot.hasChild("Card Info")) {
+
+                                Map<String, Object> userCardInfoUpdates = new HashMap<>();
+
+                                userCardInfoUpdates.put("Card Info",card);
+
+                                rootRef.updateChildren(userCardInfoUpdates);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
 
                     statusButton.setText("Card info OK");
                     //Toast.makeText(PaymentInfoUI.this, "Card registration complete",Toast.LENGTH_LONG).show();
