@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class JobPost{
 
     private String EmployerName;
-    private String JT;
+    private String JobTitle;
     private String Salary;
     private String JobDetails;
 
@@ -30,7 +30,7 @@ public class JobPost{
     public JobPost(String EN,String JT,String salary,String JobDetails)
     {
         this.EmployerName = EN;
-        this.JT=JT;
+        this.JobTitle=JT;
         this.Salary=salary;
         this.JobDetails=JobDetails;
     }
@@ -44,7 +44,7 @@ public class JobPost{
     }
 
     public String getJobTitle() {
-        return JT;
+        return JobTitle;
     }
 
     public String getSalary() {
@@ -60,7 +60,7 @@ public class JobPost{
     }
 
     public void setJobTitle(String JT) {
-        this.JT = JT;
+        this.JobTitle = JT;
     }
 
     public void setSalary(String salary) {

@@ -13,7 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class JobPostEspressoTest {
     @Rule
-    public ActivityScenarioRule<MainActivity> jobpostActivityRule =
+    public ActivityScenarioRule<JobPostActivity> jobpostActivityRule =
             new ActivityScenarioRule<>(JobPost.class);
 
     /**INPUT VALIDATION**/
@@ -22,7 +22,7 @@ public class JobPostEspressoTest {
     public void emptyDetails() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC"));
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter"));
-        onView(withId(R.id.salaryInput)).perform(typeText("14"));
+        onView(withId(R.id.salaryInputText)).perform(typeText("14"));
         onView(withId(R.id.jobDetailsText)).perform(typeText(null));
         onView(withId(R.id.submitBtnJobPost)).check(matches(withText("Invalid Detail info")));
         //onView(withId(R.id.detailsHint)).check(matches(withText("Please insert details")));
@@ -33,7 +33,7 @@ public class JobPostEspressoTest {
     public void emptyTitle() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC"));
         onView(withId(R.id.jobTitleText)).perform(typeText(null));
-        onView(withId(R.id.salaryInput)).perform(typeText("14"));
+        onView(withId(R.id.salaryInputText)).perform(typeText("14"));
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasdfasdfasdf"));
         onView(withId(R.id.submitBtnJobPost)).check(matches(withText("Invalid Job Title info")));
        // onView(withId(R.id.titleHint)).check(matches(withText("Please insert title")));
@@ -44,7 +44,7 @@ public class JobPostEspressoTest {
     public void emptySalary() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC"));
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter"));
-        onView(withId(R.id.salaryInput)).perform(typeText(null));
+        onView(withId(R.id.salaryInputText)).perform(typeText(null));
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasdfasdfasdf"));
         onView(withId(R.id.submitBtnJobPost)).check(matches(withText("Invalid Salary info")));
         //onView(withId(R.id.salaryHint)).check(matches(withText("Please insert a Salary")));
@@ -55,7 +55,7 @@ public class JobPostEspressoTest {
     public void emptyEmployer() {
         onView(withId(R.id.employerNameText)).perform(typeText(null));
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter"));
-        onView(withId(R.id.salaryInput)).perform(typeText("14"));
+        onView(withId(R.id.salaryInputText)).perform(typeText("14"));
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasdfasdfasdf"));
         onView(withId(R.id.submitBtnJobPost)).check(matches(withText("Invalid Employer info")));
        // onView(withId(R.id.employerHint)).check(matches(withText("Please insert employer Title")));

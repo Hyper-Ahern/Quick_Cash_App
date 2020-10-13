@@ -7,31 +7,65 @@ public class JobPostTest
 {
 
     @Test
-    public void InvalidSalary()
+    public void InvalidSalaryNotNumber()
     {
-        JobPost j = new JobPost("LTD","Babysister","*","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","*","dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidSalary());
     }
 
     @Test
     public void ValidSalary()
     {
-        JobPost j = new JobPost("LTD","Babysister","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
         assertTrue(j.InvalidSalary());
     }
 
     @Test
-    public void InValidSalary1()
+    public void InValidSalaryByNull()
     {
-        JobPost j = new JobPost("LTD","Babysister",null,"dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter",null,"dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidSalary());
     }
 
+    @Test
+    public void InValidEmployerName()
+    {
+        JobPost j = new JobPost("","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j.InvalidEmployerName());
+    }
 
     @Test
-    public void GetJobTitleSuccess()
+    public void ValidEmployerName()
     {
-        assertEquals(4, 2 + 2);
+        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidEmployerName());
+    }
+
+    @Test
+    public void InValidJobTitle()
+    {
+        JobPost j = new JobPost("LTD","","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j.InvalidJobTitle());
+    }
+
+    @Test
+    public void ValidJobTitle()
+    {
+        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidJobTitle());
+    }
+    @Test
+    public void InValidJobDetails()
+    {
+        JobPost j = new JobPost("LTD","","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j.InvalidJobDetails());
+    }
+
+    @Test
+    public void ValidJobDetails()
+    {
+        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidJobDetails());
     }
 
 }
