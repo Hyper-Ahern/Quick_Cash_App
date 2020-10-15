@@ -70,7 +70,7 @@ public class JobPost{
 
     public boolean InvalidSalary()
     {
-        if (Salary == null) {
+        if (Salary == null|| Salary.equals("")) {
             return false;
         }
         try {
