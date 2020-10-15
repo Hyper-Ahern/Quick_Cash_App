@@ -7,21 +7,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JobPostActivity extends AppCompatActivity {
     EditText Employername,jobtitle,salaryinput,jobdetails;
     Button submitjobpost;
     TextView validtextview;
+    static int firebaseSecondLevel = 1;
+    final String userstring = "user"+firebaseSecondLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Post");
+        String firebaseFirstLevel = "Post";
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(userstring);
+
 
         setContentView(R.layout.jobpost);
         Employername = findViewById(R.id.employerNameText);
@@ -38,7 +49,7 @@ public class JobPostActivity extends AppCompatActivity {
                 String jobtitle1 = jobtitle.getText().toString();
                 String salary = salaryinput.getText().toString();
                 String detail = jobdetails.getText().toString();
-                JobPost j1 = new JobPost(Emname,jobtitle1,salary,detail);
+                final JobPost j1 = new JobPost(Emname,jobtitle1,salary,detail);
                 if(!j1.InvalidEmployerName())
                 {
                     validtextview.setText("Invalid Employer info");
@@ -61,9 +72,28 @@ public class JobPostActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    rootRef.push().setValue(j1);
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (!snapshot.hasChild(userstring)) {
+                                Map<String, Object> userobject = new HashMap<>();
+                                userobject.put("JobPost",j1);
+                                rootRef.updateChildren(userobject);
+                            }
+                            else{
+                                Map<String, Object> userobject = new HashMap<>();
+                                userobject.put("JobPost",j1);
+                                rootRef.child("Post").child(userstring).setValue(userobject);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
                     validtextview.setVisibility(View.GONE);
+                    firebaseSecondLevel++;
                 }
             }
         });
