@@ -102,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                 Email em = new Email(email.getText().toString());
                 Password pw = new Password(password.getText().toString());
 
-                // if invalid email or password
-                if(!(em.isInvalid() || pw.isInvalid())){
+                /*// if invalid email or password
+                if((em.isInvalid() || pw.isInvalid())){
                     if(pw.isEmpty()){
                         passwordHint.setText("Password missing");
                     }
@@ -111,44 +111,44 @@ public class LoginActivity extends AppCompatActivity {
                         emailHint.setText("Email missing");
                     }
                     Toast.makeText(LoginActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
-                }
+                }*/
 
-                // if email and password format is correct
-                else{
-                    FirebaseDatabase database = null;
-                    DatabaseReference userRef = null;
-                    database = FirebaseDatabase.getInstance();
-                    userRef = database.getReference().child("user");
-                    userRef.addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            long maxId;
-                            String emailFB;
-                            String passwordFB;
-                            boolean found;
-                            if(snapshot.exists()){
-                                maxId = (snapshot.getChildrenCount());
-                                found = false;
-                                for(int i=1; i<maxId+1; i++) {
-                                    emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
-                                    passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
-                                    if(email.getText().toString().equals(emailFB) && password.getText().toString().equals(passwordFB)){
-                                        found = true;
-                                        System.out.println("found="+found);
-                                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                                        startActivity(intent);
-                                        Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                                if(!found){
-                                    Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_LONG).show();
+                FirebaseDatabase database = null;
+                DatabaseReference userRef = null;
+                database = FirebaseDatabase.getInstance();
+                userRef = database.getReference().child("user");
+                userRef.addValueEventListener(new ValueEventListener() {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        long maxId;
+                        String emailFB;
+                        String passwordFB;
+                        boolean found;
+                        if(snapshot.exists()){
+                            maxId = (snapshot.getChildrenCount());
+                            found = false;
+                            for(int i=1; i<maxId+1; i++) {
+                                emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
+                                passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
+                                if(email.getText().toString().equals(emailFB) && password.getText().toString().equals(passwordFB)){
+                                    found = true;
+                                    break;
                                 }
                             }
+                            if(found){
+                                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_LONG).show();
+                            }
                         }
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
-                }
+                    }
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
+
         });
 
         // sign up
@@ -176,16 +176,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // back button on dashboard
-        /*backBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                setContentView(R.layout.login_main);
-            }
-        });*/
-
     }
 
+    /*Abdullah's abandoned but 4hrs of hard work code*/
     public static boolean userExists(final String email, final String password){
         FirebaseDatabase database = null;
         DatabaseReference userRef = null;

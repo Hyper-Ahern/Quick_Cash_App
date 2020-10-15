@@ -12,112 +12,158 @@
         android:id="@+id/signUpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:layout_marginEnd="144dp"
         android:text="Sign Up"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="149dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="204dp"
         android:layout_height="98dp"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="51dp" />
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="51dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="224dp"
         android:layout_height="39dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="94dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="365dp" />
+        app:layout_constraintBottom_toTopOf="@+id/passwordErrorMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailErrorMessage" />
 
     <EditText
         android:id="@+id/reenterPassword"
         android:layout_width="224dp"
         android:layout_height="39dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="94dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="437dp" />
+        app:layout_constraintBottom_toTopOf="@+id/passwordErrorMessage2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordErrorMessage" />
 
     <TextView
         android:id="@+id/passwordErrorMessage2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="216dp"
+        android:layout_marginBottom="11dp"
         android:text="Error Message"
         android:textColor="#FF0000"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="476dp" />
+        app:layout_constraintBottom_toTopOf="@+id/captchaBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/passwordErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="216dp"
         android:text="Error Message"
         android:textColor="#FF0000"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="404dp" />
+        app:layout_constraintBottom_toTopOf="@+id/reenterPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
         android:layout_width="224dp"
         android:layout_height="40dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="94dp"
         android:hint="Email"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="291dp" />
+        app:layout_constraintBottom_toTopOf="@+id/emailErrorMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameErrorMessage" />
 
     <TextView
         android:id="@+id/nameErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="216dp"
         android:text="Error Message"
         android:textColor="#FF0000"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="258dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/name"
         android:layout_width="224dp"
         android:layout_height="40dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="94dp"
         android:hint="Name"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="218dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpTitle" />
 
     <TextView
         android:id="@+id/emailErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="216dp"
         android:text="Error Message"
         android:textColor="#FF0000"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="331dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/captchaBtn"
         android:layout_width="244dp"
         android:layout_height="53dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginEnd="84dp"
         android:text="Captcha"
         android:textAlignment="center"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="506dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordErrorMessage2" />
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="144dp"
         android:text="Sign Me Up!"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="590dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/captchaBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
