@@ -16,19 +16,19 @@ public class Username {
         return empty;
     }
 
-    boolean tooShort(String username){
-        boolean valid = false;
-        if (!(username.length() < 5)){
-            valid = true;
+    public boolean tooShort(){
+        boolean valid = true;
+        if (!(this.value.length() < 4)){
+            valid = false;
         }
         return valid;
     }
 
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
-    boolean matchesFormat(String username){
+    public boolean matchesFormat(){
         boolean valid = false;
-        Pattern usernamePattern = Pattern.compile("[A-Za-z0-9]{5,40}");
-        Matcher toMatch = usernamePattern.matcher(username);
+        Pattern usernamePattern = Pattern.compile("[A-Za-z0-9]{4,40}");
+        Matcher toMatch = usernamePattern.matcher(this.value);
         valid = toMatch.matches();
         return valid;
     }

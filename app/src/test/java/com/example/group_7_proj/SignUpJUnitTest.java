@@ -1,6 +1,11 @@
 
 package com.example.group_7_proj;
 
+import com.example.group_7_proj.CustomDataTypes.Email;
+import com.example.group_7_proj.CustomDataTypes.Password;
+import com.example.group_7_proj.CustomDataTypes.User;
+import com.example.group_7_proj.CustomDataTypes.Username;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,11 +26,37 @@ public class SignUpJUnitTest {
     }
 
     @Test
-    public void usernameHasNonAlphanumericChar() {
-        Username un1 = new Username("aB#$");
-        assertTrue(un1.hasNonAlpChar());
-        Username un2 = new Username("abC5");
-        assertFalse(un1.hasNonAlpChar());
+    public void userNameTooShort(){
+        String falseInput = "aub5";
+        boolean falseOutput;
+        boolean falseExpected = false;
+        Username un1 = new Username(falseInput);
+        falseOutput = un1.tooShort();
+        assertEquals(falseExpected, falseOutput);
+
+        String trueInput = "ab7";
+        boolean trueOutput;
+        boolean trueExpected = true;
+        Username un2 = new Username(trueInput);
+        trueOutput = un2.matchesFormat();
+        assertEquals(trueExpected, trueOutput);
+    }
+
+    @Test
+    public void userNameMatchesFormat() {
+        String falseInput = "aB#$";
+        boolean falseOutput;
+        boolean falseExpected = false;
+        Username un1 = new Username(falseInput);
+        falseOutput = un1.matchesFormat();
+        assertEquals(falseExpected, falseOutput);
+
+        String trueInput = "abC5";
+        boolean trueOutput;
+        boolean trueExpected = true;
+        Username un2 = new Username(trueInput);
+        trueOutput = un2.matchesFormat();
+        assertEquals(trueExpected, trueOutput);
     }
 
     // check email
@@ -38,19 +69,20 @@ public class SignUpJUnitTest {
     }
 
     @Test
-    public void emailHasNoAtSign() {
-        Email em1 = new Email("abcxyz.ca");
-        assertTrue(em1.hasNoAtSign());
-        Email em2 = new Email("abc@xyz.ca");
-        assertFalse(em2.hasNoAtSign());
-    }
+    public void emailMatchesFormat() {
+        String falseInput = "@xyz.ca";
+        boolean falseOutput;
+        boolean falseExpected = false;
+        Email em1 = new Email(falseInput);
+        falseOutput = em1.matchesFormat();
+        assertEquals(falseExpected, falseOutput);
 
-    @Test
-    public void emailHasNoEmailUsername() {
-        Email em1 = new Email("@xyz.ca");
-        assertTrue(em1.hasNoEmailUsername());
-        Email em2 = new Email("abc@xyz.ca");
-        assertFalse(em2.hasNoEmailUsername());
+        String trueInput = "abc@xyz.ca";
+        boolean trueOutput;
+        boolean trueExpected = true;
+        Email em2 = new Email(trueInput);
+        trueOutput = em2.matchesFormat();
+        assertEquals(trueExpected, trueOutput);
     }
 
 
@@ -58,9 +90,9 @@ public class SignUpJUnitTest {
     @Test
     public void passwordIsLessThan8Char() {
         Password pw1 = new Password("aB3$");
-        assertTrue(pw1.isLessThan8Char());
+        assertTrue(pw1.isLessThan8Chars());
         Password pw2 = new Password("abCD23$%");
-        assertFalse(pw2.isLessThan8Char());
+        assertFalse(pw2.isLessThan8Chars());
     }
 
     // password must have at least one lower case, upper case letters, numbers and special character
@@ -76,6 +108,13 @@ public class SignUpJUnitTest {
         assertTrue(pw3.isWeak());
         assertTrue(pw4.isWeak());
         assertFalse(pw5.isWeak());
+    }
+    @Test
+    public void passwordIsEmpty(){
+        Password pw1 = new Password("");
+        assertTrue(pw1.isEmpty());
+        Password pw2 = new Password("pass");
+        assertFalse(pw2.isEmpty());
     }
 
 
