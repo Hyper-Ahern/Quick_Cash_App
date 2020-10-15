@@ -1,25 +1,5 @@
 package com.example.group_7_proj;
 
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class JobPost{
 
     private String EmployerName;
@@ -91,12 +71,14 @@ public class JobPost{
 
     public boolean InvalidJobTitle() {
         String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
+        if(JobTitle.equals(""))
+            return false;
         for(int i=0;i<29;i++) {
             if (JobTitle.contains(Character.toString(specialCharactersString.charAt(i)))) {
                 return false;
             }
         }
-                return true;
+        return true;
 
     }
 
