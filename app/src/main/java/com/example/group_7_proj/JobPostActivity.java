@@ -23,16 +23,15 @@ public class JobPostActivity extends AppCompatActivity {
     EditText Employername,jobtitle,salaryinput,jobdetails;
     Button submitjobpost;
     TextView validtextview;
-    static int firebaseSecondLevel = 1;
-    final String userstring = "user"+firebaseSecondLevel;
+    DatabaseReference rootRef;
+    long maxId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "Post";
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(userstring);
-
+        String firebaseFirstLevel = "jobPost";
+        rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
         setContentView(R.layout.jobpost);
         Employername = findViewById(R.id.employerNameText);
@@ -42,6 +41,21 @@ public class JobPostActivity extends AppCompatActivity {
         submitjobpost= findViewById(R.id.submitBtnJobPost);
         validtextview =findViewById(R.id.inputStatusTextview);
         validtextview.setVisibility(View.GONE);
+
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    maxId = (snapshot.getChildrenCount());
+                    System.out.println(maxId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         submitjobpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,28 +86,10 @@ public class JobPostActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) {
-                            if (!snapshot.hasChild(userstring)) {
-                                Map<String, Object> userobject = new HashMap<>();
-                                userobject.put("JobPost",j1);
-                                rootRef.updateChildren(userobject);
-                            }
-                            else{
-                                Map<String, Object> userobject = new HashMap<>();
-                                userobject.put("JobPost",j1);
-                                rootRef.child("Post").child(userstring).setValue(userobject);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    System.out.println(maxId);
+                    rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
                     Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
                     validtextview.setVisibility(View.GONE);
-                    firebaseSecondLevel++;
                 }
             }
         });
