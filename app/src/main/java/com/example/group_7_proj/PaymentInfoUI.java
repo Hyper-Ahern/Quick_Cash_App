@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.group_7_proj.CustomDataTypes.Card;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentInfoUI extends AppCompatActivity {
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
