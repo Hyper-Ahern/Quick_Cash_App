@@ -116,7 +116,7 @@ public class PaymentValidator {
     public boolean expiryDateValidate() {
         boolean isDateEmpty = isDateEmpty();
         boolean isExpired = isDateValid();
-        if (isDateEmpty && isDateValid()) {
+        if (isDateEmpty && isExpired) {
             return true;
         }
         else {
@@ -172,7 +172,7 @@ public class PaymentValidator {
         boolean CVVValid = CVVValidate();
         boolean nameValid = cardHolderNameValidate();
 
-        if (cardValid && dateValid && CVVValid && nameValid) {
+        if (cardValid==true && dateValid==true && CVVValid==true && nameValid==true) {
             return true;
         }
         else {
