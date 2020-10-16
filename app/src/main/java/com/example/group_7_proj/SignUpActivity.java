@@ -1,5 +1,6 @@
 package com.example.group_7_proj;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.group_7_proj.CustomDataTypes.Email;
@@ -8,6 +9,7 @@ import com.example.group_7_proj.CustomDataTypes.Username;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,7 +19,7 @@ import android.widget.TextView;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    private Button submitBtn;
+    private Button signUpBtn;
     private Button captchaBtn;
 
     private EditText etUName;
@@ -39,10 +41,12 @@ public class SignUpActivity extends AppCompatActivity {
         etUName  = findViewById(R.id.name);
         etEmail  = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
+        signUpBtn = findViewById(R.id.signUpBtn);
 
         name = new Username((etUName).getText().toString());
         email = new Email((etEmail).getText().toString());
         password = new Password((etPassword).getText().toString());
+
 
         nameValid = false;
         emailValid = false;
@@ -52,6 +56,15 @@ public class SignUpActivity extends AppCompatActivity {
         emailErrorMessage = findViewById(R.id.emailErrorMessage);
         passwordErrorMessage = findViewById(R.id.passwordErrorMessage);
         reenterPasswordErrorMessage = findViewById(R.id.passwordErrorMessage2);
+
+        // sign up
+        signUpBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
        // protected void displayErrorMsg(TextView errorMessage){
             //errorMessage.setVisibility(View.visible);

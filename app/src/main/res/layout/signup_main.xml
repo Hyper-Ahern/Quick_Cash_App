@@ -66,13 +66,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="103dp"
         android:layout_marginEnd="216dp"
-        android:layout_marginBottom="11dp"
         android:text="Error Message"
         android:textColor="#FF0000"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/captchaBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="467dp" />
 
     <TextView
         android:id="@+id/passwordErrorMessage"
@@ -141,29 +140,16 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
-        android:id="@+id/captchaBtn"
-        android:layout_width="244dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="83dp"
-        android:layout_marginEnd="84dp"
-        android:text="Captcha"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordErrorMessage2" />
-
-    <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="26dp"
         android:layout_marginEnd="144dp"
+        android:layout_marginBottom="179dp"
         android:text="Sign Me Up!"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/captchaBtn" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

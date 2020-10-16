@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentInfoUI extends AppCompatActivity {
+public class PaymentInfoActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -101,7 +101,8 @@ public class PaymentInfoUI extends AppCompatActivity {
                         }
                     });
 
-
+                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(intent);
                     statusButton.setText("Card info OK");
                     //Toast.makeText(PaymentInfoUI.this, "Card registration complete",Toast.LENGTH_LONG).show();
                 }
