@@ -33,13 +33,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.net.PasswordAuthentication;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
+        backBtn = (Button)findViewById(R.id.backBtnDB);
+        postAJobBtn = (Button)findViewById(R.id.postJobBtnDB);
         backBtn = (Button)findViewById(R.id.backBtnDB);
 
         backBtn.setOnClickListener(new View.OnClickListener(){
