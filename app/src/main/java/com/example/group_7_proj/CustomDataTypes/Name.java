@@ -3,11 +3,15 @@ package com.example.group_7_proj.CustomDataTypes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Username {
+public class Name {
     private String value;
 
-    public Username(String username){
-        this.value = username;
+    public Name(String name){
+        this.value = name;
+    }
+
+    public void setName(String name){
+        this.value = name;
     }
 
     public boolean isEmpty(){

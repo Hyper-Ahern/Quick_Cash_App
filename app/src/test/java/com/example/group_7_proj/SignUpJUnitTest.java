@@ -7,24 +7,22 @@ import com.example.group_7_proj.CustomDataTypes.Password;
 
 import com.example.group_7_proj.CustomDataTypes.User;
 
-import com.example.group_7_proj.CustomDataTypes.Username;
+import com.example.group_7_proj.CustomDataTypes.Name;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//email, username validation by class
-//junit calls methods - initializing dummy data
-//pass = next page displayed? no pass = error message set?
+//email, name validation by class
 
 public class SignUpJUnitTest {
 
-    // check username
+    // check name
     @Test
     public void usernameIsEmpty() {
-        Username un1 = new Username("");
+        Name un1 = new Name("");
         assertTrue(un1.isEmpty());
-        Username un2 = new Username("abC5");
+        Name un2 = new Name("abC5");
         assertFalse(un2.isEmpty());
     }
 
@@ -33,14 +31,14 @@ public class SignUpJUnitTest {
         String falseInput = "aub5";
         boolean falseOutput;
         boolean falseExpected = false;
-        Username un1 = new Username(falseInput);
+        Name un1 = new Name(falseInput);
         falseOutput = un1.tooShort();
         assertEquals(falseExpected, falseOutput);
 
         String trueInput = "ab7";
         boolean trueOutput;
         //boolean trueExpected = true;
-        Username un2 = new Username(trueInput);
+        Name un2 = new Name(trueInput);
         trueOutput = un2.tooShort();
         assertEquals(true, trueOutput);
     }
@@ -50,14 +48,14 @@ public class SignUpJUnitTest {
         String falseInput = "aB#$";
         boolean falseOutput;
         boolean falseExpected = false;
-        Username un1 = new Username(falseInput);
+        Name un1 = new Name(falseInput);
         falseOutput = un1.matchesFormat();
         assertEquals(falseExpected, falseOutput);
 
         String trueInput = "abC5";
         boolean trueOutput;
         boolean trueExpected = true;
-        Username un2 = new Username(trueInput);
+        Name un2 = new Name(trueInput);
         trueOutput = un2.matchesFormat();
         assertEquals(trueExpected, trueOutput);
     }
