@@ -9,11 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -36,22 +32,30 @@ public class DashboardActivityTest {
         onView(withId(R.id.login));
     }
 
-    // do not delete - Abdullah
+
     /*@Test
     // checks if app is able to successfully navigate to dashboard
     public void navToAllJobs() {
         onView(withId(R.id.dashboard));
         onView(withId(R.id.backBtnDB)).perform(click());
         onView(withId(R.id.allJobs));
-    }
+    }*/
 
     @Test
     // checks if app is able to successfully navigate to dashboard
     public void navToPostAJob() {
         onView(withId(R.id.dashboard));
-        onView(withId(R.id.backBtnDB)).perform(click());
-        onView(withId(R.id.postAJob));
-    }*/
+        onView(withId(R.id.postJobBtnDB)).perform(click());
+        onView(withId(R.id.jobPost));
+    }
+
+    @Test
+    // checks if app is able to successfully navigate to dashboard
+    public void navToPayEmployee() {
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.payEmpBtnDB)).perform(click());
+        onView(withId(R.id.paymentInfo));
+    }
 
 
 
