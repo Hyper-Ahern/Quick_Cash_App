@@ -71,7 +71,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="467dp" />
+        app:layout_constraintTop_toBottomOf="@+id/reenterPassword" />
 
     <TextView
         android:id="@+id/passwordErrorMessage"
