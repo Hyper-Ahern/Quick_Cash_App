@@ -5,7 +5,8 @@ import android.os.Bundle;
 
 import com.example.group_7_proj.CustomDataTypes.Email;
 import com.example.group_7_proj.CustomDataTypes.Password;
-import com.example.group_7_proj.CustomDataTypes.Username;
+import com.example.group_7_proj.CustomDataTypes.User;
+import com.example.group_7_proj.CustomDataTypes.Name;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,9 +35,10 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
 
-    private Username name;
+    private Name name;
     private Email email;
     private Password password;
+    private User user;
 
     private Boolean nameValid, emailValid, passwordValid;
 
@@ -54,10 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.password);
         signUpBtn = findViewById(R.id.signUpBtn);
 
-        name = new Username((etUName).getText().toString());
+        name = new Name((etUName).getText().toString());
         email = new Email((etEmail).getText().toString());
         password = new Password((etPassword).getText().toString());
-
 
         nameValid = false;
         emailValid = false;
@@ -93,10 +94,10 @@ public class SignUpActivity extends AppCompatActivity {
                 Password pw = new Password(password.getValue());
 
                 if(pw.isLessThan8Chars()){
-                    passwordErrorMessage.setText("Password too short");
+                    passwordErrorMessage.setText("Password should be between 8 and 20 characters");
                 }
                 else if(pw.isWeak()){
-                    passwordErrorMessage.setText("Password is weak");
+                    passwordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
                 }
                 else{
                     passwordErrorMessage.setText("");
@@ -112,45 +113,43 @@ public class SignUpActivity extends AppCompatActivity {
                 Email em = new Email(email.getValue());
                 Password pw = new Password(password.getValue());
 
-                // if invalid email or password
-                if(!(em.isInvalid() || pw.isInvalid())){
+                // if invalid name, email or password
+                if(!( em.isInvalid() || pw.isInvalid())){
                     if(pw.isEmpty()){
-                        passwordErrorMessage.setText("Password missing");
+                        passwordErrorMessage.setText("Please enter a valid password");
                     }
                     if(em.isEmpty()){
-                        emailErrorMessage.setText("Email missing");
+                        emailErrorMessage.setText("Please enter a valid email address");
                     }
                     Toast.makeText(SignUpActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
                 }
 
-                // if email and password format is correct
+                // if signup info format is correct
                 else{
                     FirebaseDatabase database = null;
                     DatabaseReference userRef = null;
                     database = FirebaseDatabase.getInstance();
                     userRef = database.getReference().child("user");
+                    final DatabaseReference finalUserRef = userRef; //Recommended fix,
                     userRef.addValueEventListener(new ValueEventListener() {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             long maxId;
                             String emailFB;
-                            String passwordFB;
                             boolean found;
                             if(snapshot.exists()){
                                 maxId = (snapshot.getChildrenCount());
                                 found = false;
                                 for(int i=1; i<maxId+1; i++) {
                                     emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
-                                    passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
-                                    if(email.getValue().equals(emailFB) && password.getValue().equals(passwordFB)){
+                                    if(email.getValue().equals(emailFB)){
                                         found = true;
-                                        System.out.println("found="+found);
-                                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                                        startActivity(intent);
-                                        Toast.makeText(SignUpActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
+                                        System.out.println("signup: email found in db="+found);
+                                        Toast.makeText(SignUpActivity.this, "An account is already associated with this email", Toast.LENGTH_LONG).show();
                                     }
                                 }
                                 if(!found){
-                                    //create new user in db
+                                    user = new User(name, email, password);
+                                     finalUserRef.child("USER-"+String.valueOf(maxId + 1)).setValue(user);
                                 }
                             }
                         }
@@ -161,10 +160,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-       // protected void displayErrorMsg(TextView errorMessage){
-            //errorMessage.setVisibility(View.visible);
-        // }
         // sign up
         signUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -173,27 +168,4 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-       // protected void displayErrorMsg(TextView errorMessage){
-            //errorMessage.setVisibility(View.visible);
-        // }
-
-    //@Override
-    /*protected void onValid(){
-        if (nameValid && emailValid && passwordValid) {
-            submitBtn.setEnabled(true);
-        }
-    }*/
-
-    
-
-    //protected void onSubmit(){
-       // submitBtn.setOnClickListener(new View.OnClickListner(){
-            //@Override
-            //public void onClick(View view){
-                //CHECK If fields valid, if so submit, if not do not submit
-
-            //}
-        //});
-    //}
 }}
