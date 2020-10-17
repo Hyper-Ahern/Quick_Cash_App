@@ -1,9 +1,12 @@
 
+
 package com.example.group_7_proj;
 
 import com.example.group_7_proj.CustomDataTypes.Email;
 import com.example.group_7_proj.CustomDataTypes.Password;
+
 import com.example.group_7_proj.CustomDataTypes.User;
+
 import com.example.group_7_proj.CustomDataTypes.Username;
 
 import org.junit.Test;
@@ -84,7 +87,6 @@ public class SignUpJUnitTest {
         trueOutput = em2.matchesFormat();
         assertEquals(trueExpected, trueOutput);
     }
-
 
     // check password
     @Test

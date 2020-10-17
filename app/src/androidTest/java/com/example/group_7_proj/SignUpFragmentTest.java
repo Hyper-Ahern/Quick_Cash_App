@@ -1,3 +1,4 @@
+/*
 package com.example.group_7_proj;
 
 import android.app.Activity;
@@ -95,4 +96,4 @@ public class SignUpFragmentTest {
         onView(withId(R.id.signUpBtn)).perform(click());
         onView(withId(R.id.passwordErrorMessage2)).check((matches(withText(errorMessage))));
     }
-}
+}*/

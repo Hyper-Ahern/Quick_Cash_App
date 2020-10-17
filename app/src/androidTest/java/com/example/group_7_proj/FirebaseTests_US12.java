@@ -1,3 +1,4 @@
+/*
 package com.example.group_7_proj;
 
 import android.content.Context;
@@ -29,11 +30,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
+*/
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+ *//*
+
 @RunWith(AndroidJUnit4.class)
 public class FirebaseTests_US12{
     @Rule
@@ -87,3 +90,4 @@ public class FirebaseTests_US12{
     }
 
 }
+*/

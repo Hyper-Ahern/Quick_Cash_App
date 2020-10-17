@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         builder = new AlertDialog.Builder(this);
 
-        email.setOnKeyListener(new View.OnKeyListener() {
+      /*  email.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Email em = new Email(email.getText().toString());
@@ -75,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
-        password.setOnKeyListener(new View.OnKeyListener() {
+        /*password.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Password pw = new Password(password.getText().toString());
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
         // login
         loginBtn.setOnClickListener(new View.OnClickListener(){
@@ -113,40 +113,48 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
                 }*/
 
-                FirebaseDatabase database = null;
-                DatabaseReference userRef = null;
-                database = FirebaseDatabase.getInstance();
-                userRef = database.getReference().child("user");
-                userRef.addValueEventListener(new ValueEventListener() {
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        long maxId;
-                        String emailFB;
-                        String passwordFB;
-                        boolean found;
-                        if(snapshot.exists()){
-                            maxId = (snapshot.getChildrenCount());
-                            found = false;
-                            for(int i=1; i<maxId+1; i++) {
-                                emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
-                                passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
-                                if(email.getText().toString().equals(emailFB) && password.getText().toString().equals(passwordFB)){
-                                    found = true;
-                                    break;
+                if(pw.isEmpty()){
+                    passwordHint.setText("Password missing");
+                }
+                else if(em.isEmpty()){
+                    emailHint.setText("Email missing");
+                }
+                else {
+                    FirebaseDatabase database = null;
+                    DatabaseReference userRef = null;
+                    database = FirebaseDatabase.getInstance();
+                    userRef = database.getReference().child("user");
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            long maxId;
+                            String emailFB;
+                            String passwordFB;
+                            boolean found;
+                            if (snapshot.exists()) {
+                                maxId = (snapshot.getChildrenCount());
+                                found = false;
+                                for (int i = 1; i < maxId + 1; i++) {
+                                    emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
+                                    passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
+                                    if (email.getText().toString().equals(emailFB) && password.getText().toString().equals(passwordFB)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (found) {
+                                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    startActivity(intent);
+                                    Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_LONG).show();
                                 }
                             }
-                            if(found){
-                                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_LONG).show();
-                            }
                         }
-                    }
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
             }
 
         });
