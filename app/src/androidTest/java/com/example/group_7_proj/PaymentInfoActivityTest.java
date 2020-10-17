@@ -17,9 +17,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 
-public class PaymentInfoUIEspressoTest {
-
-
+public class PaymentInfoActivityTest {
 
     @Rule
     public ActivityScenarioRule<PaymentInfoActivity> payInfoActivityRule

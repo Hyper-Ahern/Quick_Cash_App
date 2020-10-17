@@ -3,11 +3,15 @@ package com.example.group_7_proj.CustomDataTypes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Username {
+public class Name {
     private String value;
 
-    public Username(String username){
-        this.value = username;
+    public Name(String name){
+        this.value = name;
+    }
+
+    public void setName(String name){
+        this.value = name;
     }
 
     public boolean isEmpty(){
@@ -16,19 +20,19 @@ public class Username {
         return empty;
     }
 
-    boolean tooShort(String username){
-        boolean valid = false;
-        if (!(username.length() < 5)){
-            valid = true;
+    public boolean tooShort(){
+        boolean tooShort = true;
+        if (this.value.length() >= 4){
+            tooShort = false;
         }
-        return valid;
+        return tooShort;
     }
 
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
-    boolean matchesFormat(String username){
+    public boolean matchesFormat(){
         boolean valid = false;
-        Pattern usernamePattern = Pattern.compile("[A-Za-z0-9]{5,40}");
-        Matcher toMatch = usernamePattern.matcher(username);
+        Pattern usernamePattern = Pattern.compile("[A-Za-z0-9]{4,40}");
+        Matcher toMatch = usernamePattern.matcher(this.value);
         valid = toMatch.matches();
         return valid;
     }

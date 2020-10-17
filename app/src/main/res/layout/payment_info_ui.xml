@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentInfoUI">
+    android:id="@+id/paymentInfo"
+    tools:context=".PaymentInfoActivity">
 
     <Button
         android:id="@+id/paymentSubmitButton"

@@ -80,19 +80,6 @@ public class LoginActivityTest {
         onView(withId(R.id.dashboard));
     }
 
-    @Test
-    // checks if app is able to successfully navigate to dashboard
-    public void navOutOfDashboard() {
-        onView(withId(R.id.login));
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        pressBack();
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD12#$"));
-        pressBack();
-        onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.dashboard));
-        onView(withId(R.id.backBtnDB)).perform(click());
-        onView(withId(R.id.login));
-    }
 
     @Test
     // navigate to signup page without email and password

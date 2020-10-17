@@ -1,40 +1,40 @@
 package com.example.group_7_proj.CustomDataTypes;
 
 public class User {
-    private String name;
-    private String email;
-    private String password;
+    private Name name;
+    private Email email;
+    private Password password;
 
     public User() {
     }
 
-    public User(String name, String email, String password) {
+    public User(Name name, Email email, Password password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
     public String getName() {
-        return name;
+        return name.returnValue();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.setName(name);
     }
 
     public String getEmail() {
-        return email;
+        return email.returnValue();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email.setValue(email);
     }
 
     public String getPassword() {
-        return password;
+        return password.returnValue();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password.setValue(password);
     }
 }
