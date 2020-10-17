@@ -1,3 +1,4 @@
+/*
 
 package com.example.group_7_proj;
 
@@ -24,13 +25,15 @@ public class SignUpJUnitTest {
         assertFalse(un2.isEmpty());
     }
 
-    /*@Test
+    */
+/*@Test
     public void usernameHasNonAlphanumericChar() {
         Username un1 = new Username("aB#$");
         assertTrue(un1.hasNonAlpChar());
         Username un2 = new Username("abC5");
         assertFalse(un1.hasNonAlpChar());
-    }*/
+    }*//*
+
 
     // check email
     @Test
@@ -41,23 +44,28 @@ public class SignUpJUnitTest {
         assertFalse(em2.isEmpty());
     }
 
-    /*@Test
+    */
+/*@Test
     public void emailHasNoAtSign() {
         Email em1 = new Email("abcxyz.ca");
         assertTrue(em1.hasNoAtSign());
         Email em2 = new Email("abc@xyz.ca");
         assertFalse(em2.hasNoAtSign());
-    }*/
+    }*//*
 
-    /*@Test
+
+    */
+/*@Test
     public void emailHasNoEmailUsername() {
         Email em1 = new Email("@xyz.ca");
         assertTrue(em1.hasNoEmailUsername());
         Email em2 = new Email("abc@xyz.ca");
         assertFalse(em2.hasNoEmailUsername());
-    }*/
+    }*//*
 
 
+
+*/
 /*    // check password
     @Test
     public void passwordIsLessThan8Char() {
@@ -65,7 +73,8 @@ public class SignUpJUnitTest {
         assertTrue(pw1.isLessThan8Char());
         Password pw2 = new Password("abCD23$%");
         assertFalse(pw2.isLessThan8Char());
-    }*/
+    }*//*
+
 
     // password must have at least one lower case, upper case letters, numbers and special character
     @Test
@@ -83,4 +92,4 @@ public class SignUpJUnitTest {
     }
 
 
-}
+}*/
