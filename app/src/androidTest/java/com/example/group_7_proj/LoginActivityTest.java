@@ -19,25 +19,28 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LoginFragmentTest{
+public class LoginActivityTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
+    /*Abdullah*/
     /**INPUT VALIDATION**/
     @Test
     // checks if the email text box is empty and displays appropriate message
     public void emptyEmail() {
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD56&*"));
+        pressBack();
         onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.emailHint)).check(matches(withText("Email address missing")));
+        onView(withId(R.id.emailHint)).check(matches(withText("Email missing")));
     }
 
     @Test
     // checks if the password text box is empty and displays appropriate message
     public void emptyPassword() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
+        pressBack();
         onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.passwordHint)).check(matches(withText("Password missing")));
     }
@@ -46,26 +49,20 @@ public class LoginFragmentTest{
     // checks for invalid format email
     public void invalidEmail() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abcxyz.com"));
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD56&*"));
-        onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.emailHint)).check(matches(withText("Email invalid")));
     }
 
     @Test
     // checks for invalid format password by character length
     public void invalidLengthPassword() {
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("aB4#"));
-        onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.emailHint)).check(matches(withText("Password too short")));
+        onView(withId(R.id.passwordHint)).check(matches(withText("Password too short")));
     }
 
-    @Test
+
     // checks for invalid format password by character type
     public void invalidTypePassword() {
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD4567"));
-        onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.emailHint)).check(matches(withText("Password too weak")));
     }
 
@@ -74,12 +71,13 @@ public class LoginFragmentTest{
     public void emailNPasswordMatches(){
     }
 
+    /*Abdullah*/
     /**NAVIGATION**/
     @Test
     // checks if app is able to successfully navigate to dashboard
     public void navToDashboard() {
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
+        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD12#$"));
         pressBack();
         onView(withId(R.id.loginBtn)).perform(click());
         onView(withId(R.id.dashboard));

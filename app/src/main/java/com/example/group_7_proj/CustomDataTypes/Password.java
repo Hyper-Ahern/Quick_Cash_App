@@ -10,19 +10,27 @@ public class Password {
         this.value = password;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public  boolean isInvalid(){
+        return isLessThan8Chars() || isWeak() || isEmpty(); /*Abdullah*/
+    }
+
     public boolean isEmpty(){
         boolean empty = true;
         if(!(this.value.isEmpty())) empty = false;
         return empty;
     }
 
-    public boolean isLessThan8Chars(String password){
+    public boolean isLessThan8Chars(){
         boolean valid = false;
-<<<<<<< Updated upstream
-        if (!(password.length() < 8)){
-=======
-        if (!(this.value.length() < 8)){
->>>>>>> Stashed changes
+        if (this.value.length() < 8){
             valid = true;
         }
         return valid;
@@ -31,13 +39,8 @@ public class Password {
     //Regex Pattern -min of 8 length, max of 40('random' limit); accepts at least 1 capital letter, 1 lowercase letter, at least 1 number, at least 1 symbol
     //Symbols = !@#$%^&*()_+-=.,?;:'"`~{}[]\/
     public boolean isWeak(){
-<<<<<<< Updated upstream
-        boolean valid = false;
-        Pattern passwordPattern = Pattern.compile("[A-Za-z0-9!@#$%^&*()_+-=.,?;:'\"`~{}\\[\\]\\\\/]{8,40}");
-=======
         boolean weak = true;
         Pattern passwordPattern = Pattern.compile("[A-Za-z0-9!@#$%^&*()_+-=.,?;:'\"`~{}\\[\\]\\\\]{8,40}");
->>>>>>> Stashed changes
         Matcher toMatch = passwordPattern.matcher(this.value);
         weak = !toMatch.matches();
         return weak;

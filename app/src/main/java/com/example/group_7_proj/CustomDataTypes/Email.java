@@ -11,6 +11,18 @@ public class Email {
         this.value = email;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public  boolean isInvalid(){
+        return !matchesFormat() || isEmpty(); /*Abdullah*/
+    }
+
     public boolean isEmpty(){
         boolean empty = true;
         if(!(this.value.isEmpty())) empty = false;
@@ -18,10 +30,10 @@ public class Email {
     }
 
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
-    boolean matchesFormat(String email){
+    public boolean matchesFormat(){
         boolean valid = false;
         Pattern emailPattern = Pattern.compile("\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b");
-        Matcher toMatch = emailPattern.matcher(email);
+        Matcher toMatch = emailPattern.matcher(this.value);
         valid = toMatch.matches();
         return valid;
     }
