@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         builder = new AlertDialog.Builder(this);
 
-        email.setOnKeyListener(new View.OnKeyListener() {
+        etEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Email em = new Email(email.getValue());
@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        password.setOnKeyListener(new View.OnKeyListener() {
+        etPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 Password pw = new Password(password.getValue());
@@ -105,8 +105,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        // login
-        submitBtn.setOnClickListener(new View.OnClickListener(){
+        // SIGN UP
+        signUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Email em = new Email(email.getValue());

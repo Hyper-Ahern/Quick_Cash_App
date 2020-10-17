@@ -39,10 +39,10 @@ public class SignUpJUnitTest {
 
         String trueInput = "ab7";
         boolean trueOutput;
-        boolean trueExpected = true;
+        //boolean trueExpected = true;
         Username un2 = new Username(trueInput);
-        trueOutput = un2.matchesFormat();
-        assertEquals(trueExpected, trueOutput);
+        trueOutput = un2.tooShort();
+        assertEquals(true, trueOutput);
     }
 
     @Test
@@ -93,6 +93,7 @@ public class SignUpJUnitTest {
     public void passwordIsLessThan8Char() {
         Password pw1 = new Password("aB3$");
         assertTrue(pw1.isLessThan8Chars());
+
         Password pw2 = new Password("abCD23$%");
         assertFalse(pw2.isLessThan8Chars());
     }
@@ -105,6 +106,7 @@ public class SignUpJUnitTest {
         Password pw3 = new Password("abcd23$%");
         Password pw4 = new Password("ABCD23$%");
         Password pw5 = new Password("abCD23$%");
+
         assertTrue(pw1.isWeak());
         assertTrue(pw2.isWeak());
         assertTrue(pw3.isWeak());

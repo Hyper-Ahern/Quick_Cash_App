@@ -17,11 +17,11 @@ public class Username {
     }
 
     public boolean tooShort(){
-        boolean valid = true;
-        if (!(this.value.length() < 4)){
-            valid = false;
+        boolean tooShort = true;
+        if (this.value.length() >= 4){
+            tooShort = false;
         }
-        return valid;
+        return tooShort;
     }
 
     //Regex Pattern - min of 5 chars length, max of 40('random' limit); alphanumeric only
