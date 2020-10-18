@@ -37,7 +37,7 @@ public class Name {
         return valid;
     }
 
-    String returnValue(){
+    public String returnValue(){
         return this.value;
     }
 }
