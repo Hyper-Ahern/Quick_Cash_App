@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
         backBtn = (Button)findViewById(R.id.backBtnDB);
         postAJobBtn = (Button)findViewById(R.id.postJobBtnDB);
         payEmployeeBtn = (Button)findViewById(R.id.payEmpBtnDB);
+        allJobPostBtn = (Button)findViewById(R.id.allJobsBtnDB);
 
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -44,5 +45,14 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        allJobPostBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), JobPostviewActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
