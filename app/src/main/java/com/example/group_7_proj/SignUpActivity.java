@@ -31,45 +31,67 @@ public class SignUpActivity extends AppCompatActivity {
     private Button signUpBtn;
     private Button captchaBtn;
 
-    private EditText etUName;
+    private EditText etName;
     private EditText etEmail;
     private EditText etPassword;
+    private EditText etReEnterPassword;
 
     private Name name;
     private Email email;
-    private Password password;
+    private Password password, reEnterPassword;
     private User user;
 
-    private Boolean nameValid, emailValid, passwordValid;
+    private Boolean nameValid, emailValid, passwordValid, reEnterPasswordValid;
 
     AlertDialog.Builder builder;
 
-    private TextView nameErrorMessage,emailErrorMessage,passwordErrorMessage,reenterPasswordErrorMessage;
+    private TextView nameErrorMessage,emailErrorMessage,passwordErrorMessage,reEnterPasswordErrorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_main);
 
-        etUName  = findViewById(R.id.name);
+        etName  = findViewById(R.id.name);
         etEmail  = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
+        etReEnterPassword = findViewById(R.id.reenterPassword);
         signUpBtn = findViewById(R.id.signUpBtn);
 
-        name = new Name((etUName).getText().toString());
+        name = new Name((etName).getText().toString());
         email = new Email((etEmail).getText().toString());
         password = new Password((etPassword).getText().toString());
+        reEnterPassword = new Password((etReEnterPassword).getText().toString());
 
         nameValid = false;
         emailValid = false;
         passwordValid = false; //password.isWeak();
+        reEnterPasswordValid = false;
 
         nameErrorMessage = findViewById(R.id.nameErrorMessage);
         emailErrorMessage = findViewById(R.id.emailErrorMessage);
         passwordErrorMessage = findViewById(R.id.passwordErrorMessage);
-        reenterPasswordErrorMessage = findViewById(R.id.passwordErrorMessage2);
+        reEnterPasswordErrorMessage = findViewById(R.id.passwordErrorMessage2);
 
         builder = new AlertDialog.Builder(this);
+
+        etName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                Name nm = new Name(name.returnValue());
+                if(nm.isEmpty()){
+                    nameErrorMessage.setText("Name missing");
+                }
+                else if(!nm.matchesFormat()){
+                    nameErrorMessage.setText("Please only enter alphanumeric characters");
+                }
+                else{
+                    nameValid = true;
+                    nameErrorMessage.setText("");
+                }
+                return false;
+            }
+        });
 
         etEmail.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -82,6 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                     emailErrorMessage.setText("Email invalid");
                 }
                 else{
+                    emailValid = true;
                     emailErrorMessage.setText("");
                 }
                 return false;
@@ -100,7 +123,31 @@ public class SignUpActivity extends AppCompatActivity {
                     passwordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
                 }
                 else{
+                    passwordValid = true;
                     passwordErrorMessage.setText("");
+                }
+                return false;
+            }
+        });
+
+        etReEnterPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                Password reEnterpw = new Password(reEnterPassword.getValue());
+                Password pw = new Password(password.getValue());
+
+                if(reEnterpw.isLessThan8Chars()){
+                    reEnterPasswordErrorMessage.setText("Password should be between 8 and 20 characters");
+                }
+                else if(reEnterpw.isWeak()){
+                    reEnterPasswordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
+                }
+                else if(!(reEnterpw.equals(pw))){
+                    reEnterPasswordErrorMessage.setText("Your password's do not match");
+                }
+                else{
+                    reEnterPasswordValid = true;
+                    reEnterPasswordErrorMessage.setText("");
                 }
                 return false;
             }
@@ -110,21 +157,12 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Email em = new Email(email.getValue());
-                Password pw = new Password(password.getValue());
-
                 // if invalid name, email or password
-                if(!( em.isInvalid() || pw.isInvalid())){
-                    if(pw.isEmpty()){
-                        passwordErrorMessage.setText("Please enter a valid password");
-                    }
-                    if(em.isEmpty()){
-                        emailErrorMessage.setText("Please enter a valid email address");
-                    }
-                    Toast.makeText(SignUpActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
+                if(!(nameValid || passwordValid || emailValid || reEnterPasswordValid)){
+                    Toast.makeText(SignUpActivity.this, "One or more of the input fields are in the wrong format", Toast.LENGTH_LONG).show();
                 }
 
-                // if signup info format is correct
+                // if signup info format is correct check if user already in db
                 else{
                     FirebaseDatabase database = null;
                     DatabaseReference userRef = null;
@@ -150,6 +188,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 if(!found){
                                     user = new User(name, email, password);
                                      finalUserRef.child("USER-"+String.valueOf(maxId + 1)).setValue(user);
+                                    Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                                    startActivity(intent);
+                                    Toast.makeText(SignUpActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
@@ -160,12 +201,4 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        // sign up
-        signUpBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 }}
