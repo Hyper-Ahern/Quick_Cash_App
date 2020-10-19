@@ -1,6 +1,5 @@
 package com.example.group_7_proj;
 
-import androidx.test.espresso.ViewAction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.Rule;
@@ -9,14 +8,9 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class JobPostViewEspressoTest {
     @Rule
@@ -27,9 +21,10 @@ public class JobPostViewEspressoTest {
     @Test
     // checks if the details text box is empty and displays appropriate message
     public void ButtonCanBackToDash() {
-        onView(withId(R.id.jobpostview)).perform(swipeUp());
+        onView(withId(R.id.jobpostview)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         onView(withId(R.id.backdashbtn)).perform(click());
         onView(withId(R.id.dashboard));
+
     }
 
     @Test
@@ -47,6 +42,7 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.BackdashBtn)).perform(click());
         onView(withId(R.id.allJobsBtnDB)).perform(click());
         onView(withId(R.id.jobpostview)).perform(swipeUp());
+        onView(withId(R.id.layoutdisplay));
     }
 
 }
