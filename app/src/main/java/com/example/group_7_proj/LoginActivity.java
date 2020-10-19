@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         backBtn = (Button)findViewById(R.id.backBtnDB);
         emailHint = (TextView)findViewById(R.id.emailHint);
         passwordHint = (TextView)findViewById(R.id.passwordHint);
+        emailHint.setVisibility(View.GONE);
+        passwordHint.setVisibility(View.GONE);
 
         builder = new AlertDialog.Builder(this);
 
@@ -115,8 +117,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(pw.isEmpty()){
                     passwordHint.setText("Password missing");
+                    passwordHint.setVisibility(View.VISIBLE);
                 }
                 else if(em.isEmpty()){
+                    emailHint.setVisibility(View.VISIBLE);
                     emailHint.setText("Email missing");
                 }
                 else {
