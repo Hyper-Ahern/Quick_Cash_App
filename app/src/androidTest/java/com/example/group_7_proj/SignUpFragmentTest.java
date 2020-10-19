@@ -4,119 +4,99 @@ package com.example.group_7_proj;
 import com.example.group_7_proj.CustomDataTypes.Email;
 import com.example.group_7_proj.CustomDataTypes.Password;
 
-import com.example.group_7_proj.CustomDataTypes.User;
+import android.app.Activity;
 
-import com.example.group_7_proj.CustomDataTypes.Name;
+import androidx.test.espresso.Espresso;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
-//email, name validation by class
-
 public class SignUpFragmentTest {
+    @Rule
+    public ActivityScenarioRule<MainActivity> activityRule =
+            new ActivityScenarioRule<>(MainActivity.class);
 
-    // check name
+    private String uName = "Name";
+    private String uEmail = "email@domain.com";
+    private String uPassword = "PW";
+
+    private String errorMessage = "Error Message";
+
     @Test
-    public void usernameIsEmpty() {
-        Name un1 = new Name("");
-        assertTrue(un1.isEmpty());
-        Name un2 = new Name("abC5");
-        assertFalse(un2.isEmpty());
+    public void PositiveSignUp() { ////am i able to nav to dashboard?
+        onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.dashboard));
+    }
+    @Test
+    public void NegativeNameSignUp() { //display name error message
+        onView(withId(R.id.name)).perform(click()).perform(typeText(""));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.nameErrorMessage)).check((matches(isDisplayed())));
     }
 
     @Test
-    public void userNameTooShort(){
-        String falseInput = "aub5";
-        boolean falseOutput;
-        boolean falseExpected = false;
-        Name un1 = new Name(falseInput);
-        falseOutput = un1.tooShort();
-        assertEquals(falseExpected, falseOutput);
-
-        String trueInput = "ab7";
-        boolean trueOutput;
-        //boolean trueExpected = true;
-        Name un2 = new Name(trueInput);
-        trueOutput = un2.tooShort();
-        assertEquals(true, trueOutput);
+    public void NegativeEmailSignUp() { //display email error message
+        onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(""));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.emailErrorMessage)).check((matches(withText(errorMessage))));
     }
 
     @Test
-    public void userNameMatchesFormat() {
-        String falseInput = "aB#$";
-        boolean falseOutput;
-        boolean falseExpected = false;
-        Name un1 = new Name(falseInput);
-        falseOutput = un1.matchesFormat();
-        assertEquals(falseExpected, falseOutput);
-
-        String trueInput = "abC5";
-        boolean trueOutput;
-        boolean trueExpected = true;
-        Name un2 = new Name(trueInput);
-        trueOutput = un2.matchesFormat();
-        assertEquals(trueExpected, trueOutput);
-    }
-
-    // check email
-    @Test
-    public void emailIsEmpty() {
-        Email em1 = new Email("");
-        assertTrue(em1.isEmpty());
-        Email em2 = new Email("abc@xyz.ca");
-        assertFalse(em2.isEmpty());
+    public void NegativePasswordSignUp() { //display password error message
+        onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(""));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.passwordErrorMessage)).check((matches(withText(errorMessage))));
     }
 
     @Test
-    public void emailMatchesFormat() {
-        String falseInput = "@xyz.ca";
-        boolean falseOutput;
-        boolean falseExpected = false;
-        Email em1 = new Email(falseInput);
-        falseOutput = em1.matchesFormat();
-        assertEquals(falseExpected, falseOutput);
-
-        String trueInput = "abc@xyz.ca";
-        boolean trueOutput;
-        boolean trueExpected = true;
-        Email em2 = new Email(trueInput);
-        trueOutput = em2.matchesFormat();
-        assertEquals(trueExpected, trueOutput);
+    public void NegativeReenterPasswordSignUp() { //display reenter password error message - empty
+        onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(""));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.passwordErrorMessage)).check((matches(withText(errorMessage))));
     }
 
-    // check password
     @Test
-    public void passwordIsLessThan8Char() {
-        Password pw1 = new Password("aB3$");
-        assertTrue(pw1.isLessThan8Chars());
-
-        Password pw2 = new Password("abCD23$%");
-        assertFalse(pw2.isLessThan8Chars());
+    public void NegativeReenterPassword2SignUp() { //display reenter password error message - does not match original password
+        onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
+        onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText("no"));
+        closeSoftKeyboard();
+        onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.passwordErrorMessage2)).check((matches(withText(errorMessage))));
     }
-
-    // password must have at least one lower case, upper case letters, numbers and special character
-    @Test
-    public void passwordIsWeak(){
-        Password pw1 = new Password("abCD2345");
-        Password pw2 = new Password("abCD@#$%");
-        Password pw3 = new Password("abcd23$%");
-        Password pw4 = new Password("ABCD23$%");
-        Password pw5 = new Password("abCD23$%");
-
-        assertTrue(pw1.isWeak());
-        assertTrue(pw2.isWeak());
-        assertTrue(pw3.isWeak());
-        assertTrue(pw4.isWeak());
-        assertFalse(pw5.isWeak());
-    }
-    @Test
-    public void passwordIsEmpty(){
-        Password pw1 = new Password("");
-        assertTrue(pw1.isEmpty());
-        Password pw2 = new Password("pass");
-        assertFalse(pw2.isEmpty());
-    }
-
-
 }
