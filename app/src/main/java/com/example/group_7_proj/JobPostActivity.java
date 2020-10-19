@@ -1,5 +1,6 @@
 package com.example.group_7_proj;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 public class JobPostActivity extends AppCompatActivity {
     EditText Employername,jobtitle,salaryinput,jobdetails;
-    Button submitjobpost;
+    Button submitjobpost,backdashBtn;
     TextView validtextview;
     DatabaseReference rootRef;
     long maxId = 1;
@@ -41,6 +42,15 @@ public class JobPostActivity extends AppCompatActivity {
         submitjobpost= findViewById(R.id.submitBtnJobPost);
         validtextview =findViewById(R.id.inputStatusTextview);
         validtextview.setVisibility(View.GONE);
+        backdashBtn = findViewById(R.id.BackdashBtn);
+
+        backdashBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
