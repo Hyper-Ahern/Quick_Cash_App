@@ -1,5 +1,8 @@
-/*
+
 package com.example.group_7_proj;
+
+import com.example.group_7_proj.CustomDataTypes.Email;
+import com.example.group_7_proj.CustomDataTypes.Password;
 
 import android.app.Activity;
 
@@ -26,9 +29,9 @@ public class SignUpFragmentTest {
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
-    private String uName = "Name";
+    private String uName = "username1";
     private String uEmail = "email@domain.com";
-    private String uPassword = "PW";
+    private String uPassword = "abCD23$%";
 
     private String errorMessage = "Error Message";
 
@@ -40,7 +43,7 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.dashboard));
+        //onView(withId(R.id.dashboard));
     }
     @Test
     public void NegativeNameSignUp() { //display name error message
@@ -96,4 +99,4 @@ public class SignUpFragmentTest {
         onView(withId(R.id.signUpBtn)).perform(click());
         onView(withId(R.id.passwordErrorMessage2)).check((matches(withText(errorMessage))));
     }
-}*/
+}
