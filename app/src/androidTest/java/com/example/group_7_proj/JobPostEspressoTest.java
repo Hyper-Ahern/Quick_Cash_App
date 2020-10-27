@@ -84,7 +84,8 @@ public class JobPostEspressoTest {
 
 
     /**NAVIGATION**/
-    /*
+
+    /* JUST A TEMPLATE ~
     @Test
     // checks if app is able to successfully navigate to dashboard
     public void navToDashboard() {
