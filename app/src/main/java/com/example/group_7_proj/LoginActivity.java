@@ -1,10 +1,18 @@
 package com.example.group_7_proj;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,8 +40,11 @@ import com.example.group_7_proj.CustomDataTypes.*;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /*Abdullah*/
 public class LoginActivity extends AppCompatActivity {
@@ -44,10 +56,63 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference userRef;
     AlertDialog.Builder builder;
 
+    Button btLocation;
+    TextView textView;
+    Geocoder geocoder;
+    List<Address> addresses;
+    FusedLocationProviderClient fusedLocationProviderClient;
+
+//    Double lat = 44.6488;
+//    Double longi = -63.5752;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
+
+        btLocation = findViewById(R.id.get_location_btn);
+        textView = (TextView) findViewById(R.id.geoTag);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        btLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ActivityCompat.checkSelfPermission(LoginActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    getLocation();
+                }
+                else {
+                    ActivityCompat.requestPermissions(LoginActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
+            }
+        });
+
+//        geocoder = new Geocoder(this, Locale.getDefault());
+//
+//        try {
+//            addresses = geocoder.getFromLocation(lat, longi, 1);
+//            addresses = geocoder.
+//
+//
+//            String address = addresses.get(0).getAddressLine(0);
+//            String area = addresses.get(0).getLocality();
+//            String city = addresses.get(0).getAdminArea();
+//            String country = addresses.get(0).getCountryName();
+//            String postalcode = addresses.get(0).getPostalCode();
+//
+//            String fullAddress = address+", "+area+", "+city+", "+country+", "+postalcode;
+//
+//            textView.setText(fullAddress);
+//
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+
+
+
+
 
         email = (EditText)findViewById(R.id.emailText);
         password = (EditText)findViewById(R.id.passwordText);
@@ -187,6 +252,33 @@ public class LoginActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+
+    }
+
+    private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        @Override
+        public void onComplete(@NonNull Task<Location> task) {
+            Location location =task.getResult();
+            if (location != null){
+                Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
+
+                try {
+
+                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
+                            location.getLongitude(),1);
+
+                    String fullAddress = addresses.get(0).getLatitude()+", "+ addresses.get(0).getLongitude();
+
+                    textView.setText(fullAddress);
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        }
+    });
 
     }
 
