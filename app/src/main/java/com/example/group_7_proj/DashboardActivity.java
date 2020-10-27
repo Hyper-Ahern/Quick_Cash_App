@@ -1,6 +1,8 @@
 package com.example.group_7_proj;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
@@ -15,6 +18,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        locationFinder();
         setContentView(R.layout.dashboard);
 
         backBtn = (Button)findViewById(R.id.backBtnDB);
@@ -53,6 +57,42 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
+
+
+
+    public void locationFinder(){
+        if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED){
+            //then yes we run program
+        }
+        else {
+            Toast.makeText(this, "Location permission is needed to show you relevant " +
+                    "jobs near you.", Toast.LENGTH_SHORT).show();
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
+
+    public void onRequestPermissionsResult( int requestCode, String permissions [], int[] grantResults){
+        if (requestCode == 1) {//ACCESS_COARSE_LOCATION
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Location Permission not granted, the app will not " +
+                        "function normally without your location.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
+
+
+
+
+
+
 }
