@@ -126,31 +126,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
-    <TextView
-        android:id="@+id/geoTag"
-        android:layout_width="232dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/appLogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/get_location_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="38dp"
-        android:text="GetLocation"
-        app:layout_constraintBottom_toTopOf="@+id/emailText"
-        app:layout_constraintEnd_toStartOf="@+id/appLogo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geoTag" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
