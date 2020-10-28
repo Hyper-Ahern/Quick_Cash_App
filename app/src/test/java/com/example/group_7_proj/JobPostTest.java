@@ -68,4 +68,14 @@ public class JobPostTest
         assertTrue(j.InvalidJobDetails());
     }
 
+    @Test
+
+    public void getJobType(){
+
+        JobPost j = new JobPost("LTD","Babysitter","Walking Dog","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidJobDetails());
+
+
+    }
+
 }
