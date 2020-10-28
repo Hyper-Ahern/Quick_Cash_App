@@ -56,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference userRef;
     AlertDialog.Builder builder;
 
-    Button btLocation;
-    TextView textView;
-    Geocoder geocoder;
-    List<Address> addresses;
-    FusedLocationProviderClient fusedLocationProviderClient;
+//    Button btLocation;
+//    TextView textView;
+//    Geocoder geocoder;
+//    List<Address> addresses;
+//    FusedLocationProviderClient fusedLocationProviderClient;
 
 //    Double lat = 44.6488;
 //    Double longi = -63.5752;
@@ -70,24 +70,26 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
 
-        btLocation = findViewById(R.id.get_location_btn);
-        textView = (TextView) findViewById(R.id.geoTag);
+//        System.out.println("HELLO!!!!!!!!!!!!!!!!");
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//        btLocation = findViewById(R.id.get_location_btn);
+//        textView = (TextView) findViewById(R.id.geoTag);
 
-        btLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ActivityCompat.checkSelfPermission(LoginActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    getLocation();
-                }
-                else {
-                    ActivityCompat.requestPermissions(LoginActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                }
-            }
-        });
+//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//
+//        btLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(ActivityCompat.checkSelfPermission(LoginActivity.this,
+//                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//                    getLocation();
+//                }
+//                else {
+//                    ActivityCompat.requestPermissions(LoginActivity.this,
+//                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+//                }
+//            }
+//        });
 
 //        geocoder = new Geocoder(this, Locale.getDefault());
 //
@@ -255,32 +257,32 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-        @Override
-        public void onComplete(@NonNull Task<Location> task) {
-            Location location =task.getResult();
-            if (location != null){
-                Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
-
-                try {
-
-                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-                            location.getLongitude(),1);
-
-                    String fullAddress = addresses.get(0).getLatitude()+", "+ addresses.get(0).getLongitude();
-
-                    textView.setText(fullAddress);
-
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-
-
-            }
-        }
-    });
-
-    }
+//    private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+//        @Override
+//        public void onComplete(@NonNull Task<Location> task) {
+//            Location location =task.getResult();
+//            if (location != null){
+//                Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
+//
+//                try {
+//
+//                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
+//                            location.getLongitude(),1);
+//
+//                    String fullAddress = addresses.get(0).getLatitude()+", "+ addresses.get(0).getLongitude();
+//
+//                    textView.setText(fullAddress);
+//
+//                }catch (IOException e){
+//                    e.printStackTrace();
+//                }
+//
+//
+//            }
+//        }
+//    });
+//
+//    }
 
     /*Abdullah's abandoned but 4hrs of hard work code*/
     public static boolean userExists(final String email, final String password){
