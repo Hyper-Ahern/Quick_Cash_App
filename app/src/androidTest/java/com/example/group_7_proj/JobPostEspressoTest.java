@@ -86,15 +86,15 @@ public class JobPostEspressoTest {
     }
 
     @Test
-    public void checkJobType(){
-        onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
+    public void checkValidJobType(){
+        onView(withId(R.id.employerNameText)).perform(typeText("ABC Inc")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobType)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Cleaning"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
-        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Employer info")));
+        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted successfully")));
     }
 
     @Test

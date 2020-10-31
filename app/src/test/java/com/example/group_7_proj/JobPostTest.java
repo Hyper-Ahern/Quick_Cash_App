@@ -70,10 +70,13 @@ public class JobPostTest
 
     @Test
 
-    public void getJobType(){
+    public void ValidJobTypes(){
 
         JobPost j = new JobPost("LTD","Babysitter","Walking Dog","123.00","dajsdhkajgsdkjasgfakjsd");
-        assertTrue(j.InvalidJobDetails());
+        assertTrue(j.InvalidJobTypes());
+
+        JobPost j2 = new JobPost("LTD","Babysitter","--Please select--","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j2.InvalidJobTypes());
 
 
     }

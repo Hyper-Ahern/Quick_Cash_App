@@ -10,11 +10,11 @@ public class JobPost{
     private String JobDetails;
 
     public JobPost() {}
-    public JobPost(String EN,String JT,String JobType,String salary,String JobDetails)
+    public JobPost(String EN,String JT,String JT2,String salary,String JobDetails)
     {
         this.EmployerName = EN;
         this.JobTitle=JT;
-        this.JobType = JobType;
+        this.JobType = JT2;
         this.Salary=salary;
         this.JobDetails=JobDetails;
     }
@@ -34,6 +34,10 @@ public class JobPost{
 
     public String getSalary() {
         return Salary;
+    }
+
+    public String getJobType(){
+        return JobType;
     }
 
     public void setEmployerName(String employerName) {
@@ -92,6 +96,14 @@ public class JobPost{
         }
         return true;
     }
+
+    public boolean InvalidJobTypes() {
+        if (JobType.equals("--Please select--")) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 }

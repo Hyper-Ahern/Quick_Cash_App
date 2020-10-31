@@ -39,15 +39,22 @@ public class JobPostActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         String firebaseFirstLevel = "jobPost";
-        this.addJobTypeList();
+
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
-        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+
 
 
 
 
         setContentView(R.layout.jobpost);
+
+        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+
+        this.addJobTypeList(jobTypeList);
+
+
+
         Employername = findViewById(R.id.employerNameText);
         jobtitle = findViewById(R.id.jobTitleText);
         jobType = jobTypeList.getSelectedItem().toString();
@@ -85,8 +92,10 @@ public class JobPostActivity extends AppCompatActivity {
         submitjobpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String Emname = Employername.getText().toString();
                 String jobtitle1 = jobtitle.getText().toString();
+
                 String salary = salaryinput.getText().toString();
                 String detail = jobdetails.getText().toString();
 
@@ -111,6 +120,11 @@ public class JobPostActivity extends AppCompatActivity {
                     validtextview.setText("Invalid Salary info");
                     validtextview.setVisibility(View.VISIBLE);
                 }
+                else if(!j1.InvalidJobTypes()){
+                    validtextview.setText("Invalid Job Type info");
+                    validtextview.setVisibility(View.VISIBLE);
+                }
+
                 else
                 {
                     System.out.println(maxId);
@@ -125,9 +139,9 @@ public class JobPostActivity extends AppCompatActivity {
 
 
 
-public void addJobTypeList() {
-        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
-        jobTypeList = (Spinner) findViewById(R.id.jobType);
+public void addJobTypeList(Spinner jobTypeList) {
+
+        //jobTypeList = (Spinner) findViewById(R.id.jobType);
         List<String> jobTypes = new ArrayList<String>();
         jobTypes.add("--Please select--");
         jobTypes.add("Dog walking");
@@ -136,9 +150,9 @@ public void addJobTypeList() {
         jobTypes.add("Computer");
         jobTypes.add("Delivery");
         jobTypes.add("Other");
-        @SuppressLint("ResourceType") ArrayAdapter<String> dogListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
-        dogListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        jobTypeList.setAdapter(dogListAdapter);
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
+        jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        jobTypeList.setAdapter(jobTypeListAdapter);
     }
 
 
