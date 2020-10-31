@@ -45,6 +45,16 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.layoutdisplay));
     }
 
+    @Test
+    // checks if the buttons are displayed
+    public void CategoryButtonsInDisplay() {
+        onView(withId(R.id.categoryBtn1));
+        onView(withId(R.id.categoryBtn2));
+        onView(withId(R.id.categoryBtn3));
+        onView(withId(R.id.categoryBtn4));
+        onView(withId(R.id.categoryBtnOther));
+    }
+
 }
 
 
