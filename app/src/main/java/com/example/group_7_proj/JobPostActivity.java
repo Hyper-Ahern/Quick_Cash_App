@@ -27,9 +27,11 @@ import java.util.Map;
 
 public class JobPostActivity extends AppCompatActivity {
     EditText Employername,jobtitle,salaryinput,jobdetails;
+    String jobType;
     Button submitjobpost,backdashBtn;
     TextView validtextview;
     DatabaseReference rootRef;
+
     long maxId = 1;
 
     @Override
@@ -37,19 +39,26 @@ public class JobPostActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         String firebaseFirstLevel = "jobPost";
+        this.addJobTypeList();
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
+
+        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+
+
+
 
         setContentView(R.layout.jobpost);
         Employername = findViewById(R.id.employerNameText);
         jobtitle = findViewById(R.id.jobTitleText);
+        jobType = jobTypeList.getSelectedItem().toString();
         salaryinput = findViewById(R.id.salaryInputText);
         jobdetails = findViewById(R.id.jobDetailsText);
         submitjobpost= findViewById(R.id.submitBtnJobPost);
         validtextview =findViewById(R.id.inputStatusTextview);
+
         validtextview.setVisibility(View.GONE);
         backdashBtn = findViewById(R.id.BackdashBtn);
 
-        this.addJobTypeList();
 
         backdashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -80,7 +89,8 @@ public class JobPostActivity extends AppCompatActivity {
                 String jobtitle1 = jobtitle.getText().toString();
                 String salary = salaryinput.getText().toString();
                 String detail = jobdetails.getText().toString();
-                final JobPost j1 = new JobPost(Emname,jobtitle1,salary,detail);
+
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 if(!j1.InvalidEmployerName())
                 {
                     validtextview.setText("Invalid Employer info");
@@ -115,8 +125,9 @@ public class JobPostActivity extends AppCompatActivity {
 
 
 
-protected void addJobTypeList() {
+public void addJobTypeList() {
         Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+        jobTypeList = (Spinner) findViewById(R.id.jobType);
         List<String> jobTypes = new ArrayList<String>();
         jobTypes.add("--Please select--");
         jobTypes.add("Dog walking");
@@ -129,4 +140,7 @@ protected void addJobTypeList() {
         dogListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         jobTypeList.setAdapter(dogListAdapter);
     }
+
+
 }
+

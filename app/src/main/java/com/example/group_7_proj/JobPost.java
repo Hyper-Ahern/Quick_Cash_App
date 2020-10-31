@@ -4,17 +4,21 @@ public class JobPost{
 
     private String EmployerName;
     private String JobTitle;
+    private String JobType;
     private String Salary;
+
     private String JobDetails;
 
     public JobPost() {}
-    public JobPost(String EN,String JT,String salary,String JobDetails)
+    public JobPost(String EN,String JT,String JobType,String salary,String JobDetails)
     {
         this.EmployerName = EN;
         this.JobTitle=JT;
+        this.JobType = JobType;
         this.Salary=salary;
         this.JobDetails=JobDetails;
     }
+
 
     public String getEmployerName() {
         return EmployerName;
@@ -88,4 +92,6 @@ public class JobPost{
         }
         return true;
     }
+
+
 }

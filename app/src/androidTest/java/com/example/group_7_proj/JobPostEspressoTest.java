@@ -99,14 +99,14 @@ public class JobPostEspressoTest {
 
     @Test
     public void checkInvalidJobType(){
-        onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
+        onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobType)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("--Please select--"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
-        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Employer info")));
+        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Valid Employer info")));
     }
 
 
