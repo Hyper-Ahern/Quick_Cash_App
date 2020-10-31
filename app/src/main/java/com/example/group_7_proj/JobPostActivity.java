@@ -1,10 +1,13 @@
 package com.example.group_7_proj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JobPostActivity extends AppCompatActivity {
@@ -43,6 +48,8 @@ public class JobPostActivity extends AppCompatActivity {
         validtextview =findViewById(R.id.inputStatusTextview);
         validtextview.setVisibility(View.GONE);
         backdashBtn = findViewById(R.id.BackdashBtn);
+
+        this.addJobTypeList();
 
         backdashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -104,5 +111,22 @@ public class JobPostActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
+protected void addJobTypeList() {
+        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+        List<String> jobTypes = new ArrayList<String>();
+        jobTypes.add("--Please select--");
+        jobTypes.add("Dog walking");
+        jobTypes.add("Babysitting");
+        jobTypes.add("Cleaning");
+        jobTypes.add("Computer");
+        jobTypes.add("Delivery");
+        jobTypes.add("Other");
+        @SuppressLint("ResourceType") ArrayAdapter<String> dogListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
+        dogListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+    jobTypeList.setAdapter(dogListAdapter);
     }
 }
