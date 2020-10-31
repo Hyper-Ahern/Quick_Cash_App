@@ -10,4 +10,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="back_to_main">Back to Main</string>
+    <string name="delivery">Delivery</string>
+    <string name="computer">Computer</string>
+    <string name="babysitting">Babysitting</string>
+    <string name="lawn_mowing">Lawn Mowing</string>
+    <string name="other">Other</string>
 </resources>
