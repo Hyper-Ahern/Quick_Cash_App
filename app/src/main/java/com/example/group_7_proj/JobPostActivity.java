@@ -127,6 +127,6 @@ protected void addJobTypeList() {
         jobTypes.add("Other");
         @SuppressLint("ResourceType") ArrayAdapter<String> dogListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
         dogListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-    jobTypeList.setAdapter(dogListAdapter);
+        jobTypeList.setAdapter(dogListAdapter);
     }
 }

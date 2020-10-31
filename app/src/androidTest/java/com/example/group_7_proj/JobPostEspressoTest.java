@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 
-
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -15,6 +15,9 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 
 public class JobPostEspressoTest {
     @Rule
@@ -86,17 +89,25 @@ public class JobPostEspressoTest {
     public void checkJobType(){
         onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Cleaning"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
-        onView(withId(R.id.jobType)).perform(getSelectedItem().toString()).perform(closeSoftKeyboard());
-
         onView(withId(R.id.submitBtnJobPost)).perform(click());
-
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Employer info")));
-
-
     }
 
+    @Test
+    public void checkInvalidJobType(){
+        onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("--Please select--"))).perform(click());
+        onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
+        onView(withId(R.id.submitBtnJobPost)).perform(click());
+        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Employer info")));
+    }
 
 
     /**NAVIGATION**/
