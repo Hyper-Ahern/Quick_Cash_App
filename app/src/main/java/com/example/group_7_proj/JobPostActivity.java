@@ -57,7 +57,7 @@ public class JobPostActivity extends AppCompatActivity {
 
         Employername = findViewById(R.id.employerNameText);
         jobtitle = findViewById(R.id.jobTitleText);
-        jobType = jobTypeList.getSelectedItem().toString();
+
         salaryinput = findViewById(R.id.salaryInputText);
         jobdetails = findViewById(R.id.jobDetailsText);
         submitjobpost= findViewById(R.id.submitBtnJobPost);
@@ -92,6 +92,9 @@ public class JobPostActivity extends AppCompatActivity {
         submitjobpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+                jobType = jobTypeList.getSelectedItem().toString();
 
                 String Emname = Employername.getText().toString();
                 String jobtitle1 = jobtitle.getText().toString();
@@ -129,7 +132,9 @@ public class JobPostActivity extends AppCompatActivity {
                 {
                     System.out.println(maxId);
                     rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
-                    Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
+
+                    validtextview.setText("Job Posted Successfully");
+                    Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
                     validtextview.setVisibility(View.GONE);
                 }
             }
