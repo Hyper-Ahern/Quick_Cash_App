@@ -38,9 +38,10 @@ public class JobPostviewActivity extends AppCompatActivity {
                 HashMap<String,JobPost> viewPost= new HashMap<>();
                 for(long i = maxpost; i >= 1; i--) {
                     String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
-                    String jobTypes = snapshot.child("JOBPOST-"+i).child("jobTypes").getValue().toString();
                     String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();
                     String jobTitle = snapshot.child("JOBPOST-"+i).child("jobTitle").getValue().toString();
+                    String jobTypes = snapshot.child("JOBPOST-"+i).child("jobType").getValue().toString();
+
                     String salary = snapshot.child("JOBPOST-"+i).child("salary").getValue().toString();
                     JobPost job = new JobPost(employerName,jobTitle,jobTypes,salary,jobDetails);
                     viewPost.put(("JOBPOST-"+i),job);
