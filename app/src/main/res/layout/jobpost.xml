@@ -58,13 +58,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="142dp"
+        android:layout_marginBottom="16dp"
         android:text="Submit"
+        app:layout_constraintBottom_toTopOf="@+id/BackdashBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobDetailsText" />
+
+    <Button
+        android:id="@+id/BackdashBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="116dp"
+        android:text="BAck To Dash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitBtnJobPost" />
 
     <TextView
         android:id="@+id/inputStatusTextview"
@@ -79,20 +96,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobDetailsText" />
-
-    <Button
-        android:id="@+id/BackdashBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="159dp"
-        android:text="BAck To Dash"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.617"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitBtnJobPost" />
+        app:layout_constraintTop_toBottomOf="@+id/jobDetailsText"
+        app:layout_constraintVertical_bias="0.053" />
 
     <EditText
         android:id="@+id/jobTitleText"
