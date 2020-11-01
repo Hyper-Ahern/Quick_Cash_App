@@ -5,12 +5,16 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 
 public class JobPostViewEspressoTest {
     @Rule
@@ -36,6 +40,8 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.jobPost));
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("Farming")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
