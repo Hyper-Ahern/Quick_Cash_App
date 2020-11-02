@@ -74,96 +74,86 @@ public class SignUpActivity extends AppCompatActivity {
         reEnterPasswordErrorMessage = findViewById(R.id.passwordErrorMessage2);
 
         builder = new AlertDialog.Builder(this);
-
-        etName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Name nm = new Name(name.returnValue());
-                if(nm.isEmpty()){
-                    nameErrorMessage.setText("Name missing");
-                }
-                else if(!nm.matchesFormat()){
-                    nameErrorMessage.setText("Please only enter alphanumeric characters");
-                }
-                else{
-                    nameValid = true;
-                    nameErrorMessage.setText("");
-                }
-                return false;
-            }
-        });
-
-        etEmail.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Email em = new Email(email.getValue());
-                if(em.isEmpty()){
-                    emailErrorMessage.setText("Email missing");
-                }
-                else if(!em.matchesFormat()){
-                    emailErrorMessage.setText("Email invalid");
-                }
-                else{
-                    emailValid = true;
-                    emailErrorMessage.setText("");
-                }
-                return false;
-            }
-        });
-
-        etPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Password pw = new Password(password.getValue());
-
-                if(pw.isLessThan8Chars()){
-                    passwordErrorMessage.setText("Password should be between 8 and 20 characters");
-                }
-                else if(pw.isWeak()){
-                    passwordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
-                }
-                else{
-                    passwordValid = true;
-                    passwordErrorMessage.setText("");
-                }
-                return false;
-            }
-        });
-
-        etReEnterPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Password reEnterpw = new Password(reEnterPassword.getValue());
-                Password pw = new Password(password.getValue());
-
-                if(reEnterpw.isLessThan8Chars()){
-                    reEnterPasswordErrorMessage.setText("Password should be between 8 and 20 characters");
-                }
-                else if(reEnterpw.isWeak()){
-                    reEnterPasswordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
-                }
-                else if(!(reEnterpw.equals(pw))){
-                    reEnterPasswordErrorMessage.setText("Your password's do not match");
-                }
-                else{
-                    reEnterPasswordValid = true;
-                    reEnterPasswordErrorMessage.setText("");
-                }
-                return false;
-            }
-        });
-
         // SIGN UP
         signUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                // if invalid name, email or password
-                if(!(nameValid || passwordValid || emailValid || reEnterPasswordValid)){
-                    Toast.makeText(SignUpActivity.this, "One or more of the input fields are in the wrong format", Toast.LENGTH_LONG).show();
+                Name nm = new Name(name.returnValue());
+                Email em = new Email(email.getValue());
+                Password pw = new Password(password.getValue());
+                Password reEnterpw = new Password(reEnterPassword.getValue());
+
+
+
+                    if(nm.isEmpty()){
+                        nameErrorMessage.setText("Name missing");
+                        nameErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if(!nm.matchesFormat()){
+                        nameErrorMessage.setText("Please only enter alphanumeric characters");
+                        nameErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if (!nm.isEmpty() && nm.matchesFormat()){
+                        nameValid = true;
+                        nameErrorMessage.setText("");
+                        nameErrorMessage.setVisibility(View.INVISIBLE);
+                    }
+                    if(em.isEmpty()){
+                        emailErrorMessage.setText("Email missing");
+                        emailErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if(!em.matchesFormat()){
+                        emailErrorMessage.setText("Email invalid");
+                        emailErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if (!em.isEmpty() && em.matchesFormat()){
+                        emailValid = true;
+                        emailErrorMessage.setText("");
+                        emailErrorMessage.setVisibility(View.INVISIBLE);
+                    }
+                    if(pw.isLessThan8Chars()){
+                        passwordErrorMessage.setText("Password should be between 8 and 20 characters");
+                        passwordErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if(pw.isWeak()){
+                        passwordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
+                        passwordErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if (!pw.isLessThan8Chars() && !pw.isWeak()){
+                        passwordValid = true;
+                        passwordErrorMessage.setText("");
+                        passwordErrorMessage.setVisibility(View.INVISIBLE);
+                    }
+                    if(reEnterpw.isLessThan8Chars()){
+                        reEnterPasswordErrorMessage.setText("Password should be between 8 and 20 characters");
+                        reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if(reEnterpw.isWeak()){
+                        reEnterPasswordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
+                        reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if(!(reEnterpw.equals(pw))){
+                        reEnterPasswordErrorMessage.setText("Your password's do not match");
+                        reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
+                    }
+                    if (!reEnterpw.isLessThan8Chars() && !reEnterpw.isWeak() && reEnterpw.equals(pw)){
+                        reEnterPasswordValid = true;
+                        reEnterPasswordErrorMessage.setText("");
+                        reEnterPasswordErrorMessage.setVisibility(View.INVISIBLE);
+
+
+                }
+                    if((nameValid && passwordValid && emailValid && reEnterPasswordValid)){
+                    nameErrorMessage.setVisibility(View.INVISIBLE);
+                    passwordErrorMessage.setVisibility(View.INVISIBLE);
+                    emailErrorMessage.setVisibility(View.INVISIBLE);
+                    reEnterPasswordErrorMessage.setVisibility(View.INVISIBLE);
                 }
 
+
+
                 // if signup info format is correct check if user already in db
-                else{
+                if (nameValid && passwordValid && emailValid && reEnterPasswordValid){
                     FirebaseDatabase database = null;
                     DatabaseReference userRef = null;
                     database = FirebaseDatabase.getInstance();
