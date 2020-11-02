@@ -25,21 +25,26 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 public class SignUpFragmentTest {
-    @Rule
-    public ActivityScenarioRule<MainActivity> activityRule =
-            new ActivityScenarioRule<>(MainActivity.class);
+   @Rule
+   public ActivityScenarioRule<SignUpActivity> signUpActivityRule
+           = new ActivityScenarioRule<>(SignUpActivity.class);
+    //public ActivityScenarioRule<MainActivity> activityRule =
+      //      new ActivityScenarioRule<>(MainActivity.class);
 
     private String uName = "username1";
     private String uEmail = "email@domain.com";
     private String uPassword = "abCD23$%";
 
-    private String errorMessage = "Error Message";
+    //private String errorMessage = "Error Message";
 
     @Test
     public void PositiveSignUp() { ////am i able to nav to dashboard?
+        //onView(withId(R.id.signUpBtnLGP)).perform(click());
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
@@ -49,7 +54,9 @@ public class SignUpFragmentTest {
     public void NegativeNameSignUp() { //display name error message
         onView(withId(R.id.name)).perform(click()).perform(typeText(""));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
@@ -60,43 +67,51 @@ public class SignUpFragmentTest {
     public void NegativeEmailSignUp() { //display email error message
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(""));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.emailErrorMessage)).check((matches(withText(errorMessage))));
+        onView(withId(R.id.emailErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
     }
 
     @Test
     public void NegativePasswordSignUp() { //display password error message
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(""));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage)).check((matches(withText(errorMessage))));
+        onView(withId(R.id.passwordErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
     }
 
     @Test
     public void NegativeReenterPasswordSignUp() { //display reenter password error message - empty
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(""));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage)).check((matches(withText(errorMessage))));
+        onView(withId(R.id.passwordErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
     }
 
     @Test
     public void NegativeReenterPassword2SignUp() { //display reenter password error message - does not match original password
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
+        closeSoftKeyboard();
         onView(withId(R.id.password)).perform(click()).perform(typeText(uPassword));
+        closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText("no"));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage2)).check((matches(withText(errorMessage))));
+        onView(withId(R.id.passwordErrorMessage2)).check((matches(isDisplayed()))); //withText(errorMessage)
     }
 }
