@@ -73,7 +73,7 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.emailErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
+        onView(withId(R.id.emailErrorMessage)).check((matches(isDisplayed())));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
+        onView(withId(R.id.passwordErrorMessage)).check((matches(isDisplayed())));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(""));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage)).check((matches(isDisplayed()))); //withText(errorMessage)
+        onView(withId(R.id.passwordErrorMessage2)).check((matches(isDisplayed())));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText("no"));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        onView(withId(R.id.passwordErrorMessage2)).check((matches(isDisplayed()))); //withText(errorMessage)
+        onView(withId(R.id.passwordErrorMessage2)).check((matches(isDisplayed())));
     }
 }
