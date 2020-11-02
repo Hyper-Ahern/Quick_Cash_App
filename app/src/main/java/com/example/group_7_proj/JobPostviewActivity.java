@@ -33,9 +33,9 @@ public class JobPostviewActivity extends AppCompatActivity {
         reff = FirebaseDatabase.getInstance().getReference().child("jobPost");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 maxpost = (snapshot.getChildrenCount());
-                HashMap<String,JobPost> viewPost= new HashMap<>();
+                final HashMap<String,JobPost> viewPost= new HashMap<>();
                 for(long i = maxpost; i >= 1; i--) {
                     String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
                     String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();
@@ -45,38 +45,75 @@ public class JobPostviewActivity extends AppCompatActivity {
                     viewPost.put(("JOBPOST-"+i),job);
                     //System.out.println("hello");
                 }
-                LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
+                final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
-                for (int i = 0; i < viewPost.size(); i++) {
+                for (int hashMapPosition = 1; hashMapPosition < viewPost.size(); hashMapPosition++) {
+
                     final TextView jobpostnum = new TextView(getApplicationContext());
-
-                    int hashMapPosition = i+1;
-                    String salary = "Salary: ";
-                    jobpostnum.setText("Jobpost"+hashMapPosition);
-                    jobpostnum.setTextSize(30);
-                    jobpostnum.setId(i+1);
-                    myLayout.addView(jobpostnum);
-
                     final TextView employerNameTextview = new TextView(getApplicationContext());
                     final TextView jobDetailsTextview = new TextView(getApplicationContext());
                     final TextView jobTitleTextview = new TextView(getApplicationContext());
                     final TextView salaryTextview = new TextView(getApplicationContext());
 
+                    jobTitleTextview.setText(viewPost.get("JOBPOST-"+hashMapPosition).getJobTitle());
+                    jobTitleTextview.setTextSize(30);
+                    jobTitleTextview.setId(hashMapPosition);
+                    jobpostnum.setText("Job ID: " + hashMapPosition);
                     employerNameTextview.setText("Employer Name: "
                             +viewPost.get("JOBPOST-"+hashMapPosition).getEmployerName());
                     jobDetailsTextview.setText("Job Details: "
                             +viewPost.get("JOBPOST-"+hashMapPosition).getJobDetails());
-                    jobTitleTextview.setText("Job Title: "
-                            +viewPost.get("JOBPOST-"+hashMapPosition).getJobTitle());
                     salaryTextview.setText("Salary: "
                             + viewPost.get("JOBPOST-"+hashMapPosition).getSalary() + "\n");
 
+                    myLayout.addView(jobTitleTextview);
+                    myLayout.addView(jobpostnum);
                     myLayout.addView(employerNameTextview);
                     myLayout.addView(jobDetailsTextview);
-                    myLayout.addView(jobTitleTextview);
                     myLayout.addView(salaryTextview);
 
                 }
+
+                Button deliveryBtn = findViewById(R.id.categoryBtn1);
+                deliveryBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        for (int i = 0; i < viewPost.size(); i++) {
+                            final TextView jobpostnum = new TextView(getApplicationContext());
+                            final TextView employerNameTextview = new TextView(getApplicationContext());
+                            final TextView jobDetailsTextview = new TextView(getApplicationContext());
+                            final TextView jobTitleTextview = new TextView(getApplicationContext());
+                            final TextView salaryTextview = new TextView(getApplicationContext());
+
+                            int hashMapPosition = i+1;
+
+                            if(viewPost.get("JOBPOST-"+hashMapPosition).getJobDetails().toString().equals("Farming")) {
+
+                                String salary = "Salary: ";
+                                jobpostnum.setText("Jobpost" + hashMapPosition);
+                                jobpostnum.setTextSize(30);
+                                jobpostnum.setId(i + 1);
+
+                                employerNameTextview.setText("Employer Name: "
+                                        + viewPost.get("JOBPOST-" + hashMapPosition).getEmployerName());
+                                jobDetailsTextview.setText("Job Details: "
+                                        + viewPost.get("JOBPOST-" + hashMapPosition).getJobDetails());
+                                jobTitleTextview.setText("Job Title: "
+                                        + viewPost.get("JOBPOST-" + hashMapPosition).getJobTitle());
+                                salaryTextview.setText("Salary: "
+                                        + viewPost.get("JOBPOST-" + hashMapPosition).getSalary() + "\n");
+
+                                myLayout.addView(jobpostnum);
+                                myLayout.addView(employerNameTextview);
+                                myLayout.addView(jobDetailsTextview);
+                                myLayout.addView(jobTitleTextview);
+                                myLayout.addView(salaryTextview);
+                            }
+
+                        }
+                    }
+                });
+
                 backtomainbtn = findViewById(R.id.backdashbtn);
                 backtomainbtn.setOnClickListener(new View.OnClickListener(){
                     @Override
