@@ -58,14 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
         etReEnterPassword = findViewById(R.id.reenterPassword);
         signUpBtn = findViewById(R.id.signUpBtn);
 
-        name = new Name((etName).getText().toString());
-        email = new Email((etEmail).getText().toString());
-        password = new Password((etPassword).getText().toString());
-        reEnterPassword = new Password((etReEnterPassword).getText().toString());
-
         nameValid = false;
         emailValid = false;
-        passwordValid = false; //password.isWeak();
+        passwordValid = false;
         reEnterPasswordValid = false;
 
         nameErrorMessage = findViewById(R.id.nameErrorMessage);
@@ -78,12 +73,15 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                name = new Name((etName).getText().toString());
+                email = new Email((etEmail).getText().toString());
+                password = new Password((etPassword).getText().toString());
+                reEnterPassword = new Password((etReEnterPassword).getText().toString());
+
                 Name nm = new Name(name.returnValue());
                 Email em = new Email(email.getValue());
                 Password pw = new Password(password.getValue());
                 Password reEnterpw = new Password(reEnterPassword.getValue());
-
-
 
                     if(nm.isEmpty()){
                         nameErrorMessage.setText("Name missing");
@@ -128,15 +126,11 @@ public class SignUpActivity extends AppCompatActivity {
                         reEnterPasswordErrorMessage.setText("Password should be between 8 and 20 characters");
                         reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
                     }
-                    if(reEnterpw.isWeak()){
-                        reEnterPasswordErrorMessage.setText("Password should include at least one of each: captial letter, lowercase letter, special character(!@#$%^&*(),.:;'') ");
-                        reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
-                    }
                     if(!(reEnterpw.equals(pw))){
                         reEnterPasswordErrorMessage.setText("Your password's do not match");
                         reEnterPasswordErrorMessage.setVisibility(View.VISIBLE);
                     }
-                    if (!reEnterpw.isLessThan8Chars() && !reEnterpw.isWeak() && reEnterpw.equals(pw)){
+                    if (!reEnterpw.isLessThan8Chars() && reEnterpw.equals(pw)){
                         reEnterPasswordValid = true;
                         reEnterPasswordErrorMessage.setText("");
                         reEnterPasswordErrorMessage.setVisibility(View.INVISIBLE);
