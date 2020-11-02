@@ -30,13 +30,13 @@ public class JobPostActivity extends AppCompatActivity {
     TextView validTextView;
     DatabaseReference rootRef;
 
-    long maxId = 1;
+    long maxId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "jobPost";
+        String firebaseFirstLevel = "jobPostTypeTest";
 
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
