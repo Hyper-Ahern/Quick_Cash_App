@@ -20,9 +20,9 @@ import java.util.HashMap;
 
 
 public class JobPostviewActivity extends AppCompatActivity {
-    Button backtomainbtn;
+    Button backToMainBtn;
     DatabaseReference reff;
-    long maxpost = 0;
+    long maxPost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +34,29 @@ public class JobPostviewActivity extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                maxpost = (snapshot.getChildrenCount());
+                maxPost = (snapshot.getChildrenCount());
                 HashMap<String,JobPost> viewPost= new HashMap<>();
-                for(long i = maxpost; i >= 1; i--) {
+                for(long i = maxPost; i >= 1; i--) {
                     String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
                     String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();
                     String jobTitle = snapshot.child("JOBPOST-"+i).child("jobTitle").getValue().toString();
                     //add job type here
                     String jobTypes = snapshot.child("JOBPOST-"+i).child("jobType").getValue().toString();
-
                     String salary = snapshot.child("JOBPOST-"+i).child("salary").getValue().toString();
                     JobPost job = new JobPost(employerName,jobTitle,jobTypes,salary,jobDetails);
                     viewPost.put(("JOBPOST-"+i),job);
-                    //System.out.println("hello");
                 }
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
                 for (int i = 0; i < viewPost.size(); i++) {
-                    final TextView jobpostnum = new TextView(getApplicationContext());
+                    final TextView jobPostNum = new TextView(getApplicationContext());
 
                     int hashMapPosition = i+1;
                     String salary = "Salary: ";
-                    jobpostnum.setText("Jobpost"+hashMapPosition);
-                    jobpostnum.setTextSize(30);
-                    jobpostnum.setId(i+1);
-                    myLayout.addView(jobpostnum);
+                    jobPostNum.setText("Jobpost"+hashMapPosition);
+                    jobPostNum.setTextSize(30);
+                    jobPostNum.setId(i+1);
+                    myLayout.addView(jobPostNum);
 
                     final TextView employerNameTextview = new TextView(getApplicationContext());
                     final TextView jobDetailsTextview = new TextView(getApplicationContext());
@@ -79,8 +77,8 @@ public class JobPostviewActivity extends AppCompatActivity {
                     myLayout.addView(salaryTextview);
 
                 }
-                backtomainbtn = findViewById(R.id.backdashbtn);
-                backtomainbtn.setOnClickListener(new View.OnClickListener(){
+                backToMainBtn = findViewById(R.id.backdashbtn);
+                backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
