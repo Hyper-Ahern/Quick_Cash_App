@@ -13,8 +13,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class JobPostViewEspressoTest {
     @Rule
-    public ActivityScenarioRule<JobPostviewActivity> jobpostviewActivityRule =
-            new ActivityScenarioRule<>(JobPostviewActivity.class);
+    public ActivityScenarioRule<JobPostViewActivity> jobpostviewActivityRule =
+            new ActivityScenarioRule<>(JobPostViewActivity.class);
 
     /**INPUT VALIDATION**/
     @Test
@@ -58,8 +58,8 @@ public class JobPostViewEspressoTest {
     // checks if the buttons are displayed
     public void CategoryFilterCheck() {
         onView(withId(R.id.jobPostView));
-        onView(withId(R.id.categoryBtn1));
-        onView(withId(R.id.jobPostSearch));
+        onView(withId(R.id.categoryBtn1)).perform(click());
+        onView(withId(R.id.jobsearchresults));
     }
 
 
