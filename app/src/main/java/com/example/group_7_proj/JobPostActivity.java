@@ -1,10 +1,13 @@
 package com.example.group_7_proj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,34 +20,41 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JobPostActivity extends AppCompatActivity {
-    EditText Employername,jobtitle,salaryinput,jobdetails;
-    Button submitjobpost,backdashBtn;
-    TextView validtextview;
+    EditText EmployerName, jobTitle, salaryInput, jobDetails;
+    String jobType;
+    Button submitJobPost, backDashBtn;
+    TextView validTextView;
     DatabaseReference rootRef;
-    long maxId = 1;
+
+    long maxId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "jobPost";
+        String firebaseFirstLevel = "jobPostTypeTest";
+
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
         setContentView(R.layout.jobpost);
-        Employername = findViewById(R.id.employerNameText);
-        jobtitle = findViewById(R.id.jobTitleText);
-        salaryinput = findViewById(R.id.salaryInputText);
-        jobdetails = findViewById(R.id.jobDetailsText);
-        submitjobpost= findViewById(R.id.submitBtnJobPost);
-        validtextview =findViewById(R.id.inputStatusTextview);
-        validtextview.setVisibility(View.GONE);
-        backdashBtn = findViewById(R.id.BackdashBtn);
 
-        backdashBtn.setOnClickListener(new View.OnClickListener(){
+        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+        this.addJobTypeList(jobTypeList);
+
+        EmployerName = findViewById(R.id.employerNameText);
+        jobTitle = findViewById(R.id.jobTitleText);
+        salaryInput = findViewById(R.id.salaryInputText);
+        jobDetails = findViewById(R.id.jobDetailsText);
+        submitJobPost = findViewById(R.id.submitBtnJobPost);
+        validTextView =findViewById(R.id.inputStatusTextview);
+        validTextView.setVisibility(View.GONE);
+        backDashBtn = findViewById(R.id.BackdashBtn);
+
+        backDashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -66,43 +76,73 @@ public class JobPostActivity extends AppCompatActivity {
             }
         });
 
-        submitjobpost.setOnClickListener(new View.OnClickListener() {
+        submitJobPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Emname = Employername.getText().toString();
-                String jobtitle1 = jobtitle.getText().toString();
-                String salary = salaryinput.getText().toString();
-                String detail = jobdetails.getText().toString();
-                final JobPost j1 = new JobPost(Emname,jobtitle1,salary,detail);
+
+                Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+                jobType = jobTypeList.getSelectedItem().toString();
+
+                String Emname = EmployerName.getText().toString();
+                String jobtitle1 = jobTitle.getText().toString();
+                String salary = salaryInput.getText().toString();
+                String detail = jobDetails.getText().toString();
+
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 if(!j1.InvalidEmployerName())
                 {
-                    validtextview.setText("Invalid Employer info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextView.setText("Invalid Employer info");
+                    validTextView.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobDetails())
                 {
-                    validtextview.setText("Invalid Detail info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextView.setText("Invalid Detail info");
+                    validTextView.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobTitle())
                 {
-                    validtextview.setText("Invalid Job Title info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextView.setText("Invalid Job Title info");
+                    validTextView.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidSalary())
                 {
-                    validtextview.setText("Invalid Salary info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextView.setText("Invalid Salary info");
+                    validTextView.setVisibility(View.VISIBLE);
                 }
+                else if(!j1.InvalidJobTypes()){
+                    validTextView.setText("Invalid Job Type info");
+                    validTextView.setVisibility(View.VISIBLE);
+                }
+
                 else
                 {
                     System.out.println(maxId);
                     rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
-                    Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
-                    validtextview.setVisibility(View.GONE);
+                    validTextView.setText("Job Posted Successfully");
+                    Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
+                    validTextView.setVisibility(View.GONE);
                 }
             }
         });
 
     }
+
+public void addJobTypeList(Spinner jobTypeList) {
+
+        List<String> jobTypes = new ArrayList<String>();
+        jobTypes.add("--Please select--");
+        jobTypes.add("Dog walking");
+        jobTypes.add("Babysitting");
+        jobTypes.add("Cleaning");
+        jobTypes.add("Computer");
+        jobTypes.add("Delivery");
+        jobTypes.add("Other");
+
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
+        jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        jobTypeList.setAdapter(jobTypeListAdapter);
+    }
+
+
 }
+
