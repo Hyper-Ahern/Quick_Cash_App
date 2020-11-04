@@ -8,6 +8,8 @@ import org.junit.Test;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -58,8 +60,19 @@ public class JobPostViewEspressoTest {
     // checks if the buttons are displayed
     public void CategoryFilterCheck() {
         onView(withId(R.id.jobPostView));
+        onView(withId(R.id.jobPostView)).perform(click());
+        onView(withId(R.id.jobPostView)).perform(click());
+        onView(withId(R.id.jobPostView)).perform(click());
+/*        onView(withText("Job Details: asd")).check(matches(isDisplayed()));*/
         onView(withId(R.id.categoryBtn1)).perform(click());
         onView(withId(R.id.jobsearchresults));
+        // to buy time for loading
+        onView(withId(R.id.jobsearchresults)).perform(click());
+        onView(withId(R.id.jobsearchresults)).perform(click());
+        onView(withId(R.id.jobsearchresults)).perform(click());
+        /*onView(withText("ali")).check(matches(isDisplayed()));*/
+        onView(withText("Asdasd")).check(matches(isDisplayed()));
+        /*onView(withText("delivery")).check(matches(isDisplayed()));*/
     }
 
 

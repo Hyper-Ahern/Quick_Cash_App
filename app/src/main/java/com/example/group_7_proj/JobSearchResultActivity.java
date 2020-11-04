@@ -47,7 +47,7 @@ public class JobSearchResultActivity extends AppCompatActivity {
                 final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
 
                 for (int hashMapPosition = 1; hashMapPosition < viewPost.size(); hashMapPosition++) {
-                    if(viewPost.get("JOBPOST-"+hashMapPosition).getJobType().equals("Delivery")) {
+                    if(viewPost.get("JOBPOST-"+hashMapPosition).getJobType().equals("delivery")) {
                         final TextView jobpostnum = new TextView(getApplicationContext());
                         final TextView jobTitleTextview = new TextView(getApplicationContext());
                         final TextView employerNameTextview = new TextView(getApplicationContext());
@@ -56,22 +56,22 @@ public class JobSearchResultActivity extends AppCompatActivity {
                         final TextView salaryTextview = new TextView(getApplicationContext());
 
                         jobTitleTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobTitle());
-                        jobTitleTextview.setTextSize(30);
-                        jobTitleTextview.setId(hashMapPosition);
+                        /*jobTitleTextview.setTextSize(30);
+                        jobTitleTextview.setId(hashMapPosition);*/
                         jobpostnum.setText("Job ID: " + hashMapPosition);
                         employerNameTextview.setText("Employer Name: "
                                 + viewPost.get("JOBPOST-" + hashMapPosition).getEmployerName());
-                        jobTypeTextview.setText("Job Type: "
-                                + viewPost.get("JOBPOST-" + hashMapPosition).getJobType());
-                        jobDetailsTextview.setText("Job Details: "
-                                + viewPost.get("JOBPOST-" + hashMapPosition).getJobDetails());
+                        jobTypeTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobType());
+                        jobTypeTextview.setTextSize(30);
+                        jobTypeTextview.setId(hashMapPosition);
+                        jobDetailsTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobDetails());
                         salaryTextview.setText("Salary: "
                                 + viewPost.get("JOBPOST-" + hashMapPosition).getSalary() + "\n");
 
+                        myLayout.addView(jobTypeTextview);
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobpostnum);
                         myLayout.addView(employerNameTextview);
-                        myLayout.addView(jobTypeTextview);
                         myLayout.addView(jobDetailsTextview);
                         myLayout.addView(salaryTextview);
                     }
