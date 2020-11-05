@@ -1,6 +1,10 @@
 package com.example.group_7_proj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,14 +14,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class JobPostActivity extends AppCompatActivity {
@@ -25,6 +37,7 @@ public class JobPostActivity extends AppCompatActivity {
     Button submitjobpost,backdashBtn;
     TextView validtextview;
     DatabaseReference rootRef;
+    FusedLocationProviderClient fusedLocationProviderClient;
     long maxId = 1;
 
     @Override
@@ -43,6 +56,7 @@ public class JobPostActivity extends AppCompatActivity {
         validtextview =findViewById(R.id.inputStatusTextview);
         validtextview.setVisibility(View.GONE);
         backdashBtn = findViewById(R.id.BackdashBtn);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         backdashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,8 +115,25 @@ public class JobPostActivity extends AppCompatActivity {
                     Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
                     validtextview.setVisibility(View.GONE);
                 }
+
             }
         });
 
+
+
+    }
+    @SuppressLint("MissingPermission")
+    private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        @Override
+        public void onComplete(@NonNull Task<Location> task) {
+            Location location =task.getResult();
+            String fullAddress = " ";
+            GeoLocation jobLoc = null;
+            if (location != null){
+                jobLoc = new GeoLocation(location.getLongitude(), location.getLatitude());
+                Geocoder geocoder = new Geocoder(JobPostActivity.this, Locale.getDefault());
+            }
+        }
+    });
     }
 }
