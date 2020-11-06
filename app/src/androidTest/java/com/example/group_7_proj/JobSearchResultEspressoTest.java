@@ -27,18 +27,6 @@ public class JobSearchResultEspressoTest {
         onView(withId(R.id.jobPostView));
     }
 
-    @Test
-    // checks if the correct job results are displayed
-    public void CheckJobsInDisplay() {
-        onView(withId(R.id.jobsearchresults));
-        // to buy time for loading
-        onView(withId(R.id.jobsearchresults)).perform(click());
-        onView(withId(R.id.jobsearchresults)).perform(click());
-        onView(withId(R.id.jobsearchresults)).perform(click());
-        onView(withText("Job ID: 1")).check(matches(isDisplayed()));
-        onView(withText("Job ID: 5")).check(matches(isDisplayed()));
-    }
-
 
 
 }
