@@ -65,7 +65,16 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/lawn_mowing"
+                        android:text="Cleaning"
+                        android:textColor="#000000" />
+
+                    <Button
+                        android:id="@+id/categoryBtn5"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dog walking"
                         android:textColor="#000000" />
 
                     <Button

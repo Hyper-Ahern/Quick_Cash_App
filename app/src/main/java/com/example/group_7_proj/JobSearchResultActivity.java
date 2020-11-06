@@ -17,15 +17,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class JobSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
     long maxpost = 0;
+    String jobType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jobsearchresults);
+        Intent intent = getIntent();
+        jobType = intent.getStringExtra("Job Type");
 
         // insert code here
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
@@ -46,8 +50,8 @@ public class JobSearchResultActivity extends AppCompatActivity {
                 }
                 final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
 
-                for (int hashMapPosition = 1; hashMapPosition < viewPost.size(); hashMapPosition++) {
-                    if(viewPost.get("JOBPOST-"+hashMapPosition).getJobType().equals("delivery")) {
+                for (int hashMapPosition = 1; hashMapPosition < viewPost.size()+1; hashMapPosition++) {
+                    if(viewPost.get("JOBPOST-"+hashMapPosition).getJobType().equals(jobType)) {
                         final TextView jobpostnum = new TextView(getApplicationContext());
                         final TextView jobTitleTextview = new TextView(getApplicationContext());
                         final TextView employerNameTextview = new TextView(getApplicationContext());
@@ -56,21 +60,17 @@ public class JobSearchResultActivity extends AppCompatActivity {
                         final TextView salaryTextview = new TextView(getApplicationContext());
 
                         jobTitleTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobTitle());
-                        /*jobTitleTextview.setTextSize(30);
-                        jobTitleTextview.setId(hashMapPosition);*/
+                        jobTitleTextview.setTextSize(30);
                         jobpostnum.setText("Job ID: " + hashMapPosition);
                         employerNameTextview.setText("Employer Name: "
                                 + viewPost.get("JOBPOST-" + hashMapPosition).getEmployerName());
-                        jobTypeTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobType());
-                        jobTypeTextview.setTextSize(30);
-                        jobTypeTextview.setId(hashMapPosition);
-                        jobDetailsTextview.setText(viewPost.get("JOBPOST-" + hashMapPosition).getJobDetails());
-                        salaryTextview.setText("Salary: "
-                                + viewPost.get("JOBPOST-" + hashMapPosition).getSalary() + "\n");
+                        jobTypeTextview.setText("Job Type: " + viewPost.get("JOBPOST-" + hashMapPosition).getJobType());
+                        jobDetailsTextview.setText("Details: " + viewPost.get("JOBPOST-" + hashMapPosition).getJobDetails());
+                        salaryTextview.setText("Salary: " + viewPost.get("JOBPOST-" + hashMapPosition).getSalary() + "\n");
 
-                        myLayout.addView(jobTypeTextview);
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobpostnum);
+                        myLayout.addView(jobTypeTextview);
                         myLayout.addView(employerNameTextview);
                         myLayout.addView(jobDetailsTextview);
                         myLayout.addView(salaryTextview);
@@ -82,7 +82,7 @@ public class JobSearchResultActivity extends AppCompatActivity {
                 backtomainbtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
                         startActivity(intent);
                     }
                 });

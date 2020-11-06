@@ -21,7 +21,8 @@ import java.util.HashMap;
 
 public class JobPostViewActivity extends AppCompatActivity {
     Button backToMainBtn;
-    Button cat1Btn;
+    Button cat1Btn, cat2Btn, cat3Btn, cat4Btn, cat5Btn, otherBtn;
+    String jobType;
     DatabaseReference reff;
     long maxpost = 0;
 
@@ -88,13 +89,18 @@ public class JobPostViewActivity extends AppCompatActivity {
                 });
 
                 cat1Btn = (Button)findViewById(R.id.categoryBtn1);
-                cat1Btn.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        Intent intent = new Intent(getApplicationContext(), JobSearchResultActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                cat2Btn = (Button)findViewById(R.id.categoryBtn2);
+                cat3Btn = (Button)findViewById(R.id.categoryBtn3);
+                cat4Btn = (Button)findViewById(R.id.categoryBtn4);
+                cat5Btn = (Button)findViewById(R.id.categoryBtn5);
+                otherBtn = (Button)findViewById(R.id.categoryBtnOther);
+
+                buttonClicking(cat1Btn, "Delivery");
+                buttonClicking(cat2Btn, "Computer");
+                buttonClicking(cat3Btn, "Babysitting");
+                buttonClicking(cat4Btn, "Cleaning");
+                buttonClicking(cat5Btn, "Dog walking");
+                buttonClicking(otherBtn, "Other");
             }
 
             @Override
@@ -103,7 +109,16 @@ public class JobPostViewActivity extends AppCompatActivity {
             }
         });
 
-
-
-        }
     }
+
+    public void buttonClicking(Button btn, final String jobType){
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), JobSearchResultActivity.class);
+                intent.putExtra("Job Type", jobType);
+                startActivity(intent);
+            }
+        });
+    }
+}
