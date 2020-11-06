@@ -9,6 +9,8 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
+import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -86,19 +88,41 @@ public class JobPostViewEspressoTest {
         onView(withText("Job ID: 10")).check(matches(isDisplayed()));
         onView(withId(R.id.backdashbtn)).perform(click());
 
-        /*onView(withId(R.id.categoryBtn5)).perform(click());
+    }
+
+
+    @Test
+    // checks if more categories are displayed when swiped left
+    public void SwipeLeftForMoreCategory() {
+        onView(withId(R.id.jobPostView));
+        onView(withId(R.id.categoryBtn1)).perform(swipeLeft());
+        onView(withId(R.id.categoryBtn5));
+        onView(withId(R.id.categoryBtn4)).perform(swipeLeft());
+        onView(withId(R.id.categoryBtnOther));
+    }
+
+    @Test
+    // checks if more categories are displayed when swiped left
+    public void MoreCategoryFilter() {
+        onView(withId(R.id.jobPostView));
+        onView(withId(R.id.categoryBtn1)).perform(swipeLeft());
+        onView(withId(R.id.categoryBtn4)).perform(swipeLeft());
+
+        onView(withId(R.id.categoryBtn5)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 4")).check(matches(isDisplayed()));
         onView(withText("Job ID: 2")).check(matches(isDisplayed()));
         onView(withId(R.id.backdashbtn)).perform(click());
 
+        onView(withId(R.id.jobPostView));
+        onView(withId(R.id.categoryBtn1)).perform(swipeLeft());
+        onView(withId(R.id.categoryBtn4)).perform(swipeLeft());
+
         onView(withId(R.id.categoryBtnOther)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 8")).check(matches(isDisplayed()));
-        onView(withId(R.id.backdashbtn)).perform(click());*/
-
+        onView(withId(R.id.backdashbtn)).perform(click());
     }
-
 
 
 }
