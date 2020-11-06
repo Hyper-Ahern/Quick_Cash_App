@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +22,8 @@ import java.util.HashMap;
 
 public class JobPostViewActivity extends AppCompatActivity {
     Button backToMainBtn;
-    Button cat1Btn, cat2Btn, cat3Btn, cat4Btn, cat5Btn, otherBtn;
+    Button cat1Btn, cat2Btn, cat3Btn, cat4Btn, cat5Btn, otherBtn, searchBtn;
+    EditText searchBarText;
     String jobType;
     DatabaseReference reff;
     long maxpost = 0;
@@ -79,7 +81,7 @@ public class JobPostViewActivity extends AppCompatActivity {
                     myLayout.addView(salaryTextview);
 
                 }
-                backToMainBtn = findViewById(R.id.backdashbtn);
+                backToMainBtn = findViewById(R.id.clearResults);
                 backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -94,6 +96,7 @@ public class JobPostViewActivity extends AppCompatActivity {
                 cat4Btn = (Button)findViewById(R.id.categoryBtn4);
                 cat5Btn = (Button)findViewById(R.id.categoryBtn5);
                 otherBtn = (Button)findViewById(R.id.categoryBtnOther);
+                searchBtn = (Button)findViewById(R.id.searchBtn);
 
                 buttonClicking(cat1Btn, "Delivery");
                 buttonClicking(cat2Btn, "Computer");
@@ -101,6 +104,7 @@ public class JobPostViewActivity extends AppCompatActivity {
                 buttonClicking(cat4Btn, "Cleaning");
                 buttonClicking(cat5Btn, "Dog walking");
                 buttonClicking(otherBtn, "Other");
+                searchClicking(searchBtn);
             }
 
             @Override
@@ -115,8 +119,21 @@ public class JobPostViewActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), JobSearchResultActivity.class);
+                Intent intent = new Intent(getApplicationContext(), JobCatSearchResultActivity.class);
                 intent.putExtra("Job Type", jobType);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void searchClicking(Button btn){
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                searchBarText = findViewById(R.id.searchBar);
+                String searchText = searchBarText.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), JobTextSearchResultActivity.class);
+                intent.putExtra("Search Text", searchText);
                 startActivity(intent);
             }
         });

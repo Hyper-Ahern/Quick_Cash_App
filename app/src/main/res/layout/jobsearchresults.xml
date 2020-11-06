@@ -37,16 +37,13 @@
                 android:orientation="vertical"></LinearLayout>
 
             <Button
-                android:id="@+id/backdashbtn"
+                android:id="@+id/clearResults"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="100dp"
-                android:text="@string/back_to_main">
-                <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                app:layout_constraintStart_toStartOf="parent" />-->
+                android:text="@string/clear_results">
             </Button>
         </LinearLayout>
 

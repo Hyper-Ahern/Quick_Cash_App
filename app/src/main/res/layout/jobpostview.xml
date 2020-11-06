@@ -18,9 +18,31 @@ android:layout_height="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <SearchView
+            <LinearLayout
+                android:id="@+id/layoutcontainsearchBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchBar"
+                    android:layout_width="300sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:hint="@string/search_here"
+                    android:inputType="textPersonName"
+                    android:autofillHints="" />
+
+                <Button
+                    android:id="@+id/searchBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="@string/search"></Button>
+            </LinearLayout>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -66,7 +88,7 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cleaning"
+                        android:text="@string/cleaning"
                         android:textColor="#000000" />
 
                     <Button
@@ -75,7 +97,7 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Dog walking"
+                        android:text="@string/dog_walking"
                         android:textColor="#000000" />
 
                     <Button
@@ -120,7 +142,7 @@ android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
 
                 <Button
-                    android:id="@+id/backdashbtn"
+                    android:id="@+id/clearResults"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="100dp"

@@ -29,8 +29,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".JobSearchResultActivity"
+                android:name=".JobCatSearchResultActivity"
                 android:label="Search Results">
+        </activity>
+        <activity
+            android:name=".JobTextSearchResultActivity"
+            android:label="Search Results">
         </activity>
         <activity android:name=".DashboardActivity" />
         <activity android:name=".JobPostActivity" />
