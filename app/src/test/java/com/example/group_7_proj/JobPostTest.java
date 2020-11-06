@@ -9,63 +9,76 @@ public class JobPostTest
     @Test
     public void InvalidSalaryNotNumber()
     {
-        JobPost j = new JobPost("LTD","Babysitter","*","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","*","dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidSalary());
     }
 
     @Test
     public void ValidSalary()
     {
-        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","123.00","dajsdhkajgsdkjasgfakjsd");
         assertTrue(j.InvalidSalary());
     }
 
     @Test
     public void InValidSalaryByNull()
     {
-        JobPost j = new JobPost("LTD","Babysitter",null,"dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning",null,"dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidSalary());
     }
 
     @Test
     public void InValidEmployerName()
     {
-        JobPost j = new JobPost("","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("","Babysitter","Cleaning","123.00","dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidEmployerName());
     }
 
     @Test
     public void ValidEmployerName()
     {
-        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","123.00","dajsdhkajgsdkjasgfakjsd");
         assertTrue(j.InvalidEmployerName());
     }
 
     @Test
     public void InValidJobTitle()
     {
-        JobPost j = new JobPost("LTD","!","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","!","123.00","Cleaning","dajsdhkajgsdkjasgfakjsd");
         assertFalse(j.InvalidJobTitle());
     }
 
     @Test
     public void ValidJobTitle()
     {
-        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","123.00","dajsdhkajgsdkjasgfakjsd");
         assertTrue(j.InvalidJobTitle());
     }
     @Test
     public void InValidJobDetails()
     {
-        JobPost j = new JobPost("LTD","Babysitter","123.00","");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","123.00","");
         assertFalse(j.InvalidJobDetails());
     }
 
     @Test
     public void ValidJobDetails()
     {
-        JobPost j = new JobPost("LTD","Babysitter","123.00","dajsdhkajgsdkjasgfakjsd");
+        JobPost j = new JobPost("LTD","Babysitter","Cleaning","123.00","dajsdhkajgsdkjasgfakjsd");
         assertTrue(j.InvalidJobDetails());
+    }
+
+    @Test
+
+    public void ValidJobTypes(){
+
+        JobPost j = new JobPost("LTD","Babysitter","Walking Dog","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertTrue(j.InvalidJobTypes());
+
+        JobPost j2 = new JobPost("LTD","Babysitter","--Please select--","123.00","dajsdhkajgsdkjasgfakjsd");
+        assertFalse(j2.InvalidJobTypes());
+
+
     }
 
 }
