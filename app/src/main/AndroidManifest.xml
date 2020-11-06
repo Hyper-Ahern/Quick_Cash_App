@@ -22,6 +22,11 @@
             android:name=".LoginActivity"
             android:label="Login"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
                 android:name=".JobSearchResultActivity"
@@ -32,11 +37,6 @@
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".JobPostViewActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
     </application>
 

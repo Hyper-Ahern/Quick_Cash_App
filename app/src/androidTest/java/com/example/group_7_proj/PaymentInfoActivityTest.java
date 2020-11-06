@@ -68,7 +68,7 @@ public class PaymentInfoActivityTest {
                 .perform(typeText("100"));
         onView(withId(R.id.cardHolderName))
                 .perform(typeText("John Doe"))
-                .perform(closeSoftKeyboard());;
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.statusBtn))
@@ -85,7 +85,7 @@ public class PaymentInfoActivityTest {
                 .perform(typeText("11"));
         onView(withId(R.id.cardHolderName))
                 .perform(typeText("John Doe"))
-                .perform(closeSoftKeyboard());;
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.statusBtn))
@@ -102,7 +102,7 @@ public class PaymentInfoActivityTest {
                 .perform(typeText("1111"));
         onView(withId(R.id.cardHolderName))
                 .perform(typeText("John Doe"))
-                .perform(closeSoftKeyboard());;
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.paymentSubmitButton))
                 .perform(click());
         onView(withId(R.id.statusBtn))
