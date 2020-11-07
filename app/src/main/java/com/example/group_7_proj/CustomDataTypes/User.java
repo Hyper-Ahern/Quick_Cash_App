@@ -1,9 +1,15 @@
 package com.example.group_7_proj.CustomDataTypes;
 
+import com.example.group_7_proj.JobPost;
+
+import java.util.ArrayList;
+
 public class User {
     private Name name;
     private Email email;
     private Password password;
+    private ArrayList<JobPost> appliedJobs;
+    private ArrayList<JobPost> createdJobPosts;
 
     public User() {
     }
@@ -12,6 +18,8 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.appliedJobs = new ArrayList<JobPost>();
+        this.createdJobPosts = new ArrayList<JobPost>();
     }
 
     public String getName() {
@@ -37,4 +45,12 @@ public class User {
     public void setPassword(String password) {
         this.password.setValue(password);
     }
+
+    public void setAppliedJobs(ArrayList<JobPost> appliedJobs){this.appliedJobs = appliedJobs;}
+    public void addAppliedJob(JobPost appliedJob){this.appliedJobs.add(appliedJob);}
+    public ArrayList<JobPost> getAppliedJobs(){return this.appliedJobs;};
+
+    public void setCreatedJobPosts(ArrayList<JobPost> createdJobPosts){this.createdJobPosts = createdJobPosts;}
+    public void addCreatedJobPosts(JobPost createdJobPost){this.createdJobPosts.add(createdJobPost);}
+    public ArrayList<JobPost> getCreatedJobPosts(){return this.createdJobPosts;}
 }
