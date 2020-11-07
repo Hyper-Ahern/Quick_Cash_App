@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobPostActivity extends AppCompatActivity {
-    EditText EmployerName, jobTitle, salaryInput, jobDetails;
+    EditText employerNameText, jobTitleText, salaryText, jobDetailsText;
     String jobType;
-    Button submitJobPost, backDashBtn;
-    TextView validTextView;
+    Button submitJobPostBtn, backToDashBtn;
+    TextView validTextview;
     DatabaseReference rootRef;
 
     long maxId = 0;
@@ -45,16 +45,16 @@ public class JobPostActivity extends AppCompatActivity {
         Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
         this.addJobTypeList(jobTypeList);
 
-        EmployerName = findViewById(R.id.employerNameText);
-        jobTitle = findViewById(R.id.jobTitleText);
-        salaryInput = findViewById(R.id.salaryInputText);
-        jobDetails = findViewById(R.id.jobDetailsText);
-        submitJobPost = findViewById(R.id.submitBtnJobPost);
-        validTextView =findViewById(R.id.inputStatusTextview);
-        validTextView.setVisibility(View.GONE);
-        backDashBtn = findViewById(R.id.BackdashBtn);
+        employerNameText = findViewById(R.id.employerNameText);
+        jobTitleText = findViewById(R.id.jobTitleText);
+        salaryText = findViewById(R.id.salaryInputText);
+        jobDetailsText = findViewById(R.id.jobDetailsText);
+        submitJobPostBtn = findViewById(R.id.submitBtnJobPost);
+        validTextview =findViewById(R.id.inputStatusTextview);
+        validTextview.setVisibility(View.GONE);
+        backToDashBtn = findViewById(R.id.BackdashBtn);
 
-        backDashBtn.setOnClickListener(new View.OnClickListener(){
+        backToDashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -76,59 +76,56 @@ public class JobPostActivity extends AppCompatActivity {
             }
         });
 
-        submitJobPost.setOnClickListener(new View.OnClickListener() {
+        submitJobPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
                 jobType = jobTypeList.getSelectedItem().toString();
 
-                String Emname = EmployerName.getText().toString();
-                String jobtitle1 = jobTitle.getText().toString();
-                String salary = salaryInput.getText().toString();
-                String detail = jobDetails.getText().toString();
+                String Emname = employerNameText.getText().toString();
+                String jobtitle1 = jobTitleText.getText().toString();
+                String salary = salaryText.getText().toString();
+                String detail = jobDetailsText.getText().toString();
 
                 final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 if(!j1.InvalidEmployerName())
                 {
-                    validTextView.setText("Invalid Employer info");
-                    validTextView.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Employer info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobDetails())
                 {
-                    validTextView.setText("Invalid Detail info");
-                    validTextView.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Detail info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobTitle())
                 {
-                    validTextView.setText("Invalid Job Title info");
-                    validTextView.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Job Title info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidSalary())
                 {
-                    validTextView.setText("Invalid Salary info");
-                    validTextView.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Salary info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobTypes()){
-                    validTextView.setText("Invalid Job Type info");
-                    validTextView.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Job Type info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
-
                 else
                 {
                     System.out.println(maxId);
                     rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
-                    validTextView.setText("Job Posted Successfully");
+                    validTextview.setText("Job Posted Successfully");
                     Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
-                    validTextView.setVisibility(View.GONE);
+                    validTextview.setVisibility(View.GONE);
                 }
             }
         });
 
     }
 
-public void addJobTypeList(Spinner jobTypeList) {
-
+    public void addJobTypeList(Spinner jobTypeList) {
         List<String> jobTypes = new ArrayList<String>();
         jobTypes.add("--Please select--");
         jobTypes.add("Dog walking");
@@ -142,7 +139,5 @@ public void addJobTypeList(Spinner jobTypeList) {
         jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         jobTypeList.setAdapter(jobTypeListAdapter);
     }
-
-
 }
 
