@@ -2,11 +2,8 @@ package com.example.group_7_proj;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,13 +11,9 @@ import com.google.firebase.database.DatabaseReference;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.KeyEvent;
 import android.view.View;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,10 +24,7 @@ import com.example.group_7_proj.CustomDataTypes.*;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.PasswordAuthentication;
-import java.util.ArrayList;
 
-/*Abdullah*/
 public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     TextView emailHint, passwordHint;
@@ -62,58 +52,12 @@ public class LoginActivity extends AppCompatActivity {
 
         builder = new AlertDialog.Builder(this);
 
-      /*  email.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Email em = new Email(email.getText().toString());
-                if(em.isEmpty()){
-                    emailHint.setText("Email missing");
-                }
-                else if(!em.matchesFormat()){
-                    emailHint.setText("Email invalid");
-                }
-                else{
-                    emailHint.setText("");
-                }
-                return false;
-            }
-        });*/
-
-        /*password.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Password pw = new Password(password.getText().toString());
-
-                if(pw.isLessThan8Chars()){
-                    passwordHint.setText("Password too short");
-                }
-                else if(pw.isWeak()){
-                    passwordHint.setText("Password is weak");
-                }
-                else{
-                    passwordHint.setText("");
-                }
-                return false;
-            }
-        });*/
-
         // login
         loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Email em = new Email(email.getText().toString());
                 Password pw = new Password(password.getText().toString());
-
-                /*// if invalid email or password
-                if((em.isInvalid() || pw.isInvalid())){
-                    if(pw.isEmpty()){
-                        passwordHint.setText("Password missing");
-                    }
-                    if(em.isEmpty()){
-                        emailHint.setText("Email missing");
-                    }
-                    Toast.makeText(LoginActivity.this, "Email or password is in wrong format", Toast.LENGTH_LONG).show();
-                }*/
 
                 if(pw.isEmpty()){
                     passwordHint.setText("Password missing");
@@ -192,37 +136,4 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
-    /*Abdullah's abandoned but 4hrs of hard work code*/
-    public static boolean userExists(final String email, final String password){
-        FirebaseDatabase database = null;
-        DatabaseReference userRef = null;
-        final boolean[] found = null;
-        database = FirebaseDatabase.getInstance();
-        userRef = database.getReference().child("user");
-        userRef.addValueEventListener(new ValueEventListener() {
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long maxId;
-                String emailFB;
-                String passwordFB;
-                if(snapshot.exists()){
-                    maxId = (snapshot.getChildrenCount());
-                    for(int i=1; i<maxId; i++) {
-                        emailFB = snapshot.child("USER-" + i).child("email").getValue(String.class);
-                        passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
-                        if(email.equals(emailFB) && password.equals(passwordFB)){
-                            found[0] = true;
-                            System.out.println("i="+i+",em="+emailFB+",pw="+passwordFB+",found="+found[0]);
-                            i = (int)maxId;
-                        }
-                    }
-                }
-            }
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        System.out.println("found="+found[0]);
-        return found[0];
-    }
-
 }
