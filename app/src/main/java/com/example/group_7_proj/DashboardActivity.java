@@ -11,11 +11,16 @@ import android.widget.Button;
 
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
+    String userNumber = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
+
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
 
         backBtn = (Button)findViewById(R.id.backBtnDB);
         postAJobBtn = (Button)findViewById(R.id.postJobBtnDB);
@@ -34,6 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), JobPostActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
@@ -42,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
@@ -50,6 +57,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });

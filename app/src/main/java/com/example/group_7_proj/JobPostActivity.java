@@ -29,6 +29,7 @@ public class JobPostActivity extends AppCompatActivity {
     Button submitJobPostBtn, backToDashBtn;
     TextView validTextview;
     DatabaseReference rootRef;
+    String userNumber = "";
 
     long maxId = 0;
 
@@ -37,10 +38,11 @@ public class JobPostActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         String firebaseFirstLevel = "jobPostTypeTest";
+        setContentView(R.layout.jobpost);
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
 
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
-
-        setContentView(R.layout.jobpost);
 
         Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
         this.addJobTypeList(jobTypeList);
@@ -58,6 +60,7 @@ public class JobPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });

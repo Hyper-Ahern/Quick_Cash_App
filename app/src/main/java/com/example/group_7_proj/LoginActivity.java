@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                             String emailFB;
                             String passwordFB;
                             boolean found;
+                            long userID = -1;
                             if (snapshot.exists()) {
                                 maxId = (snapshot.getChildrenCount());
                                 found = false;
@@ -142,11 +143,13 @@ public class LoginActivity extends AppCompatActivity {
                                     passwordFB = snapshot.child("USER-" + i).child("password").getValue(String.class);
                                     if (email.getText().toString().equals(emailFB) && password.getText().toString().equals(passwordFB)) {
                                         found = true;
+                                        userID = i;
                                         break;
                                     }
                                 }
                                 if (found) {
                                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    intent.putExtra("User", String.valueOf(userID));
                                     startActivity(intent);
                                     Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
                                 } else {

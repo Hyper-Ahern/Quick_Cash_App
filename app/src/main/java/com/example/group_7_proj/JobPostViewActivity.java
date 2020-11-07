@@ -21,11 +21,14 @@ public class JobPostViewActivity extends AppCompatActivity {
     EditText searchBarText;
     DatabaseReference reff;
     long maxPost = 0;
+    String userNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jobpostview);
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
 
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
@@ -65,11 +68,12 @@ public class JobPostViewActivity extends AppCompatActivity {
 
                 }
 
-                backToMainBtn = findViewById(R.id.clearResultsBtn);
+                backToMainBtn = findViewById(R.id.backToDBBtn);
                 backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        intent.putExtra("User", userNumber);
                         startActivity(intent);
                     }
                 });

@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -29,7 +30,8 @@ public class JobPostViewEspressoTest {
     // checks if the details text box is empty and displays appropriate message
     public void ButtonCanBackToDash() {
         onView(withId(R.id.jobPostView)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        pressBack();
+        onView(withId(R.id.backToDBBtn)).perform(click());
         onView(withId(R.id.dashboard));
 
     }
