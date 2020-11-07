@@ -1,31 +1,31 @@
 package com.example.group_7_proj;
 
-        import android.content.Intent;
-        import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
 
-        import com.example.group_7_proj.CustomDataTypes.Email;
-        import com.example.group_7_proj.CustomDataTypes.Password;
-        import com.example.group_7_proj.CustomDataTypes.User;
-        import com.example.group_7_proj.CustomDataTypes.Name;
-        import com.google.firebase.database.DataSnapshot;
-        import com.google.firebase.database.DatabaseError;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.database.ValueEventListener;
+import com.example.group_7_proj.CustomDataTypes.Email;
+import com.example.group_7_proj.CustomDataTypes.Password;
+import com.example.group_7_proj.CustomDataTypes.User;
+import com.example.group_7_proj.CustomDataTypes.Name;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AlertDialog;
-        import androidx.appcompat.app.AppCompatActivity;
-        import android.view.KeyEvent;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.KeyEvent;
 
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import java.sql.Ref;
+import java.sql.Ref;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -178,7 +178,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     user = new User(name, email, password);
                                     rootRef.child("USER-"+String.valueOf(maxId + 1)).setValue(user);
                                     Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
-                                    intent.putExtra("User", maxId+1);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putLong("User", maxId);
+                                    intent.putExtra("package",bundle);
                                     startActivity(intent);
                                     Toast.makeText(SignUpActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
