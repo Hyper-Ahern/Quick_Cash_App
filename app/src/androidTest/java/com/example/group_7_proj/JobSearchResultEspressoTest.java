@@ -21,7 +21,7 @@ public class JobSearchResultEspressoTest {
     // checks if the details text box is empty and displays appropriate message
     public void ButtonBackToJobPostView() {
         onView(withId(R.id.jobsearchresults)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        onView(withId(R.id.clearResults)).perform(click());
+        onView(withId(R.id.clearResultsBtn)).perform(click());
         onView(withId(R.id.jobPostView));
     }
 

@@ -7,17 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 
 public class JobPostViewActivity extends AppCompatActivity {
@@ -69,7 +65,7 @@ public class JobPostViewActivity extends AppCompatActivity {
 
                 }
 
-                backToMainBtn = findViewById(R.id.clearResults);
+                backToMainBtn = findViewById(R.id.clearResultsBtn);
                 backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){

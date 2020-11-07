@@ -77,7 +77,7 @@ public class JobCatSearchResultActivity extends AppCompatActivity {
 
                 }
 
-                Button backtomainbtn = findViewById(R.id.clearResults);
+                Button backtomainbtn = findViewById(R.id.clearResultsBtn);
                 backtomainbtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
