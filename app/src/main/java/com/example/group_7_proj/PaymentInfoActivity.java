@@ -37,7 +37,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_info_ui);
 
-        getIntent();
         final EditText cardNumberField;
         final EditText expiryDateField;
         final EditText CVVField;
