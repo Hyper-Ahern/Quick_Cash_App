@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class JobTextSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
-    long maxpost = 0;
+    long maxPost = 0;
     String searchText = "";
 
     @Override
@@ -33,12 +33,12 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                maxpost = (snapshot.getChildrenCount());
+                maxPost = (snapshot.getChildrenCount());
                 final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
                 int resultCount = 0;
                 boolean searchTextFound;
 
-                for(long jobID = 1; jobID < maxpost+1; jobID++) {
+                for(long jobID = 1; jobID < maxPost +1; jobID++) {
                     String jobTitle = snapshot.child("JOBPOST-"+jobID).child("jobTitle").getValue().toString();
                     String employerName = snapshot.child("JOBPOST-"+jobID).child("employerName").getValue().toString();
                     String jobDetails = snapshot.child("JOBPOST-"+jobID).child("jobDetails").getValue().toString();
