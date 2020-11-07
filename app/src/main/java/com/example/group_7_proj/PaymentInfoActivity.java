@@ -37,7 +37,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_info_ui);
 
-        getIntent();
         final EditText cardNumberField;
         final EditText expiryDateField;
         final EditText CVVField;
@@ -48,12 +47,14 @@ public class PaymentInfoActivity extends AppCompatActivity {
         card = new Card();
 
         String firebaseFirstLevel = "user";
-        String userNumber = getIntent().getStringExtra("User");
+        Intent callerIntent = getIntent();
+        Bundle fromCaller = callerIntent.getBundleExtra("package");
+        Long userNumber = fromCaller.getLong("User") + 1;
         final String firebaseSecondLevel = ("USER-" + userNumber);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference cardRef = rootRef.child("cards");
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
+        //DatabaseReference cardRef = rootRef.child("cards");
 
 
         cardNumberField = (EditText) findViewById(R.id.cardNumber);
