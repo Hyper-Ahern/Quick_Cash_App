@@ -122,6 +122,7 @@ public class JobPostActivity extends AppCompatActivity {
 
 
     }
+    /*
     @SuppressLint("MissingPermission")
     private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
         @Override
@@ -136,4 +137,5 @@ public class JobPostActivity extends AppCompatActivity {
         }
     });
     }
+    */
 }
