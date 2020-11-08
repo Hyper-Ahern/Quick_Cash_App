@@ -7,6 +7,10 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.example.group_7_proj.CustomDataTypes.GeoLocation;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -30,6 +34,7 @@ import java.util.Locale;
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
     FusedLocationProviderClient fusedLocationProviderClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,12 +132,16 @@ public class DashboardActivity extends AppCompatActivity {
     private void getLocation() {fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
         @Override
         public void onComplete(@NonNull Task<Location> task) {
+            FirebaseDatabase database = null;
+            DatabaseReference userRef = null;
+            database = FirebaseDatabase.getInstance();
+            userRef = database.getReference().child("user");
             Location location =task.getResult();
             String fullAddress = " ";
             GeoLocation userLoc;
             if (location != null){
                 Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
-
+                /*
                 try {
                     userLoc = new GeoLocation(location.getLongitude(), location.getLatitude());
                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
@@ -146,6 +155,7 @@ public class DashboardActivity extends AppCompatActivity {
                 catch (IOException e){
                     e.printStackTrace();
                 }
+                 */
             }
         }
     });

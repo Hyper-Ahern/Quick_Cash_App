@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.group_7_proj.CustomDataTypes.JobPost;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,7 @@ public class JobPostviewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 maxpost = (snapshot.getChildrenCount());
-                HashMap<String,JobPost> viewPost= new HashMap<>();
+                HashMap<String, JobPost> viewPost= new HashMap<>();
                 for(long i = maxpost; i >= 1; i--) {
                     String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
                     String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();

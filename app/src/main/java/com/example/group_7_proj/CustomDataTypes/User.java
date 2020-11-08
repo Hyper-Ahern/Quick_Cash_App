@@ -4,6 +4,9 @@ public class User {
     private Name name;
     private Email email;
     private Password password;
+    private GeoLocation geoLoc;
+    private String[] myAppliedJobs;
+    private JobPost[] myJobPosts;
 
     public User() {
     }
@@ -37,4 +40,12 @@ public class User {
     public void setPassword(String password) {
         this.password.setValue(password);
     }
+
+    public GeoLocation getLocation(){
+        return geoLoc;
+    }
+    public void setLocation(GeoLocation locat){
+        geoLoc = locat;
+    }
+
 }
