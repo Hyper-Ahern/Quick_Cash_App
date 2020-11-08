@@ -38,7 +38,7 @@ public class SignUpFragmentTest {
     //private String errorMessage = "Error Message";
 
     @Test
-    public void PositiveSignUp() { ////am i able to nav to dashboard?
+    public void PositiveSignUp() {
         //onView(withId(R.id.signUpBtnLGP)).perform(click());
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
