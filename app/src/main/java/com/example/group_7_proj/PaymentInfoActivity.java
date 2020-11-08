@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentInfoActivity extends AppCompatActivity {
+    String userNumber = "";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -36,6 +37,8 @@ public class PaymentInfoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_info_ui);
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
 
         final EditText cardNumberField;
         final EditText expiryDateField;
@@ -47,10 +50,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
         card = new Card();
 
         String firebaseFirstLevel = "user";
-        Intent callerIntent = getIntent();
-        Bundle fromCaller = callerIntent.getBundleExtra("package");
-        Long userNumber = fromCaller.getLong("User") + 1;
-        final String firebaseSecondLevel = ("USER-" + userNumber);
+        final String firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
@@ -105,6 +105,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
                     });
 
                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    intent.putExtra("User", userNumber);
                     startActivity(intent);
                     statusButton.setText("Card info OK");
                     Toast.makeText(PaymentInfoActivity.this, "Card registration complete",Toast.LENGTH_LONG).show();

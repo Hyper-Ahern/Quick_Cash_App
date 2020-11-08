@@ -1,10 +1,13 @@
 package com.example.group_7_proj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,37 +20,47 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JobPostActivity extends AppCompatActivity {
-    EditText Employername,jobtitle,salaryinput,jobdetails;
-    Button submitjobpost,backdashBtn;
-    TextView validtextview;
+    EditText employerNameText, jobTitleText, salaryText, jobDetailsText;
+    String jobType;
+    Button submitJobPostBtn, backToDashBtn;
+    TextView validTextview;
     DatabaseReference rootRef;
-    long maxId = 1;
+    String userNumber = "";
+
+    long maxId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "jobPost";
+        String firebaseFirstLevel = "jobPostTypeTest";
+        setContentView(R.layout.jobpost);
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
+
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
-        setContentView(R.layout.jobpost);
-        Employername = findViewById(R.id.employerNameText);
-        jobtitle = findViewById(R.id.jobTitleText);
-        salaryinput = findViewById(R.id.salaryInputText);
-        jobdetails = findViewById(R.id.jobDetailsText);
-        submitjobpost= findViewById(R.id.submitBtnJobPost);
-        validtextview =findViewById(R.id.inputStatusTextview);
-        validtextview.setVisibility(View.GONE);
-        backdashBtn = findViewById(R.id.BackdashBtn);
+        Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+        this.addJobTypeList(jobTypeList);
 
-        backdashBtn.setOnClickListener(new View.OnClickListener(){
+        employerNameText = findViewById(R.id.employerNameText);
+        jobTitleText = findViewById(R.id.jobTitleText);
+        salaryText = findViewById(R.id.salaryInputText);
+        jobDetailsText = findViewById(R.id.jobDetailsText);
+        submitJobPostBtn = findViewById(R.id.submitBtnJobPost);
+        validTextview =findViewById(R.id.inputStatusTextview);
+        validTextview.setVisibility(View.GONE);
+        backToDashBtn = findViewById(R.id.BackdashBtn);
+
+        backToDashBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
@@ -66,43 +79,68 @@ public class JobPostActivity extends AppCompatActivity {
             }
         });
 
-        submitjobpost.setOnClickListener(new View.OnClickListener() {
+        submitJobPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Emname = Employername.getText().toString();
-                String jobtitle1 = jobtitle.getText().toString();
-                String salary = salaryinput.getText().toString();
-                String detail = jobdetails.getText().toString();
-                final JobPost j1 = new JobPost(Emname,jobtitle1,salary,detail);
+                Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
+                jobType = jobTypeList.getSelectedItem().toString();
+
+                String Emname = employerNameText.getText().toString();
+                String jobtitle1 = jobTitleText.getText().toString();
+                String salary = salaryText.getText().toString();
+                String detail = jobDetailsText.getText().toString();
+
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 if(!j1.InvalidEmployerName())
                 {
-                    validtextview.setText("Invalid Employer info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Employer info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobDetails())
                 {
-                    validtextview.setText("Invalid Detail info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Detail info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidJobTitle())
                 {
-                    validtextview.setText("Invalid Job Title info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Job Title info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else if(!j1.InvalidSalary())
                 {
-                    validtextview.setText("Invalid Salary info");
-                    validtextview.setVisibility(View.VISIBLE);
+                    validTextview.setText("Invalid Salary info");
+                    validTextview.setVisibility(View.VISIBLE);
+                }
+                else if(!j1.InvalidJobTypes()){
+                    validTextview.setText("Invalid Job Type info");
+                    validTextview.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     System.out.println(maxId);
                     rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
-                    Toast.makeText(JobPostActivity.this, "Job Posted successfully",Toast.LENGTH_LONG).show();
-                    validtextview.setVisibility(View.GONE);
+                    validTextview.setText("Job Posted Successfully");
+                    Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
+                    validTextview.setVisibility(View.GONE);
                 }
             }
         });
 
     }
+
+    public void addJobTypeList(Spinner jobTypeList) {
+        List<String> jobTypes = new ArrayList<String>();
+        jobTypes.add("--Please select--");
+        jobTypes.add("Dog walking");
+        jobTypes.add("Babysitting");
+        jobTypes.add("Cleaning");
+        jobTypes.add("Computer");
+        jobTypes.add("Delivery");
+        jobTypes.add("Other");
+
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
+        jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        jobTypeList.setAdapter(jobTypeListAdapter);
+    }
 }
+
