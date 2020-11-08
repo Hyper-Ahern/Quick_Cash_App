@@ -49,7 +49,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
         String firebaseFirstLevel = "user";
         Intent callerIntent = getIntent();
         Bundle fromCaller = callerIntent.getBundleExtra("package");
-        Long userNumber = fromCaller.getLong("User") + 1;
+        final Long userNumber = fromCaller.getLong("User") + 1;
         final String firebaseSecondLevel = ("USER-" + userNumber);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -103,11 +103,13 @@ public class PaymentInfoActivity extends AppCompatActivity {
                             statusButton.setText("Error with Signup");
                         }
                     });
-
-                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), ChooseJobPrefActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("User", userNumber);
+                    intent.putExtra("package",bundle);
                     statusButton.setText("Card info OK");
                     Toast.makeText(PaymentInfoActivity.this, "Card registration complete",Toast.LENGTH_LONG).show();
+                    startActivity(intent);
                 }
                 else {
                     statusButton.setText("Invalid Card info");
