@@ -8,6 +8,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
+import com.example.group_7_proj.CustomDataTypes.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -22,20 +24,31 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
     String userNumber = "";
     FusedLocationProviderClient fusedLocationProviderClient;
+    DatabaseReference rootRef;
+    GeoLocation geoLoc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        String firebaseFirstLevel = "user";
+        rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
         setContentView(R.layout.dashboard);
 
         Intent callerIntent = getIntent();
@@ -137,29 +150,52 @@ public class DashboardActivity extends AppCompatActivity {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             return;
-        }
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
-                String fullAddress = " ";
-                if (location != null) {
-                    Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+        } else {
 
-                    try {
 
-                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-                                location.getLongitude(), 1);
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    String fullAddress = " ";
+                    if (location != null) {
+                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
 
-                        fullAddress = addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude();
-                        System.out.println(fullAddress);
+                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude() );
+                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                long maxId;
+                                boolean found;
+                                DatabaseReference user;
+                                if(snapshot.exists()){
+                                    maxId = (snapshot.getChildrenCount());
+                                    user = rootRef.child("USER-"+userNumber);
+                                    Map<String,Object> userLocationInfo = new HashMap<>();
+                                    userLocationInfo.put("geoTag",geoLoc);
+                                    user.updateChildren(userLocationInfo);
+                                    //.makeText(DashboardActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        /*
+                        try {
 
-                        // Push location to database here
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
+                                    location.getLongitude(), 1);
+
+                            fullAddress = addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude();
+                            System.out.println(fullAddress);
+
+                            // Push location to database here
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                         */
                     }
                 }
-            }
-        });
+            });
+        }
     }
 }
