@@ -29,8 +29,8 @@ public class JobPostViewEspressoTest {
     @Test
     // checks if the details text box is empty and displays appropriate message
     public void ButtonCanBackToDash() {
-        pressBack();
-        onView(withId(R.id.jobPostView)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+        closeSoftKeyboard();
+        onView(withId(R.id.jobPostView)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
         onView(withId(R.id.backToDBBtn)).perform(click());
         onView(withId(R.id.dashboard));
 
