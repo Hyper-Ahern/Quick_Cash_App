@@ -47,8 +47,8 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
         String firebaseFirstLevel = "user";
         Intent callerIntent = getIntent();
         Bundle fromCaller = callerIntent.getBundleExtra("package");
-        final Long userNumber = fromCaller.getLong("User"); //null on testing
-        final String firebaseSecondLevel = ("USER-" + userNumber); //userNumber
+        final Long userNumber = fromCaller.getLong("User"); //null on testing comment out when running espresso tests
+        final String firebaseSecondLevel = ("USER-" + userNumber); //use 1 for userNumber when testing
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);

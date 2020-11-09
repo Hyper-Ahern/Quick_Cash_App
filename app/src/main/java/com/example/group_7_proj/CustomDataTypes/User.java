@@ -1,7 +1,7 @@
 package com.example.group_7_proj.CustomDataTypes;
 import java.util.ArrayList;
 
-import com.example.group_7_proj.JobPost;
+import com.example.group_7_proj.CustomDataTypes.JobPost;
 
 import java.util.ArrayList;
 
