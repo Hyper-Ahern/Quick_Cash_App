@@ -17,12 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class JobTextSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
-    long maxpost = 0;
+    long maxPost = 0;
     String searchText = "";
 
     @Override
@@ -32,69 +29,65 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         searchText = intent.getStringExtra("Search Text");
 
-        // insert code here
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                maxpost = (snapshot.getChildrenCount());
-                ArrayList<Long> postposition= new ArrayList<>();
-                final HashMap<Long,JobPost> viewPost= new HashMap<>();
-                for(long i = maxpost; i >= 1; i--) {
-                    String jobTitle = snapshot.child("JOBPOST-"+i).child("jobTitle").getValue().toString();
-                    String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
-                    String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();
-                    String salary = snapshot.child("JOBPOST-"+i).child("salary").getValue().toString();
-                    String jobType = snapshot.child("JOBPOST-"+i).child("jobType").getValue().toString();
-                    JobPost job = new JobPost(employerName,jobTitle,jobType,salary,jobDetails);
-                    boolean check = job.getJobDetails().contains(searchText)||job.getJobTitle().equals(searchText)
-                            ||job.getSalary().equals(searchText)||job.getEmployerName().equals(searchText)
-                            ||job.getJobType().equals(searchText);
-                    if(check)
-                    {
-                        viewPost.put(i, job);
-                        postposition.add(i);
-                    }
-                }
+                maxPost = (snapshot.getChildrenCount());
                 final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
+                int resultCount = 0;
+                boolean searchTextFound;
 
-                if(viewPost.size()>=1) {
-                    for (int i=0; i < viewPost.size(); i++) {
-                            final TextView jobpostnum = new TextView(getApplicationContext());
-                            final TextView jobTitleTextview = new TextView(getApplicationContext());
-                            final TextView employerNameTextview = new TextView(getApplicationContext());
-                            final TextView jobTypeTextview = new TextView(getApplicationContext());
-                            final TextView jobDetailsTextview = new TextView(getApplicationContext());
-                            final TextView salaryTextview = new TextView(getApplicationContext());
+                for(long jobID = 1; jobID < maxPost +1; jobID++) {
+                    String jobTitle = snapshot.child("JOBPOST-"+jobID).child("jobTitle").getValue().toString();
+                    String employerName = snapshot.child("JOBPOST-"+jobID).child("employerName").getValue().toString();
+                    String jobDetails = snapshot.child("JOBPOST-"+jobID).child("jobDetails").getValue().toString();
+                    String salary = snapshot.child("JOBPOST-"+jobID).child("salary").getValue().toString();
+                    String jobType = snapshot.child("JOBPOST-"+jobID).child("jobType").getValue().toString();
 
-                            jobTitleTextview.setText(viewPost.get(postposition.get(i)).getJobTitle());
-                            jobTitleTextview.setTextSize(30);
-                            jobpostnum.setText("Job ID: " + postposition.get(i));
-                            employerNameTextview.setText("Employer Name: "
-                                    + viewPost.get(postposition.get(i)).getEmployerName());
-                            jobTypeTextview.setText("Job Type: " + viewPost.get(postposition.get(i)).getJobType());
-                            jobDetailsTextview.setText("Details: " + viewPost.get(postposition.get(i)).getJobDetails());
-                            salaryTextview.setText("Salary: " + viewPost.get(postposition.get(i)).getSalary() + "\n");
+                    // made search non-case sensitive
+                    searchTextFound = jobTitle.toLowerCase().contains(searchText.toLowerCase())
+                            || jobDetails.toLowerCase().contains(searchText.toLowerCase())
+                            || jobType.toLowerCase().contains(searchText.toLowerCase())
+                            || String.valueOf(jobID).contains(searchText)
+                            || employerName.toLowerCase().contains(searchText.toLowerCase());
 
-                            myLayout.addView(jobTitleTextview);
-                            myLayout.addView(jobpostnum);
-                            myLayout.addView(jobTypeTextview);
-                            myLayout.addView(employerNameTextview);
-                            myLayout.addView(jobDetailsTextview);
-                            myLayout.addView(salaryTextview);
+                    if(searchTextFound){
+                        resultCount += 1;
+                        final TextView jobIDTextview = new TextView(getApplicationContext());
+                        final TextView jobTitleTextview = new TextView(getApplicationContext());
+                        final TextView employerNameTextview = new TextView(getApplicationContext());
+                        final TextView jobTypeTextview = new TextView(getApplicationContext());
+                        final TextView jobDetailsTextview = new TextView(getApplicationContext());
+                        final TextView salaryTextview = new TextView(getApplicationContext());
+
+                        jobTitleTextview.setText(jobTitle);
+                        jobTitleTextview.setTextSize(30);
+                        jobIDTextview.setText("Job ID: " + jobID);
+                        employerNameTextview.setText("Employer Name: " + employerName);
+                        jobTypeTextview.setText("Job Type: " + jobType);
+                        jobDetailsTextview.setText("Details: " + jobDetails);
+                        salaryTextview.setText("Salary: " + salary + "\n");
+
+                        myLayout.addView(jobTitleTextview);
+                        myLayout.addView(jobIDTextview);
+                        myLayout.addView(jobTypeTextview);
+                        myLayout.addView(employerNameTextview);
+                        myLayout.addView(jobDetailsTextview);
+                        myLayout.addView(salaryTextview);
                     }
+
                 }
-                else
-                {
-                    final TextView noresultshowing = new TextView(getApplicationContext());
-                    noresultshowing.setText("No result here. Try type something else");
-                    myLayout.addView(noresultshowing);
+
+                if(resultCount == 0){
+                    final TextView noResultShowing = new TextView(getApplicationContext());
+                    noResultShowing.setText("No result here. Try type something else");
+                    myLayout.addView(noResultShowing);
                     Toast.makeText(JobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-
-                Button backtomainbtn = findViewById(R.id.clearResults);
-                backtomainbtn.setOnClickListener(new View.OnClickListener(){
+                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);

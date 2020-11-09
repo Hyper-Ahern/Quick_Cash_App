@@ -37,7 +37,7 @@
                 android:orientation="vertical"></LinearLayout>
 
             <Button
-                android:id="@+id/clearResults"
+                android:id="@+id/clearResultsBtn"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="100dp"

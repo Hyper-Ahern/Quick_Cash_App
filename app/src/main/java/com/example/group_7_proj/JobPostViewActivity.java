@@ -7,85 +7,73 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
 
 public class JobPostViewActivity extends AppCompatActivity {
-    Button backToMainBtn;
-    Button cat1Btn, cat2Btn, cat3Btn, cat4Btn, cat5Btn, otherBtn, searchBtn;
+    Button backToMainBtn, cat1Btn, cat2Btn, cat3Btn, cat4Btn, cat5Btn, otherBtn, searchBtn;
     EditText searchBarText;
-    String jobType;
     DatabaseReference reff;
-    long maxpost = 0;
+    long maxPost = 0;
+    String userNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.jobpostview);
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
 
-        // insert code here
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                maxpost = (snapshot.getChildrenCount());
-                HashMap<String,JobPost> viewPost= new HashMap<>();
-                for(long i = maxpost; i >= 1; i--) {
-                    String employerName = snapshot.child("JOBPOST-"+i).child("employerName").getValue().toString();
-                    String jobDetails = snapshot.child("JOBPOST-"+i).child("jobDetails").getValue().toString();
-                    String jobTitle = snapshot.child("JOBPOST-"+i).child("jobTitle").getValue().toString();
-                    //add job type here
-                    String jobTypes = snapshot.child("JOBPOST-"+i).child("jobType").getValue().toString();
-                    String salary = snapshot.child("JOBPOST-"+i).child("salary").getValue().toString();
-                    JobPost job = new JobPost(employerName,jobTitle,jobTypes,salary,jobDetails);
-                    viewPost.put(("JOBPOST-"+i),job);
-                }
+                maxPost = (snapshot.getChildrenCount());
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
-                for (int i = 0; i < viewPost.size(); i++) {
-                    final TextView jobpostnum = new TextView(getApplicationContext());
+                for(long jobID = 1; jobID < maxPost+1; jobID++) {
+                    String employerName = snapshot.child("JOBPOST-"+jobID).child("employerName").getValue().toString();
+                    String jobDetails = snapshot.child("JOBPOST-"+jobID).child("jobDetails").getValue().toString();
+                    String jobTitle = snapshot.child("JOBPOST-"+jobID).child("jobTitle").getValue().toString();
+                    String jobType = snapshot.child("JOBPOST-"+jobID).child("jobType").getValue().toString();
+                    String salary = snapshot.child("JOBPOST-"+jobID).child("salary").getValue().toString();
 
-                    int hashMapPosition = i+1;
-                    String salary = "Salary: ";
-                    jobpostnum.setText("Jobpost"+hashMapPosition);
-                    jobpostnum.setTextSize(30);
-                    jobpostnum.setId(i+1);
-                    myLayout.addView(jobpostnum);
-
-                    final TextView employerNameTextview = new TextView(getApplicationContext());
-                    final TextView jobDetailsTextview = new TextView(getApplicationContext());
-                    final TextView jobTypesTextview = new TextView(getApplicationContext());
+                    final TextView jobIDTextview = new TextView(getApplicationContext());
                     final TextView jobTitleTextview = new TextView(getApplicationContext());
+                    final TextView employerNameTextview = new TextView(getApplicationContext());
+                    final TextView jobTypeTextview = new TextView(getApplicationContext());
+                    final TextView jobDetailsTextview = new TextView(getApplicationContext());
                     final TextView salaryTextview = new TextView(getApplicationContext());
 
-                    employerNameTextview.setText("Employer Name: "+viewPost.get("JOBPOST-"+hashMapPosition).getEmployerName());
-                    jobDetailsTextview.setText("Job Details: "+viewPost.get("JOBPOST-"+hashMapPosition).getJobDetails());
-                    jobTypesTextview.setText("Job Types: "+viewPost.get("JOBPOST-"+hashMapPosition).getJobType());
-                    jobTitleTextview.setText("Job Title: "+viewPost.get("JOBPOST-"+hashMapPosition).getJobTitle());
-                    salaryTextview.setText("Salary: "+ viewPost.get("JOBPOST-"+hashMapPosition).getSalary() + "\n");
+                    jobTitleTextview.setText(jobTitle);
+                    jobTitleTextview.setTextSize(30);
+                    jobIDTextview.setText("Job ID: " + jobID);
+                    employerNameTextview.setText("Employer Name: " + employerName);
+                    jobTypeTextview.setText("Job Type: " + jobType);
+                    jobDetailsTextview.setText("Details: " + jobDetails);
+                    salaryTextview.setText("Salary: " + salary + "\n");
 
+                    myLayout.addView(jobTitleTextview);
+                    myLayout.addView(jobIDTextview);
+                    myLayout.addView(jobTypeTextview);
                     myLayout.addView(employerNameTextview);
                     myLayout.addView(jobDetailsTextview);
-                    myLayout.addView(jobTypesTextview);
-                    myLayout.addView(jobTitleTextview);
                     myLayout.addView(salaryTextview);
 
                 }
-                backToMainBtn = findViewById(R.id.clearResults);
+
+                backToMainBtn = findViewById(R.id.backToDBBtn);
                 backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        intent.putExtra("User", userNumber);
                         startActivity(intent);
                     }
                 });

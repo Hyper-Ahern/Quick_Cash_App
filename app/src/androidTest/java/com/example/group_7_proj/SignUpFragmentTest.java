@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -111,6 +112,8 @@ public class SignUpFragmentTest {
         closeSoftKeyboard();
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText("no"));
         closeSoftKeyboard();
+        onView(withId(R.id.signup)).perform(click());
+        pressBack();
         onView(withId(R.id.signUpBtn)).perform(click());
         onView(withId(R.id.passwordErrorMessage2)).check((matches(isDisplayed())));
     }
