@@ -1,4 +1,6 @@
 package com.example.group_7_proj;
+import com.example.group_7_proj.CustomDataTypes.JobPost;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
