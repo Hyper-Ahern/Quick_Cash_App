@@ -29,18 +29,13 @@ public class SignUpFragmentTest {
    @Rule
    public ActivityScenarioRule<SignUpActivity> signUpActivityRule
            = new ActivityScenarioRule<>(SignUpActivity.class);
-    //public ActivityScenarioRule<MainActivity> activityRule =
-      //      new ActivityScenarioRule<>(MainActivity.class);
 
     private String uName = "username1";
     private String uEmail = "email@domain.com";
     private String uPassword = "abCD23$%";
 
-    //private String errorMessage = "Error Message";
-
     @Test
     public void PositiveSignUp() {
-        //onView(withId(R.id.signUpBtnLGP)).perform(click());
         onView(withId(R.id.name)).perform(click()).perform(typeText(uName));
         onView(withId(R.id.email)).perform(click()).perform(typeText(uEmail));
         closeSoftKeyboard();
@@ -49,7 +44,6 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
-        //onView(withId(R.id.dashboard));
     }
     @Test
     public void NegativeNameSignUp() { //display name error message

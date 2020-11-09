@@ -44,8 +44,6 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
         babysitCategory = findViewById(R.id.ckbxBabysit);
         otherCategory = findViewById(R.id.ckbxOther);
 
-
-
         String firebaseFirstLevel = "user";
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");//null on testing comment out when running espresso tests
