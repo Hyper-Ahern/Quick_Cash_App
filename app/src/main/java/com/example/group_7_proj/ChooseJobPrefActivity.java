@@ -23,6 +23,8 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
     private Button submitBtn;
     private CheckBox deliveryCategory, cleanCategory, compCategory, babysitCategory, otherCategory;
 
+    String userNumber = "";
+
     private ArrayList<String> selectedJobCategories;
 
     AlertDialog.Builder builder;
@@ -46,8 +48,7 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
 
         String firebaseFirstLevel = "user";
         Intent callerIntent = getIntent();
-        Bundle fromCaller = callerIntent.getBundleExtra("package");
-        final Long userNumber = fromCaller.getLong("User"); //null on testing comment out when running espresso tests
+        userNumber = callerIntent.getStringExtra("User");//null on testing comment out when running espresso tests
         final String firebaseSecondLevel = ("USER-" + userNumber); //use 1 for userNumber when testing
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -74,6 +75,7 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
                 userJobCategories.put("Job Preferences",selectedJobCategories);
                 rootRef.updateChildren(userJobCategories);
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                intent.putExtra("User",userNumber);
                 startActivity(intent);
             }
         });
