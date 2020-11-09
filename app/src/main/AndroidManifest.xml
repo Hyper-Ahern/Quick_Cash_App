@@ -43,6 +43,7 @@
         <activity android:name=".JobPostActivity" />
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".ChooseJobPrefActivity" />
         <activity android:name=".JobPostViewActivity">
         </activity>
     </application>
