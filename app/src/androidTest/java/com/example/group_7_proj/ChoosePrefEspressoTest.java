@@ -30,27 +30,27 @@ public class ChoosePrefEspressoTest {
         onView(withId(R.id.ckbxDelivery)).check(matches(isChecked()));
     }
     @Test
-    public void positiveBabysitChecked(){//select delivery, displays checked?
+    public void positiveBabysitChecked(){
         onView(withId(R.id.ckbxBabysit)).perform(click());
         onView(withId(R.id.ckbxBabysit)).check(matches(isChecked()));
     }
     @Test
-    public void positiveCompChecked(){//select delivery, displays checked?
+    public void positiveCompChecked(){
         onView(withId(R.id.ckbxComp)).perform(click());
         onView(withId(R.id.ckbxComp)).check(matches(isChecked()));
     }
     @Test
-    public void positiveCleanChecked(){//select delivery, displays checked?
+    public void positiveCleanChecked(){
         onView(withId(R.id.ckbxClean)).perform(click());
         onView(withId(R.id.ckbxClean)).check(matches(isChecked()));
     }
     @Test
-    public void positiveOtherChecked(){//select delivery, displays checked?
+    public void positiveOtherChecked(){
         onView(withId(R.id.ckbxOther)).perform(click());
         onView(withId(R.id.ckbxOther)).check(matches(isChecked()));
     }
     @Test
-    public void positiveUnChecked(){//select delivery, displays checked?
+    public void positiveUnChecked(){
         onView(withId(R.id.ckbxDelivery)).perform(click());
         onView(withId(R.id.ckbxDelivery)).perform(click());
         onView(withId(R.id.ckbxDelivery)).check(matches(isNotChecked()));

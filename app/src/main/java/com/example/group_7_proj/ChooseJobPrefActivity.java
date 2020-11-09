@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChooseJobPrefActivity extends AppCompatActivity {
     private Button submitBtn;
@@ -32,6 +34,7 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
         setContentView(R.layout.choose_jobpref);
 
         submitBtn = findViewById(R.id.btnPickJobPref);
+        selectedJobCategories = new ArrayList<String>();
 
         deliveryCategory = findViewById(R.id.ckbxDelivery);
         cleanCategory = findViewById(R.id.ckbxClean);
@@ -41,14 +44,14 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
 
 
 
-       // String firebaseFirstLevel = "user";
-       // Intent callerIntent = getIntent();
-       // Bundle fromCaller = callerIntent.getBundleExtra("package");
-       // final Long userNumber = fromCaller.getLong("User") + 1;
-       // final String firebaseSecondLevel = ("USER-" + userNumber);
+        String firebaseFirstLevel = "user";
+        Intent callerIntent = getIntent();
+        Bundle fromCaller = callerIntent.getBundleExtra("package");
+        final Long userNumber = fromCaller.getLong("User"); //null on testing
+        final String firebaseSecondLevel = ("USER-" + userNumber); //userNumber
 
-       // final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
 
         builder = new AlertDialog.Builder(this);
 
@@ -58,11 +61,20 @@ public class ChooseJobPrefActivity extends AppCompatActivity {
                 if (deliveryCategory.isChecked()){
                     selectedJobCategories.add("Delivery");
                 }
-
-                //submit btn onclick
-
-                //Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                //startActivity(intent);
+                if (cleanCategory.isChecked()){
+                    selectedJobCategories.add("Cleaning");
+                }
+                if (babysitCategory.isChecked()){
+                    selectedJobCategories.add("Babysitting");
+                }
+                if (otherCategory.isChecked()){
+                    selectedJobCategories.add("Other");
+                }
+                Map<String, Object> userJobCategories = new HashMap<>();
+                userJobCategories.put("Job Preferences",selectedJobCategories);
+                rootRef.updateChildren(userJobCategories);
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
             }
         });
     }
