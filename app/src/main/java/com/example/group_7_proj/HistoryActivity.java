@@ -41,17 +41,21 @@ public class HistoryActivity extends AppCompatActivity {
                 maxPost = (snapshot.getChildrenCount());
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
-
+                // Iterarate through all the job posts and render only those that are user created
                 for(jobID = 1; jobID < maxPost+1; jobID++) {
                     String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
 
+                    // If the current user made the post, render the job, else don't
                     if (trigger.equals(userNumber)) {
+
+                        // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
                         String jobTitle = snapshot.child("JOBPOST-" + jobID).child("jobTitle").getValue().toString();
                         String jobType = snapshot.child("JOBPOST-" + jobID).child("jobType").getValue().toString();
                         String salary = snapshot.child("JOBPOST-" + jobID).child("salary").getValue().toString();
 
+                        // Create the text views
                         final TextView jobIDTextview = new TextView(getApplicationContext());
                         final TextView jobTitleTextview = new TextView(getApplicationContext());
                         final TextView employerNameTextview = new TextView(getApplicationContext());
@@ -59,6 +63,7 @@ public class HistoryActivity extends AppCompatActivity {
                         final TextView jobDetailsTextview = new TextView(getApplicationContext());
                         final TextView salaryTextview = new TextView(getApplicationContext());
 
+                        // Set teh values that were received from the dabase to the text views
                         jobTitleTextview.setText(jobTitle);
                         jobTitleTextview.setTextSize(30);
                         jobIDTextview.setText("Job ID: " + jobID);
@@ -67,6 +72,7 @@ public class HistoryActivity extends AppCompatActivity {
                         jobDetailsTextview.setText("Details: " + jobDetails);
                         salaryTextview.setText("Salary: " + salary + "\n");
 
+                        // Add those text views to the layout so the user can see them
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobIDTextview);
                         myLayout.addView(jobTypeTextview);
@@ -74,21 +80,20 @@ public class HistoryActivity extends AppCompatActivity {
                         myLayout.addView(jobDetailsTextview);
                         myLayout.addView(salaryTextview);
 
-
-                        // Creating the edit button
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        // Creating the edit button for each post
+                        LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button btn = new Button(getApplicationContext());
-                        int x = (int) jobID;
-                        btn.setId(x);
-                        final int id_ = btn.getId();
-                        btn.setText("Edit ");
-                        btn.setBackgroundColor(Color.rgb(0, 191, 255));
-                        LinearLayout layout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        layout.addView(btn, params);
+                        Button edtBtn = new Button(getApplicationContext());
+                        int editJobID = (int) jobID;
+                        edtBtn.setId(editJobID);
+                        final int editID_ = edtBtn.getId();
+                        edtBtn.setText("Edit ");
+                        edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
+                        editLayout.addView(edtBtn, editParams);
 
-                        btn.setOnClickListener(new View.OnClickListener() {
+                        edtBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
                                 Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);
                                 intent.putExtra("postID","JOBPOST-" + jobID);
@@ -96,30 +101,28 @@ public class HistoryActivity extends AppCompatActivity {
                             }
                         });
 
-                        // Creating the delete button
-                        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(
+                        // Creating the delete button for each post
+                        LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button btn1 = new Button(getApplicationContext());
-                        int y = (int) jobID;
-                        btn1.setId(y);
-                        final int id1_ = btn1.getId();
-                        btn1.setText("Delete ");
-                        btn1.setBackgroundColor(Color.rgb(255, 0, 0));
-                        LinearLayout layout1 =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        layout1.addView(btn1, params1);
+                        Button dltBtn = new Button(getApplicationContext());
+                        int deleteJobID = (int) jobID;
+                        dltBtn.setId(deleteJobID);
+                        final int deleteID_ = dltBtn.getId();
+                        dltBtn.setText("Delete ");
+                        dltBtn.setBackgroundColor(Color.rgb(255, 0, 0));
+                        LinearLayout deleteLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
+                        deleteLayout.addView(dltBtn, deleteParams);
 
-                        btn1.setOnClickListener(new View.OnClickListener() {
+                        dltBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
-                                Toast.makeText(view.getContext(),
-                                        "DELETE = " + id1_, Toast.LENGTH_SHORT)
-                                        .show();
                             }
                         });
                     }
 
                 }
 
+                // Creating a back to dashboard button at the bottom of all the posts
                 historyBackToMainBtn = findViewById(R.id.historyBackToDBBtn);
                 historyBackToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -143,6 +146,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
+    // This function finds the string in the search bar to filter out results
     public void searchClicking(Button btn){
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
