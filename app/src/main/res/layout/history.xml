@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-    android:id="@+id/jobPostView"
+    android:id="@+id/history"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -30,10 +30,10 @@ android:layout_height="match_parent"
                     android:layout_width="300sp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:autofillHints=""
                     android:ems="10"
-                    android:hint="@string/search_here"
-                    android:inputType="textPersonName"
-                    android:autofillHints="" />
+                    android:hint="Search History"
+                    android:inputType="textPersonName" />
 
                 <Button
                     android:id="@+id/historySearchBtn"
@@ -53,62 +53,7 @@ android:layout_height="match_parent"
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/categoryBtn1"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/delivery"
-                        android:textColor="#000000" />
-
-                    <Button
-                        android:id="@+id/categoryBtn2"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/computer"
-                        android:textColor="#000000" />
-
-                    <Button
-                        android:id="@+id/categoryBtn3"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/babysitting"
-                        android:textColor="#000000" />
-
-                    <Button
-                        android:id="@+id/categoryBtn4"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/cleaning"
-                        android:textColor="#000000" />
-
-                    <Button
-                        android:id="@+id/categoryBtn5"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/dog_walking"
-                        android:textColor="#000000" />
-
-                    <Button
-                        android:id="@+id/categoryBtnOther"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/other"
-                        android:textColor="#000000" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
             </HorizontalScrollView>
 
         </LinearLayout>

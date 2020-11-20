@@ -8,15 +8,17 @@ public class JobPost{
     private String Salary;
 
     private String JobDetails;
+    private int UserID;
 
     public JobPost() {}
-    public JobPost(String EN,String JT,String JT2,String salary,String JobDetails)
+    public JobPost(String EN,String JT,String JT2,String salary,String JobDetails, int UID)
     {
         this.EmployerName = EN;
         this.JobTitle=JT;
         this.JobType = JT2;
         this.Salary=salary;
         this.JobDetails=JobDetails;
+        this.UserID = UID;
     }
 
 
@@ -40,6 +42,8 @@ public class JobPost{
         return JobType;
     }
 
+    public int getUserID() {return UserID;}
+
     public void setEmployerName(String employerName) {
         EmployerName = employerName;
     }
@@ -55,6 +59,8 @@ public class JobPost{
     public void setSalary(String salary) {
         Salary = salary;
     }
+
+    public void setUserID(int userID) {UserID = userID;}
 
     public boolean InvalidSalary()
     {

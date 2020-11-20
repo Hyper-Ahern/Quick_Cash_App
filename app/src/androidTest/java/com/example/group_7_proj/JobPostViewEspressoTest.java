@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -31,7 +30,7 @@ public class JobPostViewEspressoTest {
     public void ButtonCanBackToDash() {
         closeSoftKeyboard();
         onView(withId(R.id.jobPostView)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
-        onView(withId(R.id.backToDBBtn)).perform(click());
+        onView(withId(R.id.historyBackToDBBtn)).perform(click());
         onView(withId(R.id.dashboard));
 
     }
@@ -128,8 +127,8 @@ public class JobPostViewEspressoTest {
     public void SearchDisplayFine()
     {
         onView(withId(R.id.jobPostView));
-        onView(withId(R.id.searchBar)).perform(clearText()).perform(typeText("asd")).perform(closeSoftKeyboard());
-        onView(withId(R.id.searchBtn)).perform(click());
+        onView(withId(R.id.historySearchBar)).perform(clearText()).perform(typeText("asd")).perform(closeSoftKeyboard());
+        onView(withId(R.id.historySearchBtn)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withId(R.id.layoutDisplaySearchInner));
     }

@@ -42,6 +42,7 @@ public class JobPostActivity extends AppCompatActivity {
         setContentView(R.layout.jobpost);
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+        final int intUserNum = Integer.parseInt(userNumber);
 
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
 
@@ -91,7 +92,7 @@ public class JobPostActivity extends AppCompatActivity {
                 String salary = salaryText.getText().toString();
                 String detail = jobDetailsText.getText().toString();
 
-                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum);
                 if(!j1.InvalidEmployerName())
                 {
                     validTextview.setText("Invalid Employer info");
