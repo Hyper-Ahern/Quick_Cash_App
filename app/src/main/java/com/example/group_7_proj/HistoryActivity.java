@@ -32,6 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
         Intent callerIntent = getIntent();
+
         userNumber = callerIntent.getStringExtra("User");
 
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
@@ -46,8 +47,9 @@ public class HistoryActivity extends AppCompatActivity {
                     String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
 
                     // If the current user made the post, render the job, else don't
+                    System.out.println(userNumber);
                     if (trigger.equals(userNumber)) {
-
+                        System.out.println("yayayaayyayayay");
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
@@ -86,6 +88,7 @@ public class HistoryActivity extends AppCompatActivity {
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                         Button edtBtn = new Button(getApplicationContext());
                         int editJobID = (int) jobID;
+                        final int editJobIDMinusOne = editJobID;
                         edtBtn.setId(editJobID);
                         final int editID_ = edtBtn.getId();
                         edtBtn.setText("Edit ");
@@ -96,7 +99,10 @@ public class HistoryActivity extends AppCompatActivity {
                         edtBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
                                 Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);
-                                intent.putExtra("postID","JOBPOST-" + jobID);
+                                Bundle mBundle = new Bundle();
+                                mBundle.putString("postID", "JOBPOST-" + editJobIDMinusOne);
+                                mBundle.putString("User", userNumber);
+                                intent.putExtras(mBundle);
                                 startActivity(intent);
                             }
                         });

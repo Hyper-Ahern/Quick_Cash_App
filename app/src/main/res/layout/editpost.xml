@@ -43,8 +43,16 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="100dp"
-                android:text="@string/clear_results">
-            </Button>
+                android:text="Submit"></Button>
+
+            <Button
+                android:id="@+id/editPostCancelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginBottom="100dp"
+                android:text="Cancel"></Button>
         </LinearLayout>
 
     </ScrollView>
