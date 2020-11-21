@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,7 @@ import java.util.Map;
 
 public class EditPostActivity extends AppCompatActivity {
     Button editPostBackToMainBtn, submitBtn;
-    EditText editTitle, editEmployeeName, editDetails, editSalary, editType;
+    EditText editTitleField, editEmployeeNameField, editDetailsField, editSalaryField, editTypeField;
     EditText employerNameText, jobTitleText, jobTypeText, jobSalaryText, jobDetailsText ;
     DatabaseReference reff;
     String jobID = "";
@@ -56,20 +55,18 @@ public class EditPostActivity extends AppCompatActivity {
                 String jobType = snapshot.child(jobID).child("jobType").getValue().toString();
 
 
-                editTitle = findViewById(R.id.editJobTitle);
-                editEmployeeName = findViewById(R.id.editEmpName);
-                editDetails = findViewById(R.id.editJobDetails);
-                editSalary = findViewById(R.id.editSalary);
-                editType = findViewById(R.id.editJobType);
+                editTitleField = findViewById(R.id.editJobTitle);
+                editEmployeeNameField = findViewById(R.id.editEmpName);
+                editDetailsField = findViewById(R.id.editJobDetails);
+                editSalaryField = findViewById(R.id.editSalary);
+                editTypeField = findViewById(R.id.editJobType);
 
                 // Set the values that were received from the database to the text views
-                editTitle.setText(jobTitle);
-//                jobTitleTextview.setTextSize(30);
-//                jobIDTextview.setText("Job ID: " + jobID);
-                editEmployeeName.setText(employerName);
-                editDetails.setText(jobDetails);
-                editSalary.setText(salary);
-                editType.setText(jobType);
+                editTitleField.setText(jobTitle);
+                editEmployeeNameField.setText(employerName);
+                editDetailsField.setText(jobDetails);
+                editSalaryField.setText(salary);
+                editTypeField.setText(jobType);
 
                 // Creating a back to History button at the bottom of all the posts
                 editPostBackToMainBtn = findViewById(R.id.editPostCancelBtn);
@@ -94,19 +91,17 @@ public class EditPostActivity extends AppCompatActivity {
                         jobSalaryText = findViewById(R.id.editSalary);
                         jobTypeText = findViewById(R.id.editJobType);
 
-                        String title = jobTitleText.getText().toString();
-                        String empName = employerNameText.getText().toString();
-                        String details = jobDetailsText.getText().toString();
-                        String salary = jobSalaryText.getText().toString();
-                        String type = jobTypeText.getText().toString();
+                        String newTitle = jobTitleText.getText().toString();
+                        String newEmpName = employerNameText.getText().toString();
+                        String newDetails = jobDetailsText.getText().toString();
+                        String newSalary = jobSalaryText.getText().toString();
+                        String newType = jobTypeText.getText().toString();
 
-                        System.out.println(empName);
-
-                        reff.child(jobID).child("jobTitle").setValue(title);
-                        reff.child(jobID).child("employerName").setValue(empName);
-                        reff.child(jobID).child("jobDetails").setValue(details);
-                        reff.child(jobID).child("salary").setValue(salary);
-                        reff.child(jobID).child("jobType").setValue(type);
+                        reff.child(jobID).child("jobTitle").setValue(newTitle);
+                        reff.child(jobID).child("employerName").setValue(newEmpName);
+                        reff.child(jobID).child("jobDetails").setValue(newDetails);
+                        reff.child(jobID).child("salary").setValue(newSalary);
+                        reff.child(jobID).child("jobType").setValue(newType);
                     }
                 });
       }
