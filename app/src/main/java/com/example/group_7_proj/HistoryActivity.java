@@ -47,9 +47,7 @@ public class HistoryActivity extends AppCompatActivity {
                     String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
 
                     // If the current user made the post, render the job, else don't
-                    System.out.println(userNumber);
                     if (trigger.equals(userNumber)) {
-                        System.out.println("yayayaayyayayay");
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
@@ -96,6 +94,7 @@ public class HistoryActivity extends AppCompatActivity {
                         LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(edtBtn, editParams);
 
+                        //When cancel button is clicked, send a bundleof info back to editpostactivity to reload the page
                         edtBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
                                 Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);

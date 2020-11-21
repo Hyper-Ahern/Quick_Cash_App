@@ -28,13 +28,15 @@ public class EditPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editpost);
 
+        //Get ids to return back to the History activity
         Intent callerIntent = getIntent();
         jobID = callerIntent.getStringExtra("postID");
         userNumber = callerIntent.getStringExtra("User");
-        System.out.println(userNumber);
+
 
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
@@ -78,9 +80,6 @@ public class EditPostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("User", userNumber);
                         startActivity(intent);
                     }
