@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,11 +18,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditPostActivity extends AppCompatActivity {
     Button editPostBackToMainBtn, submitBtn;
+    EditText editTitle, editEmployeeName, editDetails, editSalary, editType;
+    EditText employerNameText, jobTitleText, jobTypeText, jobSalaryText, jobDetailsText ;
     DatabaseReference reff;
     String jobID = "";
     String userNumber = "";
+    public Map<String, Boolean> dataMap = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,37 +49,27 @@ public class EditPostActivity extends AppCompatActivity {
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
 
                 // Get values of the database fields
+                String jobTitle = snapshot.child(jobID).child("jobTitle").getValue().toString();
                 String employerName = snapshot.child(jobID).child("employerName").getValue().toString();
                 String jobDetails = snapshot.child(jobID).child("jobDetails").getValue().toString();
-                String jobTitle = snapshot.child(jobID).child("jobTitle").getValue().toString();
+                final String salary = snapshot.child(jobID).child("salary").getValue().toString();
                 String jobType = snapshot.child(jobID).child("jobType").getValue().toString();
-                String salary = snapshot.child(jobID).child("salary").getValue().toString();
 
-                // Create the text views
-                final TextView jobIDTextview = new TextView(getApplicationContext());
-                final TextView jobTitleTextview = new TextView(getApplicationContext());
-                final TextView employerNameTextview = new TextView(getApplicationContext());
-                final TextView jobTypeTextview = new TextView(getApplicationContext());
-                final TextView jobDetailsTextview = new TextView(getApplicationContext());
-                final TextView salaryTextview = new TextView(getApplicationContext());
 
-                // Set teh values that were received from the dabase to the text views
-                jobTitleTextview.setText(jobTitle);
-                jobTitleTextview.setTextSize(30);
-                jobIDTextview.setText("Job ID: " + jobID);
-                employerNameTextview.setText("Employer Name: " + employerName);
-                jobTypeTextview.setText("Job Type: " + jobType);
-                jobDetailsTextview.setText("Details: " + jobDetails);
-                salaryTextview.setText("Salary: " + salary + "\n");
+                editTitle = findViewById(R.id.editJobTitle);
+                editEmployeeName = findViewById(R.id.editEmpName);
+                editDetails = findViewById(R.id.editJobDetails);
+                editSalary = findViewById(R.id.editSalary);
+                editType = findViewById(R.id.editJobType);
 
-                // Add those text views to the layout so the user can see them
-                myLayout.addView(jobTitleTextview);
-                myLayout.addView(jobIDTextview);
-                myLayout.addView(jobTypeTextview);
-                myLayout.addView(employerNameTextview);
-                myLayout.addView(jobDetailsTextview);
-                myLayout.addView(salaryTextview);
-
+                // Set the values that were received from the database to the text views
+                editTitle.setText(jobTitle);
+//                jobTitleTextview.setTextSize(30);
+//                jobIDTextview.setText("Job ID: " + jobID);
+                editEmployeeName.setText(employerName);
+                editDetails.setText(jobDetails);
+                editSalary.setText(salary);
+                editType.setText(jobType);
 
                 // Creating a back to History button at the bottom of all the posts
                 editPostBackToMainBtn = findViewById(R.id.editPostCancelBtn);
@@ -90,7 +87,26 @@ public class EditPostActivity extends AppCompatActivity {
                 submitBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        //sasdasd
+
+                        jobTitleText = findViewById(R.id.editJobTitle);
+                        employerNameText = findViewById(R.id.editEmpName);
+                        jobDetailsText = findViewById(R.id.editJobDetails);
+                        jobSalaryText = findViewById(R.id.editSalary);
+                        jobTypeText = findViewById(R.id.editJobType);
+
+                        String title = jobTitleText.getText().toString();
+                        String empName = employerNameText.getText().toString();
+                        String details = jobDetailsText.getText().toString();
+                        String salary = jobSalaryText.getText().toString();
+                        String type = jobTypeText.getText().toString();
+
+                        System.out.println(empName);
+
+                        reff.child(jobID).child("jobTitle").setValue(title);
+                        reff.child(jobID).child("employerName").setValue(empName);
+                        reff.child(jobID).child("jobDetails").setValue(details);
+                        reff.child(jobID).child("salary").setValue(salary);
+                        reff.child(jobID).child("jobType").setValue(type);
                     }
                 });
       }
