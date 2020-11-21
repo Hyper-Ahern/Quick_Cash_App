@@ -73,19 +73,19 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 1")).check(matches(isDisplayed()));
         onView(withText("Job ID: 5")).check(matches(isDisplayed()));
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        onView(withId(R.id.editPostSubmitBtn)).perform(click());
 
         onView(withId(R.id.categoryBtn3)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 3")).check(matches(isDisplayed()));
         onView(withText("Job ID: 6")).check(matches(isDisplayed()));
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        onView(withId(R.id.editPostSubmitBtn)).perform(click());
 
         onView(withId(R.id.categoryBtn4)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 9")).check(matches(isDisplayed()));
         onView(withText("Job ID: 10")).check(matches(isDisplayed()));
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        onView(withId(R.id.editPostSubmitBtn)).perform(click());
 
     }
 
@@ -111,7 +111,7 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 4")).check(matches(isDisplayed()));
         onView(withText("Job ID: 2")).check(matches(isDisplayed()));
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        onView(withId(R.id.editPostSubmitBtn)).perform(click());
 
         onView(withId(R.id.jobPostView));
         onView(withId(R.id.categoryBtn1)).perform(swipeLeft());
@@ -120,7 +120,7 @@ public class JobPostViewEspressoTest {
         onView(withId(R.id.categoryBtnOther)).perform(click());
         onView(withId(R.id.jobsearchresults));
         onView(withText("Job ID: 8")).check(matches(isDisplayed()));
-        onView(withId(R.id.clearResultsBtn)).perform(click());
+        onView(withId(R.id.editPostSubmitBtn)).perform(click());
     }
 
     @Test

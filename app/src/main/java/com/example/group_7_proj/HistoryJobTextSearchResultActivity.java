@@ -86,7 +86,7 @@ public class HistoryJobTextSearchResultActivity extends AppCompatActivity {
                     Toast.makeText(HistoryJobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                Button clearResultsBtn = findViewById(R.id.editPostSubmitBtn);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
