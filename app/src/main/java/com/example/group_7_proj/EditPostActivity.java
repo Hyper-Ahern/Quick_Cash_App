@@ -27,7 +27,6 @@ public class EditPostActivity extends AppCompatActivity {
     DatabaseReference reff;
     String jobID = "";
     String userNumber = "";
-    public Map<String, Boolean> dataMap = new HashMap<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

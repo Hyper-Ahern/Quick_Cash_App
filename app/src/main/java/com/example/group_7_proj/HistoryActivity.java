@@ -20,8 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class HistoryActivity extends AppCompatActivity {
-    Button historyBackToMainBtn, historySearchBtn;
-    EditText searchBarText;
+    Button historyBackToMainBtn;
     DatabaseReference reff;
     long maxPost = 0;
     String userNumber = "";
@@ -112,6 +111,7 @@ public class HistoryActivity extends AppCompatActivity {
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                         Button dltBtn = new Button(getApplicationContext());
                         int deleteJobID = (int) jobID;
+                        final int deleteJobIDMinusOne = deleteJobID;
                         dltBtn.setId(deleteJobID);
                         final int deleteID_ = dltBtn.getId();
                         dltBtn.setText("Delete ");
@@ -121,6 +121,11 @@ public class HistoryActivity extends AppCompatActivity {
 
                         dltBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
+                                System.out.println("JOBPOST-" + deleteJobIDMinusOne);
+                                reff.child("JOBPOST-" + deleteJobIDMinusOne).removeValue();
+                                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                                intent.putExtra("User", userNumber);
+                                startActivity(intent);
                             }
                         });
                     }
@@ -138,9 +143,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 });
 
-                historySearchBtn = (Button)findViewById(R.id.historySearchBtn);
 
-                searchClicking(historySearchBtn);
             }
 
             @Override
@@ -151,17 +154,4 @@ public class HistoryActivity extends AppCompatActivity {
 
     }
 
-    // This function finds the string in the search bar to filter out results
-    public void searchClicking(Button btn){
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                searchBarText = findViewById(R.id.historySearchBar);
-                String searchText = searchBarText.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), HistoryJobTextSearchResultActivity.class);
-                intent.putExtra("Search Text", searchText);
-                startActivity(intent);
-            }
-        });
-    }
 }
