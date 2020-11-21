@@ -30,8 +30,8 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
-        Intent callerIntent = getIntent();
 
+        Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
@@ -119,6 +119,9 @@ public class HistoryActivity extends AppCompatActivity {
                         LinearLayout deleteLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         deleteLayout.addView(dltBtn, deleteParams);
 
+
+
+                        //When delete is clicked, remove the child from the database and re render the page
                         dltBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
                                 System.out.println("JOBPOST-" + deleteJobIDMinusOne);
