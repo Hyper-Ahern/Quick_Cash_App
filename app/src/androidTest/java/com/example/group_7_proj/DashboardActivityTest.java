@@ -57,6 +57,14 @@ public class DashboardActivityTest {
         onView(withId(R.id.paymentInfo));
     }
 
+    @Test
+    // check if app is able to navigate to Accepted Jobs it3 RB&AZ US AT9.1
+    public void navToAcceptedJobs(){
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.acceptedJobs)).perform(click());
+        onView(withId(R.id.acceptedJobView));
+    }
+
 
 
 }
