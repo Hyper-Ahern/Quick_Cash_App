@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,11 +55,17 @@ public class JobPostViewActivity extends AppCompatActivity {
 
                     jobTitleTextview.setText(jobTitle);
                     jobTitleTextview.setTextSize(30);
+                    jobTitleTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     jobIDTextview.setText("Job ID: " + jobID);
+                    jobIDTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     employerNameTextview.setText("Employer Name: " + employerName);
+                    employerNameTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     jobTypeTextview.setText("Job Type: " + jobType);
+                    jobTypeTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     jobDetailsTextview.setText("Details: " + jobDetails);
+                    jobDetailsTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     salaryTextview.setText("Salary: " + salary + "\n");
+                    salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
 
                     myLayout.addView(jobTitleTextview);
                     myLayout.addView(jobIDTextview);

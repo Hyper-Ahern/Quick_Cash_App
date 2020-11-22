@@ -3,7 +3,9 @@ package com.example.group_7_proj;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,6 +14,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +39,7 @@ public class HistoryActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
+        System.out.println(userNumber);
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,11 +71,18 @@ public class HistoryActivity extends AppCompatActivity {
                         // Set teh values that were received from the dabase to the text views
                         jobTitleTextview.setText(jobTitle);
                         jobTitleTextview.setTextSize(30);
+                        jobTitleTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobIDTextview.setText("Job ID: " + jobID);
+                        jobIDTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         employerNameTextview.setText("Employer Name: " + employerName);
+                        employerNameTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobTypeTextview.setText("Job Type: " + jobType);
+                        jobTypeTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobDetailsTextview.setText("Details: " + jobDetails);
+                        jobDetailsTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         salaryTextview.setText("Salary: " + salary + "\n");
+                        salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
+
 
                         // Add those text views to the layout so the user can see them
                         myLayout.addView(jobTitleTextview);
@@ -80,9 +93,11 @@ public class HistoryActivity extends AppCompatActivity {
                         myLayout.addView(salaryTextview);
 
                         // Creating the edit button for each post
-                        LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(400,
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
+                        editParams.gravity = Gravity.CENTER;
+                        editParams.bottomMargin = 20;
                         Button edtBtn = new Button(getApplicationContext());
                         int editJobID = (int) jobID;
                         final int editJobIDMinusOne = editJobID;
@@ -90,6 +105,7 @@ public class HistoryActivity extends AppCompatActivity {
                         final int editID_ = edtBtn.getId();
                         edtBtn.setText("Edit ");
                         edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        edtBtn.setTextSize(20);
                         LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(edtBtn, editParams);
 
@@ -106,9 +122,11 @@ public class HistoryActivity extends AppCompatActivity {
                         });
 
                         // Creating the delete button for each post
-                        LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(400,
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
+                        deleteParams.gravity = Gravity.CENTER;
+                        deleteParams.bottomMargin = 20;
                         Button dltBtn = new Button(getApplicationContext());
                         int deleteJobID = (int) jobID;
                         final int deleteJobIDMinusOne = deleteJobID;
@@ -116,10 +134,9 @@ public class HistoryActivity extends AppCompatActivity {
                         final int deleteID_ = dltBtn.getId();
                         dltBtn.setText("Delete ");
                         dltBtn.setBackgroundColor(Color.rgb(255, 0, 0));
+                        dltBtn.setTextSize(20);
                         LinearLayout deleteLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         deleteLayout.addView(dltBtn, deleteParams);
-
-
 
                         //When delete is clicked, remove the child from the database and re render the page
                         dltBtn.setOnClickListener(new View.OnClickListener() {

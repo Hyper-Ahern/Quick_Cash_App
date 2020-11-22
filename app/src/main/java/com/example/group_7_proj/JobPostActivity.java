@@ -2,8 +2,10 @@ package com.example.group_7_proj;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -130,7 +132,21 @@ public class JobPostActivity extends AppCompatActivity {
 
     }
 
+
+
     public void addJobTypeList(Spinner jobTypeList) {
+
+        jobTypeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         List<String> jobTypes = new ArrayList<String>();
         jobTypes.add("--Please select--");
         jobTypes.add("Dog walking");

@@ -24,11 +24,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -76,7 +79,11 @@ public class DashboardActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                FirebaseDatabase.getInstance();
+                FirebaseAuth.
+                reff.getInstance().signOut();
                 startActivity(intent);
+                finish();
             }
         });
 
