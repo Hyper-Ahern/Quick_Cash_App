@@ -64,6 +64,16 @@ public class DashboardActivityTest {
         onView(withId(R.id.acceptedJobs)).perform(click());
         onView(withId(R.id.acceptedJobView));
     }
+    @Test
+    // check if app is able to use the 'Make a payment' button in 'History' page
+    public void clickMakeAPayment(){
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.historyBtn)).perform(click());
+        onView(withId(R.id.mkPaymentBtn));
+
+    }
+
+
 
 
 
