@@ -79,9 +79,6 @@ public class DashboardActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                FirebaseDatabase.getInstance();
-                FirebaseAuth.
-                reff.getInstance().signOut();
                 startActivity(intent);
                 finish();
             }
@@ -204,20 +201,6 @@ public class DashboardActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
-                        /*
-                        try {
-
-                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-                                    location.getLongitude(), 1);
-
-                            fullAddress = addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude();
-                            System.out.println(fullAddress);
-
-                            // Push location to database here
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                         */
                     }
                 }
             });
