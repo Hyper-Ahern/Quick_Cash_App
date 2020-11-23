@@ -139,13 +139,20 @@ public class HistoryActivity extends AppCompatActivity {
                         Button mkPaymentBtn = new Button(getApplicationContext());
                        // int deleteJobID = (int) jobID;
                         //final int deleteJobIDMinusOne = deleteJobID;
-                        mkPaymentBtn.setId(deleteJobID);
+
 
                         mkPaymentBtn.setText("Make A Payment");
                         mkPaymentBtn.setBackgroundColor(Color.rgb(0, 255, 255));
                         LinearLayout mkPaymentLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        mkPaymentLayout.addView(mkPaymentBtn, deleteParams);
+                        mkPaymentLayout.addView(mkPaymentBtn, makePaymentParams);
 
+                        mkPaymentBtn.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent(getApplicationContext(), MainActivity1.class);
+                                startActivity(intent);
+                            }
+                        });
 
 
                     }
