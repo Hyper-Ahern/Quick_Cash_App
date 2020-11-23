@@ -26,7 +26,7 @@ android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/searchBar"
+                    android:id="@+id/historySearchBar"
                     android:layout_width="300sp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@ android:layout_height="match_parent"
                     android:autofillHints="" />
 
                 <Button
-                    android:id="@+id/searchBtn"
+                    android:id="@+id/historySearchBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -142,7 +142,7 @@ android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
 
                 <Button
-                    android:id="@+id/backToDBBtn"
+                    android:id="@+id/historyBackToDBBtn"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="100dp"
