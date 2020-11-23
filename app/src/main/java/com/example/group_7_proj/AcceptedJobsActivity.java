@@ -5,23 +5,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.group_7_proj.DashboardActivity;
+import com.example.group_7_proj.EditPostActivity;
+import com.example.group_7_proj.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-public class HistoryActivity extends AppCompatActivity {
+public class AcceptedJobsActivity extends AppCompatActivity {
     Button historyBackToMainBtn;
-    DatabaseReference reff;
+    DatabaseReference reff2;
     long maxPost = 0;
     String userNumber = "";
     public static long jobID;
@@ -29,13 +30,13 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history);
+        setContentView(R.layout.acceptedjobs);
 
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
-        reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
-        reff.addValueEventListener(new ValueEventListener() {
+        reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 maxPost = (snapshot.getChildrenCount());
@@ -88,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
                         final int editJobIDMinusOne = editJobID;
                         edtBtn.setId(editJobID);
                         final int editID_ = edtBtn.getId();
-                        edtBtn.setText("Edit ");
+                        edtBtn.setText("Mark the Jobs as Completed ");
                         edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
                         LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(edtBtn, editParams);
@@ -104,47 +105,6 @@ public class HistoryActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-
-                        // Creating the delete button for each post
-                        LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button dltBtn = new Button(getApplicationContext());
-                        int deleteJobID = (int) jobID;
-                        final int deleteJobIDMinusOne = deleteJobID;
-                        dltBtn.setId(deleteJobID);
-                        final int deleteID_ = dltBtn.getId();
-                        dltBtn.setText("Delete ");
-                        dltBtn.setBackgroundColor(Color.rgb(255, 0, 0));
-                        LinearLayout deleteLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        deleteLayout.addView(dltBtn, deleteParams);
-
-
-
-                        //When delete is clicked, remove the child from the database and re render the page
-                        dltBtn.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View view) {
-                                System.out.println("JOBPOST-" + deleteJobIDMinusOne);
-                                reff.child("JOBPOST-" + deleteJobIDMinusOne).removeValue();
-                                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                                intent.putExtra("User", userNumber);
-                                startActivity(intent);
-                            }
-                        });
-
-                        //Create a Make a payment button
-                        LinearLayout.LayoutParams makePaymentParams = new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button mkPaymentBtn = new Button(getApplicationContext());
-                       // int deleteJobID = (int) jobID;
-                        //final int deleteJobIDMinusOne = deleteJobID;
-                        mkPaymentBtn.setId(deleteJobID);
-
-                        mkPaymentBtn.setText("Make A Payment");
-                        mkPaymentBtn.setBackgroundColor(Color.rgb(0, 255, 255));
-                        LinearLayout mkPaymentLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        mkPaymentLayout.addView(mkPaymentBtn, deleteParams);
 
 
 
