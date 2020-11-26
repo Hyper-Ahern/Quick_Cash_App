@@ -14,6 +14,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -39,9 +40,13 @@ import java.util.Map;
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
     String userNumber = "";
+    long preferenceCount=0;
+    DatabaseReference userpreference;
     FusedLocationProviderClient fusedLocationProviderClient;
     DatabaseReference rootRef;
     GeoLocation geoLoc;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
 
     @Override
@@ -50,9 +55,22 @@ public class DashboardActivity extends AppCompatActivity {
         String firebaseFirstLevel = "user";
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
         setContentView(R.layout.dashboard);
-
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+        userpreference=rootRef.child("USER-"+userNumber).child("Job Preferences");
+        userpreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                preferenceCount=(snapshot.getChildrenCount());
+                System.out.println(userpreference.child("0"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        System.out.println(preferenceCount);
 
         locationFinder();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -118,6 +136,11 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public void SeeMatchedJobPostDiaglog()
+    {
+        dialogBuilder= new AlertDialog.Builder(this);
+        final View PopupView = getLayoutInflater().inflate(R.layout.popup,null);
     }
 
     public void locationFinder() {

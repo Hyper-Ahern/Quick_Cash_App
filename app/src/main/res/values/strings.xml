@@ -27,4 +27,6 @@
     <string name="search">search</string>
     <string name="search_here">Search Here</string>
     <string name="clear_results">clear results</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
