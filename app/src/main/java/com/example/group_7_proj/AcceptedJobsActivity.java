@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.group_7_proj.DashboardActivity;
 import com.example.group_7_proj.EditPostActivity;
@@ -34,6 +36,15 @@ public class AcceptedJobsActivity extends AppCompatActivity {
 
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+
+
+
+
+
+
+
+
+
 
         reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff2.addValueEventListener(new ValueEventListener() {
