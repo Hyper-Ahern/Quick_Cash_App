@@ -83,4 +83,16 @@ public class JobPostTest
 
     }
 
+    @Test
+    public void checkJobGeoLocation(){
+        JobPost j1 = new JobPost();
+        j1.setGeoLoc(11,12);
+        assertTrue(j1.validGeoLoc());
+
+        // wrong data type
+        JobPost j2 = new JobPost();
+        j2.setGeoLoc('a',12);
+        assertFalse(j2.validGeoLoc());
+    }
+
 }
