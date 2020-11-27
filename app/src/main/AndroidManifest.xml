@@ -51,14 +51,9 @@
 
         <activity
             android:name=".MainActivity1"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppTheme.NoActionBar"
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        />
 
         <activity android:name=".PaymentStatus" />
         <activity android:name=".EditPostActivity">

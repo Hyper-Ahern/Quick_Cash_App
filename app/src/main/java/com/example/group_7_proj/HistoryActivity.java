@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HistoryActivity extends AppCompatActivity {
     Button historyBackToMainBtn;
-    DatabaseReference reff;
+    DatabaseReference reff,refPayPal;
     long maxPost = 0;
     String userNumber = "";
     public static long jobID;
@@ -38,6 +38,13 @@ public class HistoryActivity extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*
+                if (snapshot.hasChild("Empty")) {
+                    reff.child("Empty").removeValue();
+                }*/
+
+
+
                 maxPost = (snapshot.getChildrenCount());
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
@@ -47,6 +54,8 @@ public class HistoryActivity extends AppCompatActivity {
 
                     // If the current user made the post, render the job, else don't
                     if (trigger.equals(userNumber)) {
+
+                        final long tempJobID = jobID;
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
@@ -147,7 +156,28 @@ public class HistoryActivity extends AppCompatActivity {
                         mkPaymentBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity1.class);
+                                intent.putExtra("JobID","JOBPOST-"+tempJobID );
                                 startActivity(intent);
+                                refPayPal.child("paypalIndex").push().setValue("JOBPOST-"+tempJobID);
+                                /*
+                                refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
+
+                                refPayPal.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        refPayPal.setValue("JOBPOST-"+tempJobID);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                                //refPayPal.setValue("JOBPOST-"+tempJobID);
+                                */
+
                             }
                         });
 

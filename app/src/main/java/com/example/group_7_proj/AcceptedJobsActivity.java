@@ -37,15 +37,6 @@ public class AcceptedJobsActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
-
-
-
-
-
-
-
-
-
         reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,12 +50,15 @@ public class AcceptedJobsActivity extends AppCompatActivity {
 
                     // If the current user made the post, render the job, else don't
                     if (trigger.equals(userNumber)) {
+                        final long tempJobID = jobID;
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
                         String jobTitle = snapshot.child("JOBPOST-" + jobID).child("jobTitle").getValue().toString();
                         String jobType = snapshot.child("JOBPOST-" + jobID).child("jobType").getValue().toString();
                         String salary = snapshot.child("JOBPOST-" + jobID).child("salary").getValue().toString();
+
+                       // String completionStatus = snapshot.child("JOBPOST-" + jobID).child("completionStatus").getValue().toString();
 
                         // Create the text views
                         final TextView jobIDTextview = new TextView(getApplicationContext());
@@ -95,25 +89,21 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button edtBtn = new Button(getApplicationContext());
+                        Button completeBtn = new Button(getApplicationContext());
                         int editJobID = (int) jobID;
                         final int editJobIDMinusOne = editJobID;
-                        edtBtn.setId(editJobID);
-                        final int editID_ = edtBtn.getId();
-                        edtBtn.setText("Mark the Jobs as Completed ");
-                        edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        completeBtn.setId(editJobID);
+                        final int editID_ = completeBtn.getId();
+                        completeBtn.setText("Mark the Jobs as Completed ");
+                        completeBtn.setBackgroundColor(Color.rgb(0, 191, 255));
                         LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        editLayout.addView(edtBtn, editParams);
+                        editLayout.addView(completeBtn, editParams);
 
                         //When cancel button is clicked, send a bundleof info back to editpostactivity to reload the page
-                        edtBtn.setOnClickListener(new View.OnClickListener() {
+                        completeBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
-                                Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);
-                                Bundle mBundle = new Bundle();
-                                mBundle.putString("postID", "JOBPOST-" + editJobIDMinusOne);
-                                mBundle.putString("User", userNumber);
-                                intent.putExtras(mBundle);
-                                startActivity(intent);
+
+                                reff2.child("JOBPOST-"+tempJobID).child("completionStatus").setValue("Completed");
                             }
                         });
 
