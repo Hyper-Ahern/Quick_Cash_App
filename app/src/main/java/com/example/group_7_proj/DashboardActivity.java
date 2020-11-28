@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,14 +33,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn,popupyes,popupno;
+    private TextView displayjobpreferencetextview;
+    static boolean ifpopup=true;
     String userNumber = "";
+    String displayallPreference="";
+    ArrayList<String> prelist;
     long preferenceCount=0;
     DatabaseReference userpreference;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -57,12 +63,20 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard);
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
-        userpreference=rootRef.child("USER-"+userNumber).child("Job Preferences");
+        userpreference=FirebaseDatabase.getInstance().getReference().child("user").child("USER-"+userNumber).child("Job Preferences");
         userpreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 preferenceCount=(snapshot.getChildrenCount());
-                System.out.println(userpreference.child("0"));
+                prelist= new ArrayList<>((int)preferenceCount);
+                for(long i=0;i<preferenceCount;i++)
+                {
+                    String str=String.valueOf(i);
+                    prelist.add((String) snapshot.child(str).getValue());
+                    displayallPreference=displayallPreference+prelist.get((int)i)+" ";
+                }
+                if(ifpopup)
+                SeeMatchedJobPostDialog(displayallPreference);
             }
 
             @Override
@@ -70,7 +84,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
         });
-        System.out.println(preferenceCount);
+
 
         locationFinder();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -136,11 +150,35 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
-    public void SeeMatchedJobPostDiaglog()
+    public void SeeMatchedJobPostDialog(final String preference)
     {
         dialogBuilder= new AlertDialog.Builder(this);
         final View PopupView = getLayoutInflater().inflate(R.layout.popup,null);
+        displayjobpreferencetextview = PopupView.findViewById(R.id.matchpreferencetextview);
+        popupyes = PopupView.findViewById(R.id.seematchedjobbutton);
+        popupno = PopupView.findViewById(R.id.cancelmatchbutton);
+        displayjobpreferencetextview.setText("We detected your Job Preference: "+preference+"Do you want to see the matched result?");
+        dialogBuilder.setView(PopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        popupyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ifpopup=false;
+                Intent intent = new Intent(getApplicationContext(), JobPreferenceMatchActivity.class);
+                intent.putExtra("JobPreference", preference);
+                startActivity(intent);
+
+            }
+        });
+        popupno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     public void locationFinder() {

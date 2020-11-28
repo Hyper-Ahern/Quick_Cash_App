@@ -57,6 +57,15 @@ public class DashboardActivityTest {
         onView(withId(R.id.paymentInfo));
     }
 
+    @Test
+    // checks if app is able to successfully navigate to dashboard
+    public void popupexist() {
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.popuplayout));
+        onView(withId(R.id.seematchedjobbutton)).perform(click());
+        onView(withId(R.id.jobsearchresults));
+    }
+
 
 
 }
