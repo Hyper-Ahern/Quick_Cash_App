@@ -52,7 +52,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                 for(jobID = 1; jobID < maxPost+1; jobID++) {
 
 
-                    String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
+                    String trigger = snapshot.child("JOBPOST-"+jobID).child("employeeID").getValue().toString();
                     final String paymentStatus = snapshot.child("JOBPOST-"+jobID).child("completionStatus").getValue().toString();
 
 
