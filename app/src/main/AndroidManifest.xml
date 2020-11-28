@@ -50,6 +50,7 @@
         <activity android:name=".AcceptedJobsActivity" />
 
         <activity
+
             android:name=".MainActivity1"
             android:theme="@style/AppTheme.NoActionBar"
 

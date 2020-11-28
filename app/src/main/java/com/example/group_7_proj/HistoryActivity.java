@@ -3,6 +3,7 @@ package com.example.group_7_proj;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class HistoryActivity extends AppCompatActivity {
@@ -38,10 +41,12 @@ public class HistoryActivity extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                /*
+
                 if (snapshot.hasChild("Empty")) {
                     reff.child("Empty").removeValue();
-                }*/
+                }
+
+
 
 
 
@@ -50,12 +55,18 @@ public class HistoryActivity extends AppCompatActivity {
 
                 // Iterarate through all the job posts and render only those that are user created
                 for(jobID = 1; jobID < maxPost+1; jobID++) {
+                    if (snapshot.hasChild("Empty")) {
+                        reff.child("Empty").removeValue();
+                    }
+
                     String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
 
                     // If the current user made the post, render the job, else don't
                     if (trigger.equals(userNumber)) {
 
                         final long tempJobID = jobID;
+                        final String userNumberPaypal = userNumber;
+
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
                         String jobDetails = snapshot.child("JOBPOST-" + jobID).child("jobDetails").getValue().toString();
@@ -155,17 +166,24 @@ public class HistoryActivity extends AppCompatActivity {
 
                         mkPaymentBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
+
+
+
+
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity1.class);
                                 intent.putExtra("JobID","JOBPOST-"+tempJobID );
+                                intent.putExtra("UserNumPaypal", userNumberPaypal);
                                 startActivity(intent);
-                                refPayPal.child("paypalIndex").push().setValue("JOBPOST-"+tempJobID);
+                                //refPayPal.child("paypalIndex").push().setValue("JOBPOST-"+tempJobID);
                                 /*
                                 refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
 
                                 refPayPal.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        refPayPal.setValue("JOBPOST-"+tempJobID);
+                                        refPayPal.child("jobID").setValue("JOBPOST-"+tempJobID);
+                                        refPayPal.child("userID").setValue(userNumber);
                                     }
 
                                     @Override
@@ -173,10 +191,12 @@ public class HistoryActivity extends AppCompatActivity {
 
                                     }
                                 });
+                                */
+
 
 
                                 //refPayPal.setValue("JOBPOST-"+tempJobID);
-                                */
+
 
                             }
                         });
@@ -195,6 +215,7 @@ public class HistoryActivity extends AppCompatActivity {
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                         intent.putExtra("User", userNumber);
+
                         startActivity(intent);
                     }
                 });

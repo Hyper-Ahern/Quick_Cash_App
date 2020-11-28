@@ -1,14 +1,17 @@
 package com.example.group_7_proj;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -42,14 +45,20 @@ public class AcceptedJobsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 maxPost = (snapshot.getChildrenCount());
+
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
                 // Iterarate through all the job posts and render only those that are user created
                 for(jobID = 1; jobID < maxPost+1; jobID++) {
+
+
                     String trigger = snapshot.child("JOBPOST-"+jobID).child("userID").getValue().toString();
+                    final String paymentStatus = snapshot.child("JOBPOST-"+jobID).child("completionStatus").getValue().toString();
+
 
                     // If the current user made the post, render the job, else don't
                     if (trigger.equals(userNumber)) {
+
                         final long tempJobID = jobID;
                         // Get values of the database fields
                         String employerName = snapshot.child("JOBPOST-" + jobID).child("employerName").getValue().toString();
@@ -89,13 +98,30 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
-                        Button completeBtn = new Button(getApplicationContext());
-                        int editJobID = (int) jobID;
-                        final int editJobIDMinusOne = editJobID;
-                        completeBtn.setId(editJobID);
-                        final int editID_ = completeBtn.getId();
+                        final Button completeBtn = new Button(getApplicationContext());
+                        // if the status is completed, then it should be shown as completed and not clickable
+                        if(paymentStatus.equals("Completed")){
+                            completeBtn.setText("Job is completed");
+                            completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
+
+                            LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
+                            editLayout.addView(completeBtn, editParams);
+
+                        }
+
+                        else{
+
+
                         completeBtn.setText("Mark the Jobs as Completed ");
                         completeBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        int editJobID = (int) jobID;
+                        //final int editJobIDMinusOne = editJobID;
+                        completeBtn.setId(editJobID);
+                        //final int editID_ = completeBtn.getId();
+
+
+
+
                         LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(completeBtn, editParams);
 
@@ -103,13 +129,59 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                         completeBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
 
-                                reff2.child("JOBPOST-"+tempJobID).child("completionStatus").setValue("Completed");
+
+                                new AlertDialog.Builder(AcceptedJobsActivity.this)
+                                        .setTitle("Confirm")
+                                        .setMessage("Mark the job as completed?")
+
+                                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                                        // The dialog is automatically dismissed when a dialog button is clicked.
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Continue with delete operation
+                                                reff2.child("JOBPOST-"+tempJobID).child("completionStatus").setValue("Completed");
+                                                completeBtn.setText("Job is completed");
+                                                completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
+                                                // reload the activity
+                                                /*
+                                                finish();
+                                                startActivity(getIntent());
+
+                                                 */
+                                                setContentView(R.layout.acceptedjobs);
+                                            }
+                                        })
+
+                                        // A null listener allows the button to dismiss the dialog and take no further action.
+                                        .setNegativeButton(android.R.string.no, null)
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+
+
+
+
+
+
+
+                                }
+
                             }
-                        });
+
+                            );
+
+
+
+                        }
+
+
 
 
 
                     }
+
+
+                    //editParams.removeView();
+
 
                 }
 
@@ -133,6 +205,11 @@ public class AcceptedJobsActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
     }
 
 }
+
