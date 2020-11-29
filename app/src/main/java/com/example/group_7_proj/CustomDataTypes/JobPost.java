@@ -13,6 +13,8 @@ public class JobPost{
     private String PaymentStatus;
     private String CompletionStatus;
 
+    //private int EmployeeID;
+
     public JobPost() {}
     public JobPost(String EN,String JT,String JT2,String salary,String JobDetails, int UID, String paymentStatus, String completionStatus)
     {
@@ -22,6 +24,8 @@ public class JobPost{
         this.Salary=salary;
         this.JobDetails=JobDetails;
         this.UserID = UID;
+
+        //this.EmployeeID = employeeID;
 
         this.PaymentStatus = paymentStatus;
         this.CompletionStatus = completionStatus;
