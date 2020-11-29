@@ -22,4 +22,23 @@ public class PreferenceActivityTest {
         onView(withId(R.id.dashboard));
 
     }
+
+    @Test
+    public void CheckboxTest() {
+        onView((withId(R.id.preference)));
+        onView(withId(R.id.pref_babysitting)).perform(click());
+        onView(withId(R.id.pref_delivery)).perform(click());
+        onView(withId(R.id.pref_other)).perform(click());
+        onView(withId(R.id.pref_backdashBtn)).perform(click());
+        onView(withId(R.id.dashboard));
+
+    }
+    @Test
+    public void UncheckCheckboxes(){
+        onView((withId(R.id.preference)));
+        onView(withId(R.id.pref_babysitting)).perform(click());
+        onView(withId(R.id.pref_delivery)).perform(click());
+        onView(withId(R.id.pref_babysitting)).perform(click());
+
+    }
 }

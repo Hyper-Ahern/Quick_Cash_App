@@ -46,10 +46,10 @@ public class PrefActivity extends AppCompatActivity {
         }
         final CheckBox computer = (CheckBox) findViewById(R.id.pref_computer);
         if (babysitting.isChecked()) { //database shows as true
-            computer.setChecked(true);
+            computer.setChecked(false);
         }
         else{
-            computer.setChecked(false);
+            computer.setChecked(true);
         }
         final CheckBox delivery = (CheckBox) findViewById(R.id.pref_delivery);
         if (babysitting.isChecked()) { //database shows as true
