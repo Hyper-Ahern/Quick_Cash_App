@@ -91,8 +91,12 @@ public class JobPostActivity extends AppCompatActivity {
                 String jobtitle1 = jobTitleText.getText().toString();
                 String salary = salaryText.getText().toString();
                 String detail = jobDetailsText.getText().toString();
+                String completionStatus = "Not Completed";
+                String paymentStatus = "Not Paid";
 
-                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum);
+
+
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
                 if(!j1.InvalidEmployerName())
                 {
                     validTextview.setText("Invalid Employer info");
