@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class JobTextSearchResultActivity extends AppCompatActivity {
+public class HistoryJobTextSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
     long maxPost = 0;
     String searchText = "";
@@ -25,7 +25,7 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.jobsearchresults);
+        setContentView(R.layout.historyjobsearchresults);
         Intent intent = getIntent();
         searchText = intent.getStringExtra("Search Text");
 
@@ -83,14 +83,14 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                     final TextView noResultShowing = new TextView(getApplicationContext());
                     noResultShowing.setText("No result here. Try type something else");
                     myLayout.addView(noResultShowing);
-                    Toast.makeText(JobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
+                    Toast.makeText(HistoryJobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
                 Button clearResultsBtn = findViewById(R.id.editPostSubmitBtn);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                         startActivity(intent);
                     }
                 });
