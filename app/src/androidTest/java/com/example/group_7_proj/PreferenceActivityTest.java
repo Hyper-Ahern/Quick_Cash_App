@@ -39,6 +39,7 @@ public class PreferenceActivityTest {
         onView(withId(R.id.pref_babysitting)).perform(click());
         onView(withId(R.id.pref_delivery)).perform(click());
         onView(withId(R.id.pref_babysitting)).perform(click());
+        onView(withId(R.id.pref_delivery)).perform(click());
 
     }
 }
