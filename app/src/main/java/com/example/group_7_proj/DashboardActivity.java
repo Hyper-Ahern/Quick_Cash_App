@@ -37,7 +37,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn;
     String userNumber = "";
     FusedLocationProviderClient fusedLocationProviderClient;
     DatabaseReference rootRef;
@@ -62,6 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
         historyBtn = (Button) findViewById(R.id.historyBtn);
+        acceptedJobsBtn = (Button) findViewById(R.id.acceptedJobsBtn);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
@@ -125,6 +126,20 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                startActivity(intent);
+            }
+        });
+
+
+        acceptedJobsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AcceptedJobsActivity.class);
                 intent.putExtra("User", userNumber);
                 if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED) {
