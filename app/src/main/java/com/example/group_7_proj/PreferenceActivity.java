@@ -5,23 +5,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.group_7_proj.CustomDataTypes.Card;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PreferenceActivity extends AppCompatActivity {
     String userNumber = "";
@@ -47,8 +37,9 @@ public class PreferenceActivity extends AppCompatActivity {
         //DatabaseReference cardRef = rootRef.child("cards");
 
 
-        title = (TextView)findViewById(R.id.title);
-        submitBtn = (Button) findViewById(R.id.paymentSubmitButton);
+        title = (TextView)findViewById(R.id.pref_title);
+        submitBtn = (Button) findViewById(R.id.pref_SubmitBtn);
+        backBtn = (Button) findViewById(R.id.pref_backdashBtn);
 
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -56,52 +47,16 @@ public class PreferenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String cardNum = cardNumberField.getText().toString();
-                String expiryDate = expiryDateField.getText().toString();
-                String cvv =  CVVField.getText().toString();
-                String cardName = nameField.getText().toString();
-                PaymentValidator cardValidate = new PaymentValidator(cardNum, expiryDate, cvv, cardName);
-
-                if (cardValidate.paymentValidate()==true) {
-                    card.setCardNum(cardNum);
-                    card.setExpiryDate(expiryDate);
-                    card.setCVV(cvv);
-                    card.setCardHolderName(cardName);
-                    //rootRef.push().setValue(card);
-                      /*
-                    check if the user has card info stored, if no, add card info to the user's information
-                     */
-                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) {
-                            if (!snapshot.hasChild("Card Info")) {
-
-                                Map<String, Object> userCardInfoUpdates = new HashMap<>();
-
-                                userCardInfoUpdates.put("Card Info",card);
-
-                                rootRef.updateChildren(userCardInfoUpdates);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            statusButton.setText("Error with Signup");
-                        }
-                    });
-
-                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                    intent.putExtra("User", userNumber);
-                    startActivity(intent);
-                    statusButton.setText("Card info OK");
-                    Toast.makeText(PreferenceActivity.this, "Card registration complete",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    statusButton.setText("Invalid Card info");
-                }
-
             }
 
+        });
+        backBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                intent.putExtra("User", userNumber);
+                startActivity(intent);
+            }
         });
 
 
