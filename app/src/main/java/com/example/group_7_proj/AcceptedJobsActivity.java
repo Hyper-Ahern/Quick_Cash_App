@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -45,15 +46,18 @@ public class AcceptedJobsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 maxPost = (snapshot.getChildrenCount());
-
+                System.out.println("****************************");
+                System.out.println(maxPost);
+                System.out.println("****************************");
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
 
                 // Iterarate through all the job posts and render only those that are user created
-                for(jobID = 1; jobID < maxPost+1; jobID++) {
+                for (jobID = 1; jobID < maxPost + 1; jobID++) {
+                        if (snapshot.hasChild("JOBPOST-" + jobID)) {
 
 
-                    String trigger = snapshot.child("JOBPOST-"+jobID).child("employeeID").getValue().toString();
-                    final String paymentStatus = snapshot.child("JOBPOST-"+jobID).child("completionStatus").getValue().toString();
+                    String trigger = snapshot.child("JOBPOST-" + jobID).child("employeeID").getValue().toString();
+                    final String paymentStatus = snapshot.child("JOBPOST-" + jobID).child("completionStatus").getValue().toString();
 
 
                     // If the current user made the post, render the job, else don't
@@ -67,7 +71,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                         String jobType = snapshot.child("JOBPOST-" + jobID).child("jobType").getValue().toString();
                         String salary = snapshot.child("JOBPOST-" + jobID).child("salary").getValue().toString();
 
-                       // String completionStatus = snapshot.child("JOBPOST-" + jobID).child("completionStatus").getValue().toString();
+                        // String completionStatus = snapshot.child("JOBPOST-" + jobID).child("completionStatus").getValue().toString();
 
                         // Create the text views
                         final TextView jobIDTextview = new TextView(getApplicationContext());
@@ -100,90 +104,66 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                         final Button completeBtn = new Button(getApplicationContext());
                         // if the status is completed, then it should be shown as completed and not clickable
-                        if(paymentStatus.equals("Completed")){
+                        if (paymentStatus.equals("Completed")) {
                             completeBtn.setText("Job is completed");
                             completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
 
-                            LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
+                            LinearLayout editLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                             editLayout.addView(completeBtn, editParams);
 
-                        }
-
-                        else{
+                        } else {
 
 
-                        completeBtn.setText("Mark the Jobs as Completed ");
-                        completeBtn.setBackgroundColor(Color.rgb(0, 191, 255));
-                        int editJobID = (int) jobID;
-                        //final int editJobIDMinusOne = editJobID;
-                        completeBtn.setId(editJobID);
-                        //final int editID_ = completeBtn.getId();
+                            completeBtn.setText("Mark the Jobs as Completed ");
+                            completeBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                            int editJobID = (int) jobID;
+                            //final int editJobIDMinusOne = editJobID;
+                            completeBtn.setId(editJobID);
+                            //final int editID_ = completeBtn.getId();
 
 
+                            LinearLayout editLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
+                            editLayout.addView(completeBtn, editParams);
 
+                            //When cancel button is clicked, send a bundleof info back to editpostactivity to reload the page
+                            completeBtn.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
 
-                        LinearLayout editLayout =(LinearLayout) findViewById(R.id.layoutdisplay);
-                        editLayout.addView(completeBtn, editParams);
+                                   new AlertDialog.Builder(AcceptedJobsActivity.this)
+                                           .setTitle("Confirm")
+                                           .setMessage("Mark the job as completed?")
 
-                        //When cancel button is clicked, send a bundleof info back to editpostactivity to reload the page
-                        completeBtn.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View view) {
-
-
-                                new AlertDialog.Builder(AcceptedJobsActivity.this)
-                                        .setTitle("Confirm")
-                                        .setMessage("Mark the job as completed?")
-
-                                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                                        // The dialog is automatically dismissed when a dialog button is clicked.
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                // Continue with delete operation
-                                                reff2.child("JOBPOST-"+tempJobID).child("completionStatus").setValue("Completed");
-                                                completeBtn.setText("Job is completed");
-                                                completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
-                                                // reload the activity
-                                                /*
-                                                finish();
-                                                startActivity(getIntent());
-
-                                                 */
-                                                setContentView(R.layout.acceptedjobs);
-                                            }
-                                        })
-
-                                        // A null listener allows the button to dismiss the dialog and take no further action.
-                                        .setNegativeButton(android.R.string.no, null)
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
+                                           // Specifying a listener allows you to take an action before dismissing the dialog.
+                                           // The dialog is automatically dismissed when a dialog button is clicked.
+                                           .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                               public void onClick(DialogInterface dialog, int which) {
+                                                   // Continue with delete operation
+                                                   reff2.child("JOBPOST-" + tempJobID).child("completionStatus").setValue("Completed");
+                                                   completeBtn.setText("Job is completed");
+                                                   completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
+                                                   // send notification to employer
 
 
 
 
 
-
-
+                                                   setContentView(R.layout.acceptedjobs);
+                                               }
+                                           })
+                                           // A null listener allows the button to dismiss the dialog and take no further action.
+                                           .setNegativeButton(android.R.string.no, null)
+                                           .setIcon(android.R.drawable.ic_dialog_alert)
+                                           .show();
+                                    }
                                 }
-
-                            }
-
                             );
-
-
-
                         }
-
-
-
-
-
                     }
-
-
-                    //editParams.removeView();
-
-
                 }
+                    else{
+                            jobID++;
+                    }
+            }
 
                 // Creating a back to dashboard button at the bottom of all the posts
                 historyBackToMainBtn = findViewById(R.id.historyBackToDBBtn);
@@ -201,7 +181,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w( "loadPost:onCancelled", error.toException());
             }
         });
 
