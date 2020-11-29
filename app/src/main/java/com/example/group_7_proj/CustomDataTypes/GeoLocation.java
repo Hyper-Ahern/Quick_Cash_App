@@ -1,23 +1,27 @@
 package com.example.group_7_proj.CustomDataTypes;
 
 public class GeoLocation {
-    private double longitude;
-    private double latitude;
+    private Double longitude;
+    private Double latitude;
 
-    public GeoLocation(double longi, double lati){
-        longitude = longi;
-        latitude = lati;
+    public GeoLocation(Double longitude, Double latitude){
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public double getLongitude() { return longitude; }
+    public Double getLongitude() { return longitude; }
 
-    public double getLatitude() { return latitude; }
+    public Double getLatitude() { return latitude; }
 
-    public void setLongitude(double longi){
-        longitude = longi;
+    public void setLongitude(Double longitude){
+        this.longitude = longitude;
     }
-    public void setLatitude(double lati){
-        latitude = lati;
+    public void setLatitude(Double latitude){
+        this.latitude = latitude;
+    }
+
+    public boolean equals(GeoLocation gL){
+        return(this.longitude==gL.getLongitude() && this.latitude==gL.getLatitude());
     }
 
 }

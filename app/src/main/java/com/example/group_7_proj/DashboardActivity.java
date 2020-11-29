@@ -47,10 +47,9 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "user";
-        rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
         setContentView(R.layout.dashboard);
 
+        rootRef = FirebaseDatabase.getInstance().getReference().child("user");
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
@@ -61,10 +60,13 @@ public class DashboardActivity extends AppCompatActivity {
         postAJobBtn = (Button) findViewById(R.id.postJobBtnDB);
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
+
+        // permission granted
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             getLocation();
         }
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,12 +111,13 @@ public class DashboardActivity extends AppCompatActivity {
         allJobPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
-                intent.putExtra("User", userNumber);
                 if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 }
+
+                Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
@@ -144,7 +147,10 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -154,48 +160,26 @@ public class DashboardActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         } else {
-
-
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
-                    String fullAddress = " ";
                     if (location != null) {
-                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude());
 
-                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude() );
                         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                long maxId;
-                                boolean found;
                                 DatabaseReference user;
                                 if(snapshot.exists()){
-                                    maxId = (snapshot.getChildrenCount());
                                     user = rootRef.child("USER-"+userNumber);
                                     Map<String,Object> userLocationInfo = new HashMap<>();
                                     userLocationInfo.put("geoTag",geoLoc);
                                     user.updateChildren(userLocationInfo);
-                                    //.makeText(DashboardActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
                             }
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
-                        /*
-                        try {
-
-                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-                                    location.getLongitude(), 1);
-
-                            fullAddress = addresses.get(0).getLatitude() + ", " + addresses.get(0).getLongitude();
-                            System.out.println(fullAddress);
-
-                            // Push location to database here
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                         */
                     }
                 }
             });

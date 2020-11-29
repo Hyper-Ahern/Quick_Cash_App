@@ -31,6 +31,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class JobPostEspressoTest {
     @Rule
@@ -50,15 +51,15 @@ public class JobPostEspressoTest {
         userRef = database.getReference().child("user");
         jobRef = database.getReference().child("jobTypeTest");
 
-        jobRef.addValueEventListener(new ValueEventListener() {
+        /*jobRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                *//*if(snapshot.exists()) {
                     maxId = snapshot.getChildrenCount();
                     userID = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("userID").getValue(String.class);
                     longiJ = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("geoTag").child("longitude").getValue(String.class);
                     latiJ = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("geoTag").child("latitude").getValue(String.class);
-                }
+                }*//*
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -68,15 +69,15 @@ public class JobPostEspressoTest {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                *//*if(snapshot.exists()) {
                     longiU = snapshot.child("USER-"+userID).child("geoTag").child("longitude").getValue(String.class);
                     latiU = snapshot.child("USER-"+userID).child("geoTag").child("latitude").getValue(String.class);
-                }
+                }*//*
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
+        });*/
         }
 
     /**INPUT VALIDATION**/
@@ -85,6 +86,8 @@ public class JobPostEspressoTest {
     public void emptyDetails() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
@@ -96,6 +99,8 @@ public class JobPostEspressoTest {
     public void emptyTitle() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
@@ -107,6 +112,8 @@ public class JobPostEspressoTest {
     public void specialCharactersStringTitle() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("!!&")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
@@ -118,6 +125,8 @@ public class JobPostEspressoTest {
     public void emptySalary() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
@@ -129,6 +138,8 @@ public class JobPostEspressoTest {
     public void emptyEmployer() {
         onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
@@ -169,9 +180,6 @@ public class JobPostEspressoTest {
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted Successfully")));
-        jobGeoTag = new GeoLocation(Double.parseDouble(longiJ),Double.parseDouble(latiJ));
-        userGeoTag = new GeoLocation(Double.parseDouble(longiU),Double.parseDouble(latiU));
-        assertEquals(userGeoTag,jobGeoTag);
     }
 
     @AfterClass
@@ -179,4 +187,3 @@ public class JobPostEspressoTest {
         database = null;
     }
 }
-

@@ -7,6 +7,7 @@ public class JobPost{
     private String jobType;
     private String salary;
     private String jobDetails;
+    private Integer userID;
     private GeoLocation geoLocation;
 
     public JobPost() {}
@@ -44,6 +45,10 @@ public class JobPost{
         return geoLocation;
     }
 
+    public Integer getUserID(){
+        return userID;
+    }
+
     public void setEmployerName(String employerName) {
         this.employerName = employerName;
     }
@@ -58,6 +63,10 @@ public class JobPost{
 
     public void setSalary(String salary) {
         this.salary = salary;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public void setGeoLocation(GeoLocation geoLocation) {

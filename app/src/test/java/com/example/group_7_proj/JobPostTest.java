@@ -1,4 +1,5 @@
 package com.example.group_7_proj;
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
 import com.example.group_7_proj.CustomDataTypes.JobPost;
 
 import org.junit.Test;
@@ -86,13 +87,14 @@ public class JobPostTest
     @Test
     public void checkJobGeoLocation(){
         JobPost j1 = new JobPost();
-        j1.setGeoLoc(11,12);
+        GeoLocation g = new GeoLocation(11.0,12.0);
+        j1.setGeoLocation(g);
         assertTrue(j1.validGeoLoc());
 
-        // wrong data type
         JobPost j2 = new JobPost();
-        j2.setGeoLoc('a',12);
-        assertFalse(j2.validGeoLoc());
+        g = new GeoLocation(-12.0,12.0);
+        j2.setGeoLocation(g);
+        assertTrue(j2.validGeoLoc());
     }
 
 }
