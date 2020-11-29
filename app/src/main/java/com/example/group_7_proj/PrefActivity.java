@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PreferenceActivity extends AppCompatActivity {
+public class PrefActivity extends AppCompatActivity {
     String userNumber = "";
 
     @RequiresApi(api = Build.VERSION_CODES.O)

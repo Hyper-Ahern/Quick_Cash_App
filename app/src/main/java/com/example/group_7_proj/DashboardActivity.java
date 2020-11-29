@@ -3,13 +3,11 @@ package com.example.group_7_proj;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
 import com.example.group_7_proj.CustomDataTypes.GeoLocation;
-import com.example.group_7_proj.CustomDataTypes.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -30,9 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -122,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
         preferenceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PreferenceActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
                 intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
