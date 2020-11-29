@@ -45,6 +45,23 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".PrefActivity" />
         <activity android:name=".JobPostViewActivity">
+        <activity android:name=".ChooseJobPrefActivity" />
+        <activity android:name=".JobPostViewActivity"/>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".HistoryJobTextSearchResultActivity" />
+        <activity android:name=".AcceptedJobsActivity" />
+
+        <activity
+
+            android:name=".MainActivity1"
+            android:theme="@style/AppTheme.NoActionBar"
+
+        />
+
+        <activity android:name=".PaymentStatus" />
+        <activity android:name=".EditPostActivity">
+
+
         </activity>
     </application>
 

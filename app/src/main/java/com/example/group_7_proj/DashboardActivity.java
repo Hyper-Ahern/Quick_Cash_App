@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import com.example.group_7_proj.CustomDataTypes.GeoLocation;
+import com.example.group_7_proj.CustomDataTypes.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -29,12 +30,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, preferenceBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn, preferenceBtn;
     String userNumber = "";
     FusedLocationProviderClient fusedLocationProviderClient;
     DatabaseReference rootRef;
@@ -59,6 +62,9 @@ public class DashboardActivity extends AppCompatActivity {
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
         preferenceBtn = (Button) findViewById(R.id.preferenceBtn);
+        historyBtn = (Button) findViewById(R.id.historyBtn);
+        acceptedJobsBtn = (Button) findViewById(R.id.acceptedJobsBtn);
+
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             getLocation();
@@ -121,6 +127,33 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
                 intent.putExtra("User", userNumber);
+                startActivity(intent);
+            }
+        });
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                startActivity(intent);
+            }
+        });
+
+
+        acceptedJobsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AcceptedJobsActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
                 startActivity(intent);
             }
         });

@@ -171,7 +171,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     if(email.getValue().equals(emailFB)){
                                         found = true;
                                         System.out.println("signup: email found in db="+found);
-                                        Toast.makeText(SignUpActivity.this, "An account is already associated with this email", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(SignUpActivity.this, "An account is already associated with this email", Toast.LENGTH_LONG).show();
                                     }
                                 }
                                 if(!found){

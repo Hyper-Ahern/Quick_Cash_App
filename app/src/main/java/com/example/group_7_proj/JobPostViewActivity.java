@@ -68,7 +68,7 @@ public class JobPostViewActivity extends AppCompatActivity {
 
                 }
 
-                backToMainBtn = findViewById(R.id.backToDBBtn);
+                backToMainBtn = findViewById(R.id.historyBackToDBBtn);
                 backToMainBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -84,7 +84,7 @@ public class JobPostViewActivity extends AppCompatActivity {
                 cat4Btn = (Button)findViewById(R.id.categoryBtn4);
                 cat5Btn = (Button)findViewById(R.id.categoryBtn5);
                 otherBtn = (Button)findViewById(R.id.categoryBtnOther);
-                searchBtn = (Button)findViewById(R.id.searchBtn);
+                searchBtn = (Button)findViewById(R.id.historySearchBtn);
 
                 buttonClicking(cat1Btn, "Delivery");
                 buttonClicking(cat2Btn, "Computer");
@@ -118,7 +118,7 @@ public class JobPostViewActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                searchBarText = findViewById(R.id.searchBar);
+                searchBarText = findViewById(R.id.historySearchBar);
                 String searchText = searchBarText.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), JobTextSearchResultActivity.class);
                 intent.putExtra("Search Text", searchText);

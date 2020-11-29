@@ -37,8 +37,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_info_ui);
-        Intent callerIntent = getIntent();
-        userNumber = callerIntent.getStringExtra("User");
 
         final EditText cardNumberField;
         final EditText expiryDateField;
@@ -50,6 +48,9 @@ public class PaymentInfoActivity extends AppCompatActivity {
         card = new Card();
 
         String firebaseFirstLevel = "user";
+        //Intent callerIntent = getIntent();
+        Intent callerIntent = getIntent();
+        userNumber = callerIntent.getStringExtra("User");
         final String firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -103,12 +104,14 @@ public class PaymentInfoActivity extends AppCompatActivity {
                             statusButton.setText("Error with Signup");
                         }
                     });
+                    Intent intent = new Intent(getApplicationContext(), ChooseJobPrefActivity.class);
+                    //Bundle bundle = new Bundle();
+                    //bundle.putLong("User", userNumber);
+                    intent.putExtra("User",userNumber);
 
-                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                    intent.putExtra("User", userNumber);
-                    startActivity(intent);
                     statusButton.setText("Card info OK");
                     Toast.makeText(PaymentInfoActivity.this, "Card registration complete",Toast.LENGTH_LONG).show();
+                    startActivity(intent);
                 }
                 else {
                     statusButton.setText("Invalid Card info");
