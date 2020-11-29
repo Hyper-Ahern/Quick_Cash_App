@@ -46,10 +46,10 @@ public class PrefActivity extends AppCompatActivity {
         }
         final CheckBox computer = (CheckBox) findViewById(R.id.pref_computer);
         if (babysitting.isChecked()) { //database shows as true
-            computer.setChecked(false);
+            computer.setChecked(true);
         }
         else{
-            computer.setChecked(true);
+            computer.setChecked(false);
         }
         final CheckBox delivery = (CheckBox) findViewById(R.id.pref_delivery);
         if (babysitting.isChecked()) { //database shows as true
@@ -92,8 +92,6 @@ public class PrefActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
