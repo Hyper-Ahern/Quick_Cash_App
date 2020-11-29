@@ -7,19 +7,6 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/pref_SubmitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginBottom="37dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toTopOf="@+id/pref_backdashBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/pref_backdashBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,15 +25,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="126dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="121dp"
-        android:layout_marginBottom="477dp"
         android:text="Preferences"
         android:textAlignment="viewStart"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/pref_SubmitBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/pref_babysitting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="60dp"
+        android:text="Babysitting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_title" />
+
+    <CheckBox
+        android:id="@+id/pref_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Cleaning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_babysitting" />
+
+    <CheckBox
+        android:id="@+id/pref_computer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Computer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_cleaning" />
+
+    <CheckBox
+        android:id="@+id/pref_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Delivery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_computer" />
+
+    <CheckBox
+        android:id="@+id/pref_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Dog Walking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_delivery" />
+
+    <CheckBox
+        android:id="@+id/pref_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Other"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pref_dog" />
 </androidx.constraintlayout.widget.ConstraintLayout>

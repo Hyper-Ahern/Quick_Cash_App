@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -28,28 +29,61 @@ public class PrefActivity extends AppCompatActivity {
         final TextView title;
         final Button backBtn, submitBtn;
 
+        // checkbox section {
+        final CheckBox babysitting = (CheckBox) findViewById(R.id.pref_babysitting);
+        if (babysitting.isChecked()) { //database shows as true
+            babysitting.setChecked(true);
+        }
+        else{
+            babysitting.setChecked(false);
+        }
+        final CheckBox cleaning = (CheckBox) findViewById(R.id.pref_cleaning);
+        if (babysitting.isChecked()) { //database shows as true
+            cleaning.setChecked(true);
+        }
+        else{
+            cleaning.setChecked(false);
+        }
+        final CheckBox computer = (CheckBox) findViewById(R.id.pref_computer);
+        if (babysitting.isChecked()) { //database shows as true
+            computer.setChecked(true);
+        }
+        else{
+            computer.setChecked(false);
+        }
+        final CheckBox delivery = (CheckBox) findViewById(R.id.pref_delivery);
+        if (babysitting.isChecked()) { //database shows as true
+            delivery.setChecked(true);
+        }
+        else{
+            delivery.setChecked(false);
+        }
+        final CheckBox dogWalking = (CheckBox) findViewById(R.id.pref_dog);
+        if (babysitting.isChecked()) { //database shows as true
+            dogWalking.setChecked(true);
+        }
+        else{
+            dogWalking.setChecked(false);
+        }
+        final CheckBox otherCheck = (CheckBox) findViewById(R.id.pref_other);
+        if (babysitting.isChecked()) { //database shows as true
+            otherCheck.setChecked(true);
+        }
+        else{
+            otherCheck.setChecked(false);
+        }
+        //}
 
         String firebaseFirstLevel = "user";
         final String firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
-        //DatabaseReference cardRef = rootRef.child("cards");
 
 
         title = (TextView)findViewById(R.id.pref_title);
-        submitBtn = (Button) findViewById(R.id.pref_SubmitBtn);
         backBtn = (Button) findViewById(R.id.pref_backdashBtn);
 
-
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-
-            }
-
-        });
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -60,5 +94,57 @@ public class PrefActivity extends AppCompatActivity {
         });
 
 
+    }
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.pref_babysitting:
+                if (checked) {
+                    // push to database
+                }
+                else {
+                    // also push to database
+                }
+                break;
+            case R.id.pref_cleaning:
+                if (checked) {
+                    // push to database
+                }
+                else{
+                    // push to database
+                }
+                break;
+            case R.id.pref_computer:
+                if (checked){
+
+                }
+                else{
+
+                }
+            case R.id.pref_delivery:
+                if (checked){
+
+                }
+                else{
+
+                }
+            case R.id.pref_dog:
+                if (checked){
+
+                }
+                else{
+
+                }
+            case R.id.pref_other:
+                if (checked){
+
+                }
+                else{
+
+                }
+        }
     }
 }
