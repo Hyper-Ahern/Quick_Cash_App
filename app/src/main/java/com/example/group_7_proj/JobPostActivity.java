@@ -34,7 +34,7 @@ public class JobPostActivity extends AppCompatActivity {
     DatabaseReference userRef, jobRef;
     Double longitude, latitude;
     GeoLocation empGeoTag;
-    String userNumber;
+    String userNumber="";
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
     int potEmpCount = 0;
@@ -47,6 +47,7 @@ public class JobPostActivity extends AppCompatActivity {
         setContentView(R.layout.jobpost);
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+        final int intUserNum = Integer.parseInt(userNumber);
 
         userRef = FirebaseDatabase.getInstance().getReference().child("user");
         jobRef = FirebaseDatabase.getInstance().getReference().child("jobTypeTest");
@@ -110,11 +111,16 @@ public class JobPostActivity extends AppCompatActivity {
                 String jobtitle1 = jobTitleText.getText().toString();
                 String salary = salaryText.getText().toString();
                 String detail = jobDetailsText.getText().toString();
+                String completionStatus = "Not Completed";
+                String paymentStatus = "Not Paid";
+
 
                 final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 j1.setGeoLocation(empGeoTag);
                 j1.setUserID(Integer.parseInt(userNumber));
 
+
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
                 if(!j1.InvalidEmployerName())
                 {
                     validTextview.setText("Invalid Employer info");

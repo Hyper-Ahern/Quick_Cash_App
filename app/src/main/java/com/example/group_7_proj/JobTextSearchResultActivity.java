@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class JobTextSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
     long maxPost = 0;
@@ -28,7 +30,6 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.jobsearchresults);
         Intent intent = getIntent();
         searchText = intent.getStringExtra("Search Text");
-
         reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -45,6 +46,8 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                     String salary = snapshot.child("JOBPOST-"+jobID).child("salary").getValue().toString();
                     String jobType = snapshot.child("JOBPOST-"+jobID).child("jobType").getValue().toString();
 
+
+                    //System.out.println(searchTextFound);
                     // made search non-case sensitive
                     searchTextFound = jobTitle.toLowerCase().contains(searchText.toLowerCase())
                             || jobDetails.toLowerCase().contains(searchText.toLowerCase())
@@ -54,6 +57,7 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
 
                     if(searchTextFound){
                         resultCount += 1;
+
                         final TextView jobIDTextview = new TextView(getApplicationContext());
                         final TextView jobTitleTextview = new TextView(getApplicationContext());
                         final TextView employerNameTextview = new TextView(getApplicationContext());
@@ -86,7 +90,7 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                     Toast.makeText(JobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                Button clearResultsBtn = findViewById(R.id.editPostSubmitBtn);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){

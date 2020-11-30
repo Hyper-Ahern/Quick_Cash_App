@@ -17,8 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
 public class JobCatSearchResultActivity extends AppCompatActivity {
     DatabaseReference reff;
     long maxPost = 0;
@@ -81,7 +79,7 @@ public class JobCatSearchResultActivity extends AppCompatActivity {
                     Toast.makeText(JobCatSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                Button clearResultsBtn = findViewById(R.id.editPostSubmitBtn);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){

@@ -27,7 +27,7 @@
     <string name="search">search</string>
     <string name="search_here">Search Here</string>
     <string name="clear_results">clear results</string>
-    <string name="title_activity_potential_employee">PotentialEmployeeActivity</string>
-    <string name="yes">yes</string>
+    <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="button">Button</string>
 </resources>

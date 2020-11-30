@@ -9,15 +9,23 @@ public class JobPost{
     private String jobDetails;
     private Integer userID;
     private GeoLocation geoLocation;
+    private String PaymentStatus;
+    private String CompletionStatus;
 
     public JobPost() {}
-    public JobPost(String EN,String JT,String JT2,String salary,String JobDetails)
+    public JobPost(String EN,String JT,String JT2,String salary,String JobDetails, int UID, String paymentStatus, String completionStatus)
     {
         this.employerName = EN;
         this.jobTitle =JT;
         this.jobType = JT2;
         this.salary =salary;
         this.jobDetails =JobDetails;
+        this.UserID = UID;
+
+        //this.EmployeeID = employeeID;
+
+        this.PaymentStatus = paymentStatus;
+        this.CompletionStatus = completionStatus;
     }
 
 
@@ -49,6 +57,15 @@ public class JobPost{
         return userID;
     }
 
+
+    // AZ
+    public String getPaymentStatus(){ return PaymentStatus;}
+
+    public String getCompletionStatus(){return CompletionStatus;}
+
+
+//    public int getUserID() {return UserID;}
+
     public void setEmployerName(String employerName) {
         this.employerName = employerName;
     }
@@ -68,6 +85,10 @@ public class JobPost{
     public void setUserID(Integer userID) {
         this.userID = userID;
     }
+
+    public void setPaymentStatus(String paymentStatus){ PaymentStatus = "Paid";}
+
+    public void setCompletionStatus(String completionStatus) {CompletionStatus = "Completed";}
 
     public void setGeoLocation(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
