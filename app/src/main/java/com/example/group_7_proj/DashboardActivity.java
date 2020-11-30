@@ -18,9 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.view.View;
-
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
+import java.util.ArrayList;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -40,22 +46,50 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn, preferenceBtn,popupyes, popupno;
+    private TextView displayjobpreferencetextview;
+    static boolean ifpopup = true;
     String userNumber = "";
+    String displayallPreference = "";
+    ArrayList<String> prelist;
+    long preferenceCount = 0;
+    DatabaseReference userpreference;
     FusedLocationProviderClient fusedLocationProviderClient;
     DatabaseReference rootRef;
     GeoLocation geoLoc;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "user";
-        rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
         setContentView(R.layout.dashboard);
 
+        rootRef = FirebaseDatabase.getInstance().getReference().child("user");
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+        userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
+        userpreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                preferenceCount = (snapshot.getChildrenCount());
+                prelist = new ArrayList<>((int) preferenceCount);
+                for (long i = 0; i < preferenceCount; i++) {
+                    String str = String.valueOf(i);
+                    prelist.add((String) snapshot.child(str).getValue());
+                    displayallPreference = displayallPreference + prelist.get((int) i) + " ";
+                }
+                if (ifpopup)
+                    SeeMatchedJobPostDialog(displayallPreference);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         locationFinder();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -64,12 +98,17 @@ public class DashboardActivity extends AppCompatActivity {
         postAJobBtn = (Button) findViewById(R.id.postJobBtnDB);
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
+        preferenceBtn = (Button) findViewById(R.id.preferenceBtn);
         historyBtn = (Button) findViewById(R.id.historyBtn);
+        acceptedJobsBtn = (Button) findViewById(R.id.acceptedJobsBtn);
 
+
+        // permission granted
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             getLocation();
         }
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,12 +154,21 @@ public class DashboardActivity extends AppCompatActivity {
         allJobPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
-                intent.putExtra("User", userNumber);
                 if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 }
+
+                Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
+                intent.putExtra("User", userNumber);
+                startActivity(intent);
+            }
+        });
+        preferenceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
@@ -135,6 +183,49 @@ public class DashboardActivity extends AppCompatActivity {
                     getLocation();
                 }
                 startActivity(intent);
+            }
+        });
+
+
+        acceptedJobsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AcceptedJobsActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    public void SeeMatchedJobPostDialog(final String preference) {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View PopupView = getLayoutInflater().inflate(R.layout.popup, null);
+        displayjobpreferencetextview = PopupView.findViewById(R.id.matchpreferencetextview);
+        popupyes = PopupView.findViewById(R.id.seematchedjobbutton);
+        popupno = PopupView.findViewById(R.id.cancelmatchbutton);
+        displayjobpreferencetextview.setText("We detected your Job Preference: " + preference + "Do you want to see the matched result?");
+        dialogBuilder.setView(PopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        popupyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ifpopup = false;
+                Intent intent = new Intent(getApplicationContext(), JobPreferenceMatchActivity.class);
+                intent.putExtra("JobPreference", preference);
+                startActivity(intent);
+
+            }
+        });
+        popupno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }
@@ -163,7 +254,10 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -173,29 +267,21 @@ public class DashboardActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         } else {
-
-
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
-                    String fullAddress = " ";
                     if (location != null) {
-                        Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
+                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude());
 
-                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude() );
                         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                long maxId;
-                                boolean found;
                                 DatabaseReference user;
                                 if(snapshot.exists()){
-                                    maxId = (snapshot.getChildrenCount());
                                     user = rootRef.child("USER-"+userNumber);
                                     Map<String,Object> userLocationInfo = new HashMap<>();
                                     userLocationInfo.put("geoTag",geoLoc);
                                     user.updateChildren(userLocationInfo);
-                                    //.makeText(DashboardActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
                             }
                             public void onCancelled(@NonNull DatabaseError error) {

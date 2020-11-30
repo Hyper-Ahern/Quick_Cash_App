@@ -9,6 +9,39 @@
     tools:context=".DashboardActivity">
 
 
+<<<<<<< HEAD
+=======
+    <Button
+        android:id="@+id/preferenceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="161dp"
+        android:text="Preferences"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payEmpBtnDB" />
+
+    <TextView
+        android:id="@+id/dashboardMessage"
+        android:layout_width="196dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="102dp"
+        android:text="Welcome to Dashboard."
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+>>>>>>> 72215921fe477682dd726c5f5d00e08d7e351e01
     <Button
         android:id="@+id/backBtnDB"
         android:layout_width="100dp"
@@ -20,6 +53,7 @@
         android:text="LOGOUT"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -81,4 +115,79 @@
         app:layout_constraintStart_toEndOf="@+id/postJobBtnDB"
         app:layout_constraintTop_toBottomOf="@+id/backBtnDB"
         app:srcCompat="@drawable/trigger" />
+=======
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboardMessage"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <Button
+        android:id="@+id/payEmpBtnDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="161dp"
+        android:text="Make a Payment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postJobBtnDB" />
+
+    <Button
+        android:id="@+id/historyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="154dp"
+        android:text="History"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payEmpBtnDB" />
+
+    <Button
+        android:id="@+id/acceptedJobsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="154dp"
+        android:text="Accepted Jobs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historyBtn" />
+
+
+
+
+    <Button
+        android:id="@+id/postJobBtnDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="154dp"
+        android:text="Post a Job"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allJobsBtnDB" />
+
+    <Button
+        android:id="@+id/allJobsBtnDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="144dp"
+        android:text="VIEW ALL JOBS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtnDB" />
+
+>>>>>>> 72215921fe477682dd726c5f5d00e08d7e351e01
 </androidx.constraintlayout.widget.ConstraintLayout>

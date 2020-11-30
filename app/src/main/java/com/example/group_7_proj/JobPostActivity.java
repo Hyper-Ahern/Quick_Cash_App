@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
 import com.example.group_7_proj.CustomDataTypes.JobPost;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,25 +31,28 @@ import java.util.List;
 public class JobPostActivity extends AppCompatActivity {
     EditText employerNameText, jobTitleText, salaryText, jobDetailsText;
     String jobType;
-    Button submitJobPostBtn, backToDashBtn;
-    TextView validTextview;
-    DatabaseReference rootRef;
-    String userNumber = "";
-
-    long maxId = 0;
+    Button submitJobPostBtn, backToDashBtn, popupyes, popupno;
+    TextView validTextview,displayjobpreferencetextview;
+    DatabaseReference userRef, jobRef;
+    Double longitude, latitude;
+    GeoLocation empGeoTag;
+    String userNumber="";
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
+    int potEmpCount = 0;
+    long maxID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        String firebaseFirstLevel = "jobPostTypeTest";
         setContentView(R.layout.jobpost);
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
         final int intUserNum = Integer.parseInt(userNumber);
 
-        rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
-
+        userRef = FirebaseDatabase.getInstance().getReference().child("user");
+        jobRef = FirebaseDatabase.getInstance().getReference().child("jobTypeTest");
         Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
         this.addJobTypeList(jobTypeList);
 
@@ -69,12 +74,27 @@ public class JobPostActivity extends AppCompatActivity {
             }
         });
 
-        rootRef.addValueEventListener(new ValueEventListener() {
+        jobRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    maxId = (snapshot.getChildrenCount());
-                    System.out.println(maxId);
+                    maxID = (snapshot.getChildrenCount());
+                    System.out.println(maxID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    longitude = Double.parseDouble(snapshot.child("USER-"+String.valueOf(userNumber)).child("geoTag").child("longitude").getValue().toString());
+                    latitude = Double.parseDouble(snapshot.child("USER-"+String.valueOf(userNumber)).child("geoTag").child("latitude").getValue().toString());
+                    empGeoTag = new GeoLocation(longitude,latitude);
                 }
             }
 
@@ -93,8 +113,15 @@ public class JobPostActivity extends AppCompatActivity {
                 String jobtitle1 = jobTitleText.getText().toString();
                 String salary = salaryText.getText().toString();
                 String detail = jobDetailsText.getText().toString();
+                String completionStatus = "Not Completed";
+                String paymentStatus = "Not Paid";
 
-                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum);
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
+
+                j1.setGeoLocation(empGeoTag);
+                j1.setUserID(Integer.parseInt(userNumber));
+
+
                 if(!j1.InvalidEmployerName())
                 {
                     validTextview.setText("Invalid Employer info");
@@ -121,13 +148,16 @@ public class JobPostActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    System.out.println(maxId);
-                    rootRef.child("JOBPOST-"+String.valueOf(maxId + 1)).setValue(j1);
+                    jobRef.child("JOBPOST-"+String.valueOf(maxID + 1)).setValue(j1);
                     validTextview.setText("Job Posted Successfully");
                     Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
                     validTextview.setVisibility(View.GONE);
+                    int potEmpCount = calculatePotEmpCount(jobType);
+                    potentialEmpDialogPopUp(String.valueOf(potEmpCount));
+
                 }
             }
+
         });
 
     }
@@ -159,6 +189,64 @@ public class JobPostActivity extends AppCompatActivity {
         @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
         jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         jobTypeList.setAdapter(jobTypeListAdapter);
+    }
+
+    public void potentialEmpDialogPopUp(final String potEmpCount) {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View PopupView = getLayoutInflater().inflate(R.layout.popup, null);
+        displayjobpreferencetextview = PopupView.findViewById(R.id.matchpreferencetextview);
+        popupyes = PopupView.findViewById(R.id.seematchedjobbutton);
+        popupno = PopupView.findViewById(R.id.cancelmatchbutton);
+        displayjobpreferencetextview.setText("We detected "+potEmpCount+" potential employees. Do you want to see the matches?");
+        dialogBuilder.setView(PopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        popupyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                Intent intent = new Intent(getApplicationContext(), PotentialEmployeeActivity.class);
+                intent.putExtra("Job Type", jobType);
+                startActivity(intent);
+
+            }
+        });
+        popupno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public int calculatePotEmpCount(final String jobType){
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    maxID = (snapshot.getChildrenCount());
+                    ArrayList<String> userPref;
+
+                    for (int userID = 1; userID < maxID + 1; userID++) {
+                        userPref = new ArrayList<String>();
+                        int maxPref = (int) snapshot.child("USER-" + userID).child("Job Preferences").getChildrenCount();
+                        for (int p = 0; p < maxPref; p++) {
+                            userPref.add(snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue().toString());
+                        }
+                        if(userPref.contains(jobType)){
+                            potEmpCount+= 1;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        return potEmpCount;
     }
 }
 

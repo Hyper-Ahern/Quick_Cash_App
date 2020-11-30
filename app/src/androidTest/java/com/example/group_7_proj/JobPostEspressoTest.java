@@ -1,9 +1,21 @@
 package com.example.group_7_proj;
 
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 
 import static androidx.test.espresso.Espresso.onData;
@@ -18,11 +30,55 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class JobPostEspressoTest {
     @Rule
     public ActivityScenarioRule<JobPostActivity> jobpostActivityRule =
             new ActivityScenarioRule<>(JobPostActivity.class);
+    static FirebaseDatabase database = null;
+    static DatabaseReference jobRef = null;
+    static DatabaseReference userRef = null;
+    static GeoLocation jobGeoTag, userGeoTag;
+    static String userID = "";
+    static String longiJ, latiJ, longiU, latiU;
+    static long maxId = 0;
+
+    @BeforeClass
+    public static void setup(){
+        database = FirebaseDatabase.getInstance();
+        userRef = database.getReference().child("user");
+        jobRef = database.getReference().child("jobTypeTest");
+
+        /*jobRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                *//*if(snapshot.exists()) {
+                    maxId = snapshot.getChildrenCount();
+                    userID = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("userID").getValue(String.class);
+                    longiJ = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("geoTag").child("longitude").getValue(String.class);
+                    latiJ = snapshot.child("JOBPOST-"+String.valueOf(maxId)).child("geoTag").child("latitude").getValue(String.class);
+                }*//*
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                *//*if(snapshot.exists()) {
+                    longiU = snapshot.child("USER-"+userID).child("geoTag").child("longitude").getValue(String.class);
+                    latiU = snapshot.child("USER-"+userID).child("geoTag").child("latitude").getValue(String.class);
+                }*//*
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });*/
+        }
 
     /**INPUT VALIDATION**/
     @Test
@@ -30,11 +86,12 @@ public class JobPostEspressoTest {
     public void emptyDetails() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Detail info")));
-        //onView(withId(R.id.detailsHint)).check(matches(withText("Please insert details")));
     }
 
     @Test
@@ -42,11 +99,12 @@ public class JobPostEspressoTest {
     public void emptyTitle() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Job Title info")));
-       // onView(withId(R.id.titleHint)).check(matches(withText("Please insert title")));
     }
 
     @Test
@@ -54,11 +112,12 @@ public class JobPostEspressoTest {
     public void specialCharactersStringTitle() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("!!&")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Job Title info")));
-        // onView(withId(R.id.titleHint)).check(matches(withText("Please insert title")));
     }
 
     @Test
@@ -66,11 +125,12 @@ public class JobPostEspressoTest {
     public void emptySalary() {
         onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Salary info")));
-        //onView(withId(R.id.salaryHint)).check(matches(withText("Please insert a Salary")));
     }
 
     @Test
@@ -78,11 +138,12 @@ public class JobPostEspressoTest {
     public void emptyEmployer() {
         onView(withId(R.id.employerNameText)).perform(typeText("")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Babysitting"))).perform(click());
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Employer info")));
-       // onView(withId(R.id.employerHint)).check(matches(withText("Please insert employer Title")));
     }
 
     @Test
@@ -109,44 +170,20 @@ public class JobPostEspressoTest {
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Invalid Job Type info")));
     }
 
-
-    /**NAVIGATION**/
-    /*
     @Test
-    // checks if app is able to successfully navigate to dashboard
-    public void navToDashboard() {
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
-        pressBack();
-        onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.dashboard));
+    public void checkGeoTagAddedToJob(){
+        onView(withId(R.id.employerNameText)).perform(typeText("CBC")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobTitleText)).perform(typeText("Babysitter")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobType)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Computer"))).perform(click());
+        onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
+        onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
+        onView(withId(R.id.submitBtnJobPost)).perform(click());
+        onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted Successfully")));
     }
 
-    @Test
-    // checks if app is able to successfully navigate to dashboard
-    public void navOutOfDashboard() {
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abcDEF123!@#"));
-        pressBack();
-        onView(withId(R.id.loginBtn)).perform(click());
-        onView(withId(R.id.dashboard));
-        onView(withId(R.id.backBtnDB)).perform(click());
-        onView(withId(R.id.login));
+    @AfterClass
+    public static void teardown(){
+        database = null;
     }
-
-    @Test
-    // navigate to signup page without email and password
-    public void navToSignUp() {
-        onView(withId(R.id.signUpBtnLGP)).perform(click());
-        onView(withId(R.id.signup));
-    }
-
-    @Test
-    // check if dialog box pops up when user logs in with Google
-    public void loginWithGoogle() {
-        onView(withId(R.id.googleLoginBtn)).perform(click());
-        onView(withText("Login with Google")).check(matches(isDisplayed()));
-    }
-    */
 }
-

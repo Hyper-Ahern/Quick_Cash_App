@@ -52,17 +52,28 @@
         android:id="@+id/loginBtn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginStart="95dp"
         android:layout_marginTop="50dp"
         android:fontFamily="serif"
         android:text="LOGIN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordHint" />
+=======
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="16dp"
+        android:text="LOGIN"
+        app:layout_constraintBottom_toTopOf="@+id/googleLoginBtn"
+        app:layout_constraintEnd_toStartOf="@+id/googleLoginBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+>>>>>>> 72215921fe477682dd726c5f5d00e08d7e351e01
 
     <Button
         android:id="@+id/signUpBtnLGP"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginStart="33dp"
         android:layout_marginTop="50dp"
         android:fontFamily="serif"
@@ -80,6 +91,29 @@
         android:src="@drawable/common_google_signin_btn_text_dark_normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+=======
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="16dp"
+        android:text="SIGN UP"
+        app:layout_constraintBottom_toTopOf="@+id/googleLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/loginBtn" />
+
+    <ImageButton
+        android:id="@+id/googleLoginBtn"
+        android:layout_width="215dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="250dp"
+        android:contentDescription="google login in button"
+        android:src="@drawable/common_google_signin_btn_text_dark_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+>>>>>>> 72215921fe477682dd726c5f5d00e08d7e351e01
 
     <TextView
         android:id="@+id/emailHint"

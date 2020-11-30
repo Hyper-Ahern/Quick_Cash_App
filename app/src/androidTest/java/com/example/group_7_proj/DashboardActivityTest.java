@@ -57,6 +57,33 @@ public class DashboardActivityTest {
         onView(withId(R.id.paymentInfo));
     }
 
+    @Test
+    // check if app is able to navigate to Accepted Jobs it3 RB&AZ US AT9.1
+    public void navToAcceptedJobs(){
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.acceptedJobs)).perform(click());
+        onView(withId(R.id.acceptedJobView));
+    }
+    @Test
+    // check if app is able to use the 'Make a payment' button in 'History' page
+    public void clickMakeAPayment(){
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.historyBtn)).perform(click());
+        onView(withId(R.id.mkPaymentBtn));
+
+    }
+
+
+
+    @Test
+    // checks if app is able to successfully navigate to dashboard
+    public void popupexist() {
+        onView(withId(R.id.dashboard));
+        onView(withId(R.id.popuplayout));
+        onView(withId(R.id.seematchedjobbutton)).perform(click());
+        onView(withId(R.id.jobsearchresults));
+    }
+
 
 
 }
