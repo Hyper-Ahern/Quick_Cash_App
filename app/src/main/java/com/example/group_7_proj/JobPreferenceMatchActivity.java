@@ -45,7 +45,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
             } else
                 eachpreference = eachpreference + searchText.charAt(i);
         }
-        reff = FirebaseDatabase.getInstance().getReference().child("jobTypeTest");
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {

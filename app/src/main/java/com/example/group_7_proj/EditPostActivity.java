@@ -39,7 +39,7 @@ public class EditPostActivity extends AppCompatActivity {
         userNumber = callerIntent.getStringExtra("User");
 
 
-        reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
 
             @Override

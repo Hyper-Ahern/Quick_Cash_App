@@ -48,7 +48,7 @@ public class HistoryActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
-        reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
@@ -164,8 +164,8 @@ public class HistoryActivity extends AppCompatActivity {
 
 
 
-                                    DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest").child("JOBPOST-" + maxPost);
-                                    DatabaseReference toPath = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest").child("JOBPOST-" + deleteJobIDMinusOne);
+                                    DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + maxPost);
+                                    DatabaseReference toPath = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + deleteJobIDMinusOne);
 
 
 

@@ -31,7 +31,7 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.jobsearchresults);
         Intent intent = getIntent();
         searchText = intent.getStringExtra("Search Text");
-        reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {

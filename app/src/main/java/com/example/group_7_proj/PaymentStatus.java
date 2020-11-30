@@ -90,7 +90,7 @@ public class PaymentStatus extends AppCompatActivity {
                         refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
                         refPayPal.child("jobID").setValue("Empty");
                         /*
-                        reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+                        reff2 = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
 
                         if (snapshot.hasChild("Empty")) {
                             reff2.child("Empty").removeValue();
@@ -125,7 +125,7 @@ public class PaymentStatus extends AppCompatActivity {
     private void showDetails(String paymentAmount, String jobID) {
         txtId.setText("ID -- "+responseData.getResponse().getId());
         txtStatus.setText("Status -- "+responseData.getResponse().getState());
-        reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff2 = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
         reff2.child(jobID).child("paymentStatus").setValue("Paid");
         /*

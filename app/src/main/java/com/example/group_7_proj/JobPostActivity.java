@@ -50,7 +50,7 @@ public class JobPostActivity extends AppCompatActivity {
         final int intUserNum = Integer.parseInt(userNumber);
 
         userRef = FirebaseDatabase.getInstance().getReference().child("user");
-        jobRef = FirebaseDatabase.getInstance().getReference().child("jobTypeTest");
+        jobRef = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         Spinner jobTypeList = (Spinner) findViewById(R.id.jobType);
         this.addJobTypeList(jobTypeList);
 

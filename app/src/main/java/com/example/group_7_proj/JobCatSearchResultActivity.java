@@ -31,7 +31,7 @@ public class JobCatSearchResultActivity extends AppCompatActivity {
         jobTypePassed = intent.getStringExtra("Job Type");
 
         // insert code here
-        reff = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {

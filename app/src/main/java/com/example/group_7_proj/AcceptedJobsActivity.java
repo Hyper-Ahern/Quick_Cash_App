@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AcceptedJobsActivity extends AppCompatActivity {
+public class AcceptedJobsActivity extends AppCompatActivity{
     Button historyBackToMainBtn;
     DatabaseReference reff2;
     long maxPost = 0;
@@ -43,7 +43,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
-        reff2 = FirebaseDatabase.getInstance().getReference().child("jobPostTypeTest");
+        reff2 = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
