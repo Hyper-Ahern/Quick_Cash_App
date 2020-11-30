@@ -16,8 +16,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".PotentialEmployeeActivity"
-            android:label="@string/title_activity_potential_employee">
+            android:name=".PotentialEmployeeActivity">
+<!--            android:label="@string/title_activity_potential_employee">-->
         </activity>
 
 
@@ -44,9 +44,8 @@
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ChooseJobPrefActivity" />
-        <activity android:name=".JobPostViewActivity"></activity>
-        <activity android:name=".JobPreferenceMatchActivity" />
         <activity android:name=".JobPostViewActivity"/>
+        <activity android:name=".JobPreferenceMatchActivity" />
         <activity android:name=".PrefActivity"/>
         <activity android:name=".HistoryActivity" />
         <activity android:name=".HistoryJobTextSearchResultActivity" />

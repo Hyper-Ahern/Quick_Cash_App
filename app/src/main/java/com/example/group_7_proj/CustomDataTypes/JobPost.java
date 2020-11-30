@@ -20,7 +20,7 @@ public class JobPost{
         this.jobType = JT2;
         this.salary =salary;
         this.jobDetails =JobDetails;
-        this.UserID = UID;
+        this.userID = UID;
 
         //this.EmployeeID = employeeID;
 

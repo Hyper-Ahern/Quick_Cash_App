@@ -49,6 +49,7 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                     }
 
                     String userName = snapshot.child("USER-" + userID).child("name").getValue().toString();
+                    System.out.println("user ID is " + userID);
                     String userEmail = snapshot.child("USER-" + userID).child("email").getValue().toString();
 
                     if(userPref.contains(jobType)){
@@ -73,14 +74,14 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                     Toast.makeText(PotentialEmployeeActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                /*Button clearResultsBtn = findViewById(R.id.backBtnPE);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), JobPostActivity.class);
                         startActivity(intent);
                     }
-                });
+                });*/
             }
 
             @Override

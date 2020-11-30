@@ -114,13 +114,12 @@ public class JobPostActivity extends AppCompatActivity {
                 String completionStatus = "Not Completed";
                 String paymentStatus = "Not Paid";
 
+                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
 
-                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail);
                 j1.setGeoLocation(empGeoTag);
                 j1.setUserID(Integer.parseInt(userNumber));
 
 
-                final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
                 if(!j1.InvalidEmployerName())
                 {
                     validTextview.setText("Invalid Employer info");
@@ -189,6 +188,8 @@ public class JobPostActivity extends AppCompatActivity {
         popupyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                System.out.println("hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 Intent intent = new Intent(getApplicationContext(), PotentialEmployeeActivity.class);
                 intent.putExtra("Job Type", jobType);
                 startActivity(intent);
