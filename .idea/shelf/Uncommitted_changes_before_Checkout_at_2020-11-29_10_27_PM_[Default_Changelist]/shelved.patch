@@ -1,0 +1,45 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/modules/3130_group_7_proj.iml\" filepath=\"$PROJECT_DIR$/.idea/modules/3130_group_7_proj.iml\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj.app.iml\" filepath=\"$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj.app.iml\" />\r\n    </modules>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision 76297b3e2673c70a45944fd63be768801acac7bc)
++++ .idea/modules.xml	(date 1606703241044)
+@@ -4,6 +4,8 @@
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/.idea/modules/3130_group_7_proj.iml" filepath="$PROJECT_DIR$/.idea/modules/3130_group_7_proj.iml" />
+       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj.app.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3130_group_7_proj7.iml" filepath="$PROJECT_DIR$/.idea/modules/3130_group_7_proj7.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj7.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/3130_group_7_proj7.app.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/modules/3130_group_7_proj7.iml
+===================================================================
+--- .idea/modules/3130_group_7_proj7.iml	(date 1606703241103)
++++ .idea/modules/3130_group_7_proj7.iml	(date 1606703241103)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module external.linked.project.id="3130_group_7_proj7" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
++  <component name="FacetManager">
++    <facet type="java-gradle" name="Java-Gradle">
++      <configuration>
++        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/../../build" />
++        <option name="BUILDABLE" value="false" />
++      </configuration>
++    </facet>
++  </component>
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$/../..">
++      <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />
++      <excludeFolder url="file://$MODULE_DIR$/../../build" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
