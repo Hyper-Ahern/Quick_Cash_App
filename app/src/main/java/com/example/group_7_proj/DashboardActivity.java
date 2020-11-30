@@ -3,9 +3,15 @@ package com.example.group_7_proj;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+
+import com.example.group_7_proj.CustomDataTypes.GeoLocation;
+import com.example.group_7_proj.CustomDataTypes.User;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,9 +22,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.group_7_proj.CustomDataTypes.GeoLocation;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, popupyes, popupno;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn, preferenceBtn,popupyes, popupno;
     private TextView displayjobpreferencetextview;
     static boolean ifpopup = true;
     String userNumber = "";
@@ -54,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         String firebaseFirstLevel = "user";
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
         setContentView(R.layout.dashboard);
+
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
         userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
@@ -85,6 +91,10 @@ public class DashboardActivity extends AppCompatActivity {
         postAJobBtn = (Button) findViewById(R.id.postJobBtnDB);
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
+        preferenceBtn = (Button) findViewById(R.id.preferenceBtn);
+        historyBtn = (Button) findViewById(R.id.historyBtn);
+        acceptedJobsBtn = (Button) findViewById(R.id.acceptedJobsBtn);
+
         if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             getLocation();
@@ -134,6 +144,41 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), JobPostViewActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                startActivity(intent);
+            }
+        });
+        preferenceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
+                intent.putExtra("User", userNumber);
+                startActivity(intent);
+            }
+        });
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                intent.putExtra("User", userNumber);
+                if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                }
+                startActivity(intent);
+            }
+        });
+
+
+        acceptedJobsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AcceptedJobsActivity.class);
                 intent.putExtra("User", userNumber);
                 if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED) {
@@ -217,22 +262,21 @@ public class DashboardActivity extends AppCompatActivity {
                     if (location != null) {
                         Geocoder geocoder = new Geocoder(DashboardActivity.this, Locale.getDefault());
 
-                        geoLoc = new GeoLocation(location.getLongitude(), location.getLatitude());
+                        geoLoc = new GeoLocation(location.getLongitude(),location.getLatitude() );
                         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 long maxId;
                                 boolean found;
                                 DatabaseReference user;
-                                if (snapshot.exists()) {
+                                if(snapshot.exists()){
                                     maxId = (snapshot.getChildrenCount());
-                                    user = rootRef.child("USER-" + userNumber);
-                                    Map<String, Object> userLocationInfo = new HashMap<>();
-                                    userLocationInfo.put("geoTag", geoLoc);
+                                    user = rootRef.child("USER-"+userNumber);
+                                    Map<String,Object> userLocationInfo = new HashMap<>();
+                                    userLocationInfo.put("geoTag",geoLoc);
                                     user.updateChildren(userLocationInfo);
                                     //.makeText(DashboardActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
                             }
-
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });

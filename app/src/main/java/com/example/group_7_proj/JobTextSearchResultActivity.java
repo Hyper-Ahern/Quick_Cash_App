@@ -90,7 +90,7 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                     Toast.makeText(JobTextSearchResultActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                Button clearResultsBtn = findViewById(R.id.clearResultsBtn);
+                Button clearResultsBtn = findViewById(R.id.editPostSubmitBtn);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
