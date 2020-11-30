@@ -30,7 +30,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
-    implementation 'com.google.firebase:firebase-database:19.5.0'
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+
+
     implementation 'androidx.wear:wear:1.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
