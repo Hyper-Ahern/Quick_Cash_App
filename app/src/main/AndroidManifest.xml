@@ -43,8 +43,9 @@
         <activity android:name=".JobPostActivity" />
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".ChooseJobPrefActivity" />
+        <activity android:name=".PrefActivity" />
         <activity android:name=".JobPostViewActivity"/>
+        <activity android:name=".ChooseJobPrefActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".HistoryJobTextSearchResultActivity" />
         <activity android:name=".AcceptedJobsActivity" />
@@ -61,10 +62,6 @@
 
 
         </activity>
-
-
-
-
     </application>
 
 </manifest>

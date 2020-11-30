@@ -37,7 +37,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
-    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn;
+    Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn, preferenceBtn;
     String userNumber = "";
     FusedLocationProviderClient fusedLocationProviderClient;
     DatabaseReference rootRef;
@@ -61,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity {
         postAJobBtn = (Button) findViewById(R.id.postJobBtnDB);
         payEmployeeBtn = (Button) findViewById(R.id.payEmpBtnDB);
         allJobPostBtn = (Button) findViewById(R.id.allJobsBtnDB);
+        preferenceBtn = (Button) findViewById(R.id.preferenceBtn);
         historyBtn = (Button) findViewById(R.id.historyBtn);
         acceptedJobsBtn = (Button) findViewById(R.id.acceptedJobsBtn);
 
@@ -118,6 +119,14 @@ public class DashboardActivity extends AppCompatActivity {
                         PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 }
+                startActivity(intent);
+            }
+        });
+        preferenceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
             }
         });
