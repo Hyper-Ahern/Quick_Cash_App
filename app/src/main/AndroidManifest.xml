@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
+        <activity
+            android:name=".PotentialEmployeeActivity"
+            android:label="@string/title_activity_potential_employee">
+        </activity>
 
 
         <activity
@@ -44,6 +44,7 @@
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ChooseJobPrefActivity" />
+        <activity android:name=".JobPostViewActivity"></activity>
         <activity android:name=".JobPreferenceMatchActivity" />
         <activity android:name=".JobPostViewActivity"/>
         <activity android:name=".PrefActivity"/>

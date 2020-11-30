@@ -2,56 +2,61 @@ package com.example.group_7_proj.CustomDataTypes;
 
 public class JobPost{
 
-    private String EmployerName;
-    private String JobTitle;
-    private String JobType;
-    private String Salary;
-
-    private String JobDetails;
-    private int UserID;
-
+    private String employerName;
+    private String jobTitle;
+    private String jobType;
+    private String salary;
+    private String jobDetails;
+    private Integer userID;
+    private GeoLocation geoLocation;
     private String PaymentStatus;
     private String CompletionStatus;
-
-    //private int EmployeeID;
 
     public JobPost() {}
     public JobPost(String EN,String JT,String JT2,String salary,String JobDetails, int UID, String paymentStatus, String completionStatus)
     {
-        this.EmployerName = EN;
-        this.JobTitle=JT;
-        this.JobType = JT2;
-        this.Salary=salary;
-        this.JobDetails=JobDetails;
+        this.employerName = EN;
+        this.jobTitle =JT;
+        this.jobType = JT2;
+        this.salary =salary;
+        this.jobDetails =JobDetails;
         this.UserID = UID;
 
         //this.EmployeeID = employeeID;
 
         this.PaymentStatus = paymentStatus;
         this.CompletionStatus = completionStatus;
-
     }
 
 
     public String getEmployerName() {
-        return EmployerName;
+        return employerName;
     }
 
     public String getJobDetails() {
-        return JobDetails;
+        return jobDetails;
     }
 
     public String getJobTitle() {
-        return JobTitle;
+        return jobTitle;
     }
 
     public String getSalary() {
-        return Salary;
+        return salary;
     }
 
     public String getJobType(){
-        return JobType;
+        return jobType;
     }
+
+    public GeoLocation getGeoLocation(){
+        return geoLocation;
+    }
+
+    public Integer getUserID(){
+        return userID;
+    }
+
 
     // AZ
     public String getPaymentStatus(){ return PaymentStatus;}
@@ -59,38 +64,43 @@ public class JobPost{
     public String getCompletionStatus(){return CompletionStatus;}
 
 
-    public int getUserID() {return UserID;}
+//    public int getUserID() {return UserID;}
 
     public void setEmployerName(String employerName) {
-        EmployerName = employerName;
+        this.employerName = employerName;
     }
 
     public void setJobDetails(String jobDetails) {
-        JobDetails = jobDetails;
+        this.jobDetails = jobDetails;
     }
 
-    public void setJobTitle(String JT) {
-        this.JobTitle = JT;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public void setSalary(String salary) {
-        Salary = salary;
+        this.salary = salary;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public void setPaymentStatus(String paymentStatus){ PaymentStatus = "Paid";}
 
     public void setCompletionStatus(String completionStatus) {CompletionStatus = "Completed";}
 
-
-    public void setUserID(int userID) {UserID = userID;}
+    public void setGeoLocation(GeoLocation geoLocation) {
+        this.geoLocation = geoLocation;
+    }
 
     public boolean InvalidSalary()
     {
-        if (Salary == null|| Salary.equals("")) {
+        if (salary == null|| salary.equals("")) {
             return false;
         }
         try {
-            double dbl = Double.parseDouble(Salary);
+            double dbl = Double.parseDouble(salary);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -99,7 +109,7 @@ public class JobPost{
 
 
     public boolean InvalidEmployerName() {
-        if (EmployerName == null||EmployerName.equals("")) {
+        if (employerName == null|| employerName.equals("")) {
             return false;
         }
         return true;
@@ -107,10 +117,10 @@ public class JobPost{
 
     public boolean InvalidJobTitle() {
         String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
-        if(JobTitle.equals(""))
+        if(jobTitle.equals(""))
             return false;
         for(int i=0;i<29;i++) {
-            if (JobTitle.contains(Character.toString(specialCharactersString.charAt(i)))) {
+            if (jobTitle.contains(Character.toString(specialCharactersString.charAt(i)))) {
                 return false;
             }
         }
@@ -119,19 +129,26 @@ public class JobPost{
     }
 
     public boolean InvalidJobDetails() {
-        if (JobDetails == null || JobDetails.equals("")) {
+        if (jobDetails == null || jobDetails.equals("")) {
             return false;
         }
         return true;
     }
 
     public boolean InvalidJobTypes() {
-        if (JobType.equals("--Please select--")) {
+        if (jobType.equals("--Please select--")) {
             return false;
         }
         return true;
     }
 
+    // type check
+    public boolean validGeoLoc(){
+        if((geoLocation.getLatitude() instanceof Double) && (geoLocation.getLongitude() instanceof Double)){
+            return true;
+        }
+        return false;
+    }
 
 
 }
