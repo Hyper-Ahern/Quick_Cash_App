@@ -1,5 +1,6 @@
 package com.example.group_7_proj;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -135,7 +136,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
 
                                            // Specifying a listener allows you to take an action before dismissing the dialog.
                                            // The dialog is automatically dismissed when a dialog button is clicked.
-                                           .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                           .setPositiveButton(Dialog.BUTTON_POSITIVE, new DialogInterface.OnClickListener() {
                                                public void onClick(DialogInterface dialog, int which) {
                                                    // Continue with delete operation
                                                    reff2.child("JOBPOST-" + tempJobID).child("completionStatus").setValue("Completed");
@@ -151,7 +152,7 @@ public class AcceptedJobsActivity extends AppCompatActivity {
                                                }
                                            })
                                            // A null listener allows the button to dismiss the dialog and take no further action.
-                                           .setNegativeButton(android.R.string.no, null)
+                                           .setNegativeButton(Dialog.BUTTON_NEGATIVE, null)
                                            .setIcon(android.R.drawable.ic_dialog_alert)
                                            .show();
                                     }
