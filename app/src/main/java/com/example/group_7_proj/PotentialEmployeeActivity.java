@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,7 +60,11 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
 
                         userNameTextview.setText(userName);
                         userNameTextview.setTextSize(30);
+                        userNameTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
+                        userEmailTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         userEmailTextview.setText(userEmail);
+
+
 
                         myLayout.addView(userNameTextview);
                         myLayout.addView(userEmailTextview);
@@ -74,14 +79,14 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                     Toast.makeText(PotentialEmployeeActivity.this, "Sorry We found nothing",Toast.LENGTH_LONG).show();
                 }
 
-                /*Button clearResultsBtn = findViewById(R.id.backBtnPE);
+                Button clearResultsBtn = findViewById(R.id.backBtnPE);
                 clearResultsBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         Intent intent = new Intent(getApplicationContext(), JobPostActivity.class);
                         startActivity(intent);
                     }
-                });*/
+                });
             }
 
             @Override

@@ -4,6 +4,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
+android:background="@drawable/wood_panel"
 android:layout_height="match_parent"
     android:id="@+id/jobPostView"
     tools:context=".MainActivity">
@@ -30,6 +31,9 @@ android:layout_height="match_parent"
                     android:layout_width="300sp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/cardview_light_background"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/cardview_light_background"
                     android:ems="10"
                     android:hint="@string/search_here"
                     android:inputType="textPersonName"
@@ -41,6 +45,7 @@ android:layout_height="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="0dp"
+                    android:fontFamily="serif"
                     android:text="@string/search"></Button>
             </LinearLayout>
 
@@ -61,8 +66,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/delivery"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                     <Button
                         android:id="@+id/categoryBtn2"
@@ -70,8 +76,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/computer"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                     <Button
                         android:id="@+id/categoryBtn3"
@@ -79,8 +86,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/babysitting"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                     <Button
                         android:id="@+id/categoryBtn4"
@@ -88,8 +96,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/cleaning"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                     <Button
                         android:id="@+id/categoryBtn5"
@@ -97,8 +106,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/dog_walking"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                     <Button
                         android:id="@+id/categoryBtnOther"
@@ -106,8 +116,9 @@ android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif"
                         android:text="@string/other"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -148,6 +159,7 @@ android:layout_height="match_parent"
                     android:layout_marginLeft="100dp"
                     android:layout_marginRight="100dp"
                     android:layout_marginBottom="100dp"
+                    android:fontFamily="serif"
                     android:text="@string/back_to_main">
                     <!--                app:layout_constraintBottom_toBottomOf="parent"-->
                     <!--                app:layout_constraintEnd_toEndOf="parent"-->

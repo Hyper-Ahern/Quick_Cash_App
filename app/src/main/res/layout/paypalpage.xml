@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity1"
     android:layout_width="match_parent"
+    android:background="@drawable/wood_panel"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
@@ -30,6 +31,7 @@
         android:layout_marginTop="303dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="324dp"
+        android:fontFamily="serif"
         android:text="@string/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +47,12 @@
         android:layout_marginEnd="108dp"
         android:layout_marginBottom="93dp"
         android:autofillHints=""
+        android:backgroundTint="@color/cardview_light_background"
         android:ems="10"
-        android:hint="inert a number"
+        android:hint="insert a number"
         android:inputType="number"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         app:layout_constraintBottom_toTopOf="@+id/btnPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

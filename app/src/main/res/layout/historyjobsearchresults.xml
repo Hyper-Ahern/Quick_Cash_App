@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:background="@drawable/wood_panel"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,8 +45,8 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="100dp"
-                android:text="@string/clear_results">
-            </Button>
+                android:fontFamily="serif"
+                android:text="@string/clear_results"></Button>
         </LinearLayout>
 
     </ScrollView>

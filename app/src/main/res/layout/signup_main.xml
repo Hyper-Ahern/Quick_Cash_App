@@ -6,149 +6,152 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
-    android:id="@+id/signup">
+    android:id="@+id/signup"
+    android:background="@drawable/wood_panel"
+    >
 
     <TextView
         android:id="@+id/signUpTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="144dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:text="Sign Up"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="204dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="103dp"
-        android:layout_marginTop="51dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="224dp"
         android:layout_height="39dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="94dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/passwordErrorMessage"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailErrorMessage" />
 
     <EditText
         android:id="@+id/reenterPassword"
         android:layout_width="224dp"
         android:layout_height="39dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="94dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:ems="10"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/passwordErrorMessage2"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordErrorMessage" />
 
     <TextView
         android:id="@+id/passwordErrorMessage2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="216dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:text="Error Message"
-        android:textColor="#FF0000"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reenterPassword" />
 
     <TextView
         android:id="@+id/passwordErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="216dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:text="Error Message"
-        android:textColor="#FF0000"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/reenterPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
         android:layout_width="224dp"
         android:layout_height="40dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="14dp"
         android:layout_marginEnd="94dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:hint="Email"
-        app:layout_constraintBottom_toTopOf="@+id/emailErrorMessage"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameErrorMessage" />
 
     <TextView
         android:id="@+id/nameErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
         android:layout_marginEnd="216dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:text="Error Message"
-        android:textColor="#FF0000"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/name"
         android:layout_width="224dp"
         android:layout_height="40dp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="94dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:hint="Name"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpTitle" />
 
     <TextView
         android:id="@+id/emailErrorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
         android:layout_marginEnd="216dp"
+        android:backgroundTint="@color/cardview_light_background"
         android:text="Error Message"
-        android:textColor="#FF0000"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="162dp"
+        android:fontFamily="serif"
         android:text="Sign me up!"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordErrorMessage2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="128dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="139dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

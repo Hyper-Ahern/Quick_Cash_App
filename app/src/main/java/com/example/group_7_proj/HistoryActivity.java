@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.group_7_proj.CustomDataTypes.JobPost;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -92,11 +93,18 @@ public class HistoryActivity extends AppCompatActivity {
                         // Set teh values that were received from the dabase to the text views
                         jobTitleTextview.setText(jobTitle);
                         jobTitleTextview.setTextSize(30);
+                        jobTitleTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobIDTextview.setText("Job ID: " + jobID);
+                        jobIDTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         employerNameTextview.setText("Employer Name: " + employerName);
+                        employerNameTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobTypeTextview.setText("Job Type: " + jobType);
+                        jobTypeTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         jobDetailsTextview.setText("Details: " + jobDetails);
+                        jobDetailsTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         salaryTextview.setText("Salary: " + salary + "\n");
+                        salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
+
 
                         // Add those text views to the layout so the user can see them
                         myLayout.addView(jobTitleTextview);

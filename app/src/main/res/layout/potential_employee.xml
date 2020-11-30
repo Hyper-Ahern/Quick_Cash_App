@@ -5,6 +5,7 @@
     android:id="@+id/potential_employee"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wood_panel"
     tools:context=".MainActivity"
     tools:ignore="MissingDefaultResource">
 
@@ -43,6 +44,7 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="100dp"
+                android:fontFamily="serif"
                 android:text="BACK">
             </Button>
         </LinearLayout>
