@@ -31,6 +31,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popupmatchresult);
         Intent intent = getIntent();
+        final String userNumber = intent.getStringExtra("User");
         int listcount = 0;
         String eachpreference = "";
         final ArrayList<String> eachpreferencetansfer = new ArrayList<>();
@@ -116,6 +117,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        intent.putExtra("User", userNumber);
                         startActivity(intent);
                     }
                 });

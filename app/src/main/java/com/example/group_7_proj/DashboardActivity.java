@@ -214,6 +214,8 @@ public class DashboardActivity extends AppCompatActivity {
                 ifpopup = false;
                 Intent intent = new Intent(getApplicationContext(), JobPreferenceMatchActivity.class);
                 intent.putExtra("JobPreference", preference);
+                // added by AZ on Dec 01
+                intent.putExtra("User", userNumber);
                 startActivity(intent);
 
             }
@@ -221,7 +223,12 @@ public class DashboardActivity extends AppCompatActivity {
         popupno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                ifpopup = false;
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+
+                // added by AZ on Dec 01
+                intent.putExtra("User", userNumber);
+                startActivity(intent);
             }
         });
     }
