@@ -31,6 +31,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popupmatchresult);
         Intent intent = getIntent();
+        final String userNumber = intent.getStringExtra("User");
         int listcount = 0;
         String eachpreference = "";
         final ArrayList<String> eachpreferencetansfer = new ArrayList<>();
@@ -106,7 +107,9 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
 
                 if (resultCount == 0) {
                     final TextView noResultShowing = new TextView(getApplicationContext());
-                    noResultShowing.setText("No result here. Try type something else");
+                    noResultShowing.setText("No result here.");
+                    noResultShowing.setTextSize(26);
+                    noResultShowing.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                     myLayout.addView(noResultShowing);
                     Toast.makeText(JobPreferenceMatchActivity.this, "Sorry We found nothing", Toast.LENGTH_LONG).show();
                 }
@@ -116,6 +119,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        intent.putExtra("User", userNumber);
                         startActivity(intent);
                     }
                 });

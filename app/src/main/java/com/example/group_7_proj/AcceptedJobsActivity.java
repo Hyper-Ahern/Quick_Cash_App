@@ -139,31 +139,13 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                             completeBtn.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View view) {
 
-                                   new AlertDialog.Builder(AcceptedJobsActivity.this)
-                                           .setTitle("Confirm")
-                                           .setMessage("Mark the job as completed?")
 
-                                           // Specifying a listener allows you to take an action before dismissing the dialog.
-                                           // The dialog is automatically dismissed when a dialog button is clicked.
-                                           .setPositiveButton(Dialog.BUTTON_POSITIVE, new DialogInterface.OnClickListener() {
-                                               public void onClick(DialogInterface dialog, int which) {
-                                                   // Continue with delete operation
                                                    reff2.child("JOBPOST-" + tempJobID).child("completionStatus").setValue("Completed");
                                                    completeBtn.setText("Job is completed");
                                                    completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
-                                                   // send notification to employer
-
-
-
-
 
                                                    setContentView(R.layout.acceptedjobs);
-                                               }
-                                           })
-                                           // A null listener allows the button to dismiss the dialog and take no further action.
-                                           .setNegativeButton(Dialog.BUTTON_NEGATIVE, null)
-                                           .setIcon(android.R.drawable.ic_dialog_alert)
-                                           .show();
+
                                     }
                                 }
                             );

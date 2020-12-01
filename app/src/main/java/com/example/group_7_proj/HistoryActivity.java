@@ -1,7 +1,10 @@
 package com.example.group_7_proj;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.group_7_proj.CustomDataTypes.JobPost;
@@ -40,6 +45,10 @@ public class HistoryActivity extends AppCompatActivity {
     String userNumber = "";
     public static long jobID;
 
+    String CHANNEL_ID = "HistoryActivity";
+    int notificationId = 1 ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +56,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
+        // call the notification function
+        createNotificationChannel();
 
         reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
@@ -232,6 +243,31 @@ public class HistoryActivity extends AppCompatActivity {
                         mkPaymentBtn.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View view) {
 
+                                // Send notification when the button is clicked
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(HistoryActivity.this, CHANNEL_ID)
+
+                                        .setContentTitle("Hahaha")
+                                        .setContentText("World")
+                                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                        .setAutoCancel(true);
+
+
+                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(HistoryActivity.this);
+
+                                // notificationId is a unique int for each notification that you must define
+                                notificationManager.notify(notificationId, builder.build());
+
+
+
+
+
+
+
+
+
+
+
 
                                 Intent intent = new Intent(getApplicationContext(), MainActivity1.class);
                                 intent.putExtra("JobID", "JOBPOST-" + tempJobID);
@@ -293,6 +329,22 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "test";//getString(R.string.channel_name);
+            String description = "testDescrip";//getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }
