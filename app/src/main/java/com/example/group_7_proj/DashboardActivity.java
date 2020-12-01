@@ -113,7 +113,7 @@ public class DashboardActivity extends AppCompatActivity {
                         PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 }
-
+                ifpopup = true;
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
