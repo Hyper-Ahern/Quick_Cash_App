@@ -28,7 +28,7 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.jobsearchresults);
+        setContentView(R.layout.potential_employee);
         Intent intent = getIntent();
         jobType = intent.getStringExtra("Job Type");
 
@@ -50,7 +50,6 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                     }
 
                     String userName = snapshot.child("USER-" + userID).child("name").getValue().toString();
-                    System.out.println("user ID is " + userID);
                     String userEmail = snapshot.child("USER-" + userID).child("email").getValue().toString();
 
                     if(userPref.contains(jobType)){
@@ -63,8 +62,6 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                         userNameTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         userEmailTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
                         userEmailTextview.setText(userEmail);
-
-
 
                         myLayout.addView(userNameTextview);
                         myLayout.addView(userEmailTextview);

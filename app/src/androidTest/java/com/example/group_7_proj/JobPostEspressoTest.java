@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 
 
 import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -155,6 +156,7 @@ public class JobPostEspressoTest {
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
+        pressBack();
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted Successfully")));
     }
 
@@ -179,6 +181,7 @@ public class JobPostEspressoTest {
         onView(withId(R.id.salaryInputText)).perform(typeText("14")).perform(closeSoftKeyboard());
         onView(withId(R.id.jobDetailsText)).perform(typeText("1sdfasd")).perform(closeSoftKeyboard());
         onView(withId(R.id.submitBtnJobPost)).perform(click());
+        pressBack();
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted Successfully")));
     }
 
