@@ -87,20 +87,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmpName" />
 
-    <EditText
+    <Spinner
         android:id="@+id/editJobType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="211dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="103dp"
+        android:layout_marginBottom="38dp"
         android:backgroundTint="@color/cardview_light_background"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
         android:ems="10"
         android:inputType="textPersonName"
+        android:popupBackground="#808080"
         android:text="Name"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        app:layout_constraintBottom_toTopOf="@+id/editSalary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editJobDetails" />
 
