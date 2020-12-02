@@ -173,8 +173,8 @@ public class JobPostActivity extends AppCompatActivity {
         jobTypes.add("Delivery");
         jobTypes.add("Other");
 
-        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobTypes);
-        jobTypeListAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, jobTypes);
+        jobTypeListAdapter.setDropDownViewResource(R.layout.spinner_item);
         jobTypeList.setAdapter(jobTypeListAdapter);
     }
 
