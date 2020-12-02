@@ -128,7 +128,7 @@ public class HistoryActivity extends AppCompatActivity {
                         edtBtn.setId(editJobID);
                         final int editID_ = edtBtn.getId();
                         edtBtn.setText("Edit ");
-                        edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        edtBtn.setBackgroundColor(Color.rgb(152,88,54));
                         LinearLayout editLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(edtBtn, editParams);
 
@@ -154,7 +154,7 @@ public class HistoryActivity extends AppCompatActivity {
                         dltBtn.setId(deleteJobID);
                         final int deleteID_ = dltBtn.getId();
                         dltBtn.setText("Delete ");
-                        dltBtn.setBackgroundColor(Color.rgb(255, 0, 0));
+                        dltBtn.setBackgroundColor(Color.rgb(210,146,111));
                         LinearLayout deleteLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         deleteLayout.addView(dltBtn, deleteParams);
 
@@ -209,7 +209,7 @@ public class HistoryActivity extends AppCompatActivity {
                         // int deleteJobID = (int) jobID;
                         //final int deleteJobIDMinusOne = deleteJobID;
                         mkPaymentBtn.setText("Make A Payment");
-                        mkPaymentBtn.setBackgroundColor(Color.rgb(0, 255, 255));
+                        mkPaymentBtn.setBackgroundColor(Color.rgb(236,186,160));
                         LinearLayout mkPaymentLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         mkPaymentLayout.addView(mkPaymentBtn, makePaymentParams);
 

@@ -116,7 +116,7 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                         // if the status is completed, then it should be shown as completed and not clickable
                         if (paymentStatus.equals("Completed")) {
                             completeBtn.setText("Job is completed");
-                            completeBtn.setBackgroundColor(Color.rgb(0, 255, 0));
+                            completeBtn.setBackgroundColor(Color.rgb(236,186,160));
 
                             LinearLayout editLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                             editLayout.addView(completeBtn, editParams);
@@ -125,7 +125,7 @@ public class AcceptedJobsActivity extends AppCompatActivity{
 
 
                             completeBtn.setText("Mark the Jobs as Completed ");
-                            completeBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                            completeBtn.setBackgroundColor(Color.rgb(210,146,111));
                             int editJobID = (int) jobID;
                             //final int editJobIDMinusOne = editJobID;
                             completeBtn.setId(editJobID);
