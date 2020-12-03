@@ -153,7 +153,7 @@ public class JobPostActivity extends AppCompatActivity {
                     validTextview.setText("Job Posted Successfully");
                     Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
                     validTextview.setVisibility(View.GONE);
-                    int potEmpCount = calculatePotEmpCount(jobType);
+                    int potEmpCount = calculatePotEmpCount(userRef, jobType);
                     potentialEmpDialogPopUp(String.valueOf(potEmpCount));
 
                 }
@@ -204,8 +204,8 @@ public class JobPostActivity extends AppCompatActivity {
         });
     }
 
-    public int calculatePotEmpCount(final String jobType){
-        userRef.addValueEventListener(new ValueEventListener() {
+    public int calculatePotEmpCount(DatabaseReference userRefP, final String jobType){
+        userRefP.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
