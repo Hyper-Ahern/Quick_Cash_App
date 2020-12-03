@@ -67,9 +67,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
 
-        final String[] prefCall = {callerIntent.getStringExtra("Pref")};
 
-        if (prefCall[0].equals("true")) {
             userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
             userpreference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -85,8 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
                         }
 
                     }
-                    if (count>0) { // to make sure no popup if no preferences selected
-                        prefCall[0] = "false";
+                    if (count > 0 && ifpopup) { // to make sure no popup if no preferences selected
                         SeeMatchedJobPostDialog(displayallPreference);
                     }
                 }
@@ -96,7 +93,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                 }
             });
-        }
 
 
         locationFinder();
