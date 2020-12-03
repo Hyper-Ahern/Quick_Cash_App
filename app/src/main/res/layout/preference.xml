@@ -53,7 +53,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Babysitting"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_title" />
 
@@ -68,7 +67,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Cleaning"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_babysitting" />
 
@@ -83,7 +81,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Computer"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_cleaning" />
 
@@ -98,7 +95,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Delivery"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_computer" />
 
@@ -113,7 +109,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Dog Walking"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_delivery" />
 
@@ -128,7 +123,6 @@
         android:textColorHint="@color/cardview_light_background"
         android:buttonTint="@color/cardview_light_background"
         android:text="Other"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pref_dog" />
 </androidx.constraintlayout.widget.ConstraintLayout>

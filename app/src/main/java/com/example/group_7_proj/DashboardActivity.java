@@ -66,9 +66,12 @@ public class DashboardActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference().child("user");
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
-        userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
-        //if (callerIntent.getStringExtra("Pref").equals("true")) {
-            userpreference.addValueEventListener(new ValueEventListener() {
+
+        final String[] prefCall = {callerIntent.getStringExtra("Pref")};
+
+        if (prefCall[0].equals("true")) {
+            userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
+            userpreference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     preferenceCount = (snapshot.getChildrenCount());
@@ -84,7 +87,8 @@ public class DashboardActivity extends AppCompatActivity {
                         //displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
 
                     }
-                    if (ifpopup)
+                    //if (ifpopup)
+                        prefCall[0] = "false";
                         SeeMatchedJobPostDialog(displayallPreference);
                 }
 
@@ -93,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 }
             });
-        //}
+        }
 
 
         locationFinder();
@@ -236,6 +240,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 // added by AZ on Dec 01
                 intent.putExtra("User", userNumber);
+                intent.putExtra("Pref", "false");
                 startActivity(intent);
             }
         });

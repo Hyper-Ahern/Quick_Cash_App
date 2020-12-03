@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -133,10 +134,118 @@ public class PrefActivity extends AppCompatActivity {
 
         title = (TextView)findViewById(R.id.pref_title);
         backBtn = (Button) findViewById(R.id.pref_backdashBtn);
+        /*
+        babysitting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    rootRef.child("1").setValue("Babysitting");
+                }
+                else{
+                    rootRef.child("1").setValue(null);
+                }
+            }
+        });
+        cleaning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    rootRef.child("2").setValue("Cleaning");
+                }
+                else{
+                    rootRef.child("2").setValue(null);
+                }
+            }
+        });
+        computer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    rootRef.child("3").setValue("Computer");
+                }
+                else{
+                    rootRef.child("3").setValue(null);
+                }
+            }
+        });
+        delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    rootRef.child("4").setValue("Delivery");
+                }
+                else{
+                    rootRef.child("4").setValue(null);
+                }
+            }
+        });
+        dogWalking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    rootRef.child("5").setValue("Dog Walking");
+                }
+                else{
+                    rootRef.child("5").setValue(null);
+                }
+            }
+        });
+        otherCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked==true){
+                    //rootRef.child("6").setValue("Other");
+                }
+                else{
+                    //rootRef.child("6").setValue(null);
+                }
+            }
+        });
+        */
 
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
+                if (babysitting.isChecked()==true){
+                    rootRef.child("1").setValue("Babysitting");
+                }
+                else{
+                    rootRef.child("1").setValue(null);
+                }
+                if (cleaning.isChecked()==true){
+                    rootRef.child("2").setValue("Cleaning");
+                }
+                else{
+                    rootRef.child("2").setValue(null);
+                }
+                if (computer.isChecked()==true){
+                    rootRef.child("3").setValue("Computer");
+                }
+                else{
+                    rootRef.child("3").setValue(null);
+                }
+                if (delivery.isChecked()==true){
+                    rootRef.child("4").setValue("Delivery");
+                }
+                else{
+                    rootRef.child("4").setValue(null);
+                }
+                if (dogWalking.isChecked()==true){
+                    rootRef.child("5").setValue("Dog Walking");
+                }
+                else{
+                    rootRef.child("5").setValue(null);
+                }
+                if (otherCheck.isChecked()==true){
+                    rootRef.child("6").setValue("Other");
+                }
+                else{
+                    rootRef.child("6").setValue(null);
+                }
+
+
+
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 intent.putExtra("User", userNumber);
                 intent.putExtra("Pref", "true");
@@ -144,6 +253,7 @@ public class PrefActivity extends AppCompatActivity {
             }
         });
     }
+    /*
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -201,4 +311,5 @@ public class PrefActivity extends AppCompatActivity {
                 break;
         }
     }
+     */
 }

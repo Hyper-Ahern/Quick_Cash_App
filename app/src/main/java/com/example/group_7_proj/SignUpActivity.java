@@ -179,6 +179,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     rootRef.child("USER-"+String.valueOf(maxId + 1)).setValue(user);
                                     Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
                                     intent.putExtra("User", String.valueOf(maxId + 1));
+                                    intent.putExtra("Pref", "false");
                                     startActivity(intent);
                                     Toast.makeText(SignUpActivity.this, "Welcome "+user.getName()+"!", Toast.LENGTH_LONG).show();
                                 }
