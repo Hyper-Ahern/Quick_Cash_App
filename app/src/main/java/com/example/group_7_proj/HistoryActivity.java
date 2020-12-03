@@ -63,13 +63,6 @@ public class HistoryActivity extends AppCompatActivity {
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                /*
-                if (snapshot.hasChild("Empty")) {
-                    reff.child("Empty").removeValue();
-                }
-
-                 */
-
 
                 maxPost = (snapshot.getChildrenCount());
                 LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
@@ -135,7 +128,7 @@ public class HistoryActivity extends AppCompatActivity {
                         edtBtn.setId(editJobID);
                         final int editID_ = edtBtn.getId();
                         edtBtn.setText("Edit ");
-                        edtBtn.setBackgroundColor(Color.rgb(0, 191, 255));
+                        edtBtn.setBackgroundColor(Color.rgb(152,88,54));
                         LinearLayout editLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         editLayout.addView(edtBtn, editParams);
 
@@ -161,7 +154,7 @@ public class HistoryActivity extends AppCompatActivity {
                         dltBtn.setId(deleteJobID);
                         final int deleteID_ = dltBtn.getId();
                         dltBtn.setText("Delete ");
-                        dltBtn.setBackgroundColor(Color.rgb(255, 0, 0));
+                        dltBtn.setBackgroundColor(Color.rgb(210,146,111));
                         LinearLayout deleteLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         deleteLayout.addView(dltBtn, deleteParams);
 
@@ -187,44 +180,24 @@ public class HistoryActivity extends AppCompatActivity {
                                     String detail = snapshot.child("JOBPOST-" + maxPost).child("jobDetails").getValue().toString();
                                     String jobType = snapshot.child("JOBPOST-" + maxPost).child("jobType").getValue().toString();
                                     int intUserNum = Integer.parseInt(snapshot.child("JOBPOST-" + maxPost).child("userID").getValue().toString());
-                                    String completionStatus = "Not Completed";
-                                    String paymentStatus = "Not Paid";
+                                    String completionStatus = snapshot.child("JOBPOST-" + maxPost).child("completionStatus").getValue().toString();
+                                    String paymentStatus = snapshot.child("JOBPOST-" + maxPost).child("paymentStatus").getValue().toString();
+                                    int employeeID = Integer.parseInt(snapshot.child("JOBPOST-" + maxPost).child("employeeID").getValue().toString());
+                                    Object geoLocation = snapshot.child("JOBPOST-" + maxPost).child("geoLocation").getValue();
 
                                     final JobPost j1 = new JobPost(Emname,jobtitle1,jobType,salary,detail,intUserNum,paymentStatus,completionStatus);
 
                                     toPath.setValue(j1);
+                                    toPath.child("employeeID").setValue(employeeID);
+                                    toPath.child("geoLocation").setValue(geoLocation);
+
                                     lastNode.removeValue();
-
-
-
-
-
-
-
-
-
-
-                                    //toPath.setValue(lastNode);
-
-
-
-
                                     // if a job post has been deleted, then the maxPost should minus by 1
                                     maxPost--;
 
-
-
-
-
-
-
-
-
-
-
-                                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                                intent.putExtra("User", userNumber);
-                                startActivity(intent);
+                                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                                    intent.putExtra("User", userNumber);
+                                    startActivity(intent);
                             }
                         });
 
@@ -236,7 +209,7 @@ public class HistoryActivity extends AppCompatActivity {
                         // int deleteJobID = (int) jobID;
                         //final int deleteJobIDMinusOne = deleteJobID;
                         mkPaymentBtn.setText("Make A Payment");
-                        mkPaymentBtn.setBackgroundColor(Color.rgb(0, 255, 255));
+                        mkPaymentBtn.setBackgroundColor(Color.rgb(236,186,160));
                         LinearLayout mkPaymentLayout = (LinearLayout) findViewById(R.id.layoutdisplay);
                         mkPaymentLayout.addView(mkPaymentBtn, makePaymentParams);
 
@@ -258,53 +231,15 @@ public class HistoryActivity extends AppCompatActivity {
                                 // notificationId is a unique int for each notification that you must define
                                 notificationManager.notify(notificationId, builder.build());
 
-
-
-
-
-
-
-
-
-
-
-
                                 Intent intent = new Intent(getApplicationContext(), MainActivity1.class);
                                 intent.putExtra("JobID", "JOBPOST-" + tempJobID);
                                 intent.putExtra("UserNumPaypal", userNumberPaypal);
                                 startActivity(intent);
-                                //refPayPal.child("paypalIndex").push().setValue("JOBPOST-"+tempJobID);
-                                /*
-                                refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
-
-                                refPayPal.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        refPayPal.child("jobID").setValue("JOBPOST-"+tempJobID);
-                                        refPayPal.child("userID").setValue(userNumber);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                                */
-
-
-                                //refPayPal.setValue("JOBPOST-"+tempJobID);
-
-
                             }
                         });
-
-
                     }
-
                 }
                     //else{jobID++;}
-
-
             }
 
                 // Creating a back to dashboard button at the bottom of all the posts
@@ -319,16 +254,11 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 });
 
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-
             }
         });
-
     }
 
     private void createNotificationChannel() {
@@ -346,5 +276,4 @@ public class HistoryActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 }

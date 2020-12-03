@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.group_7_proj.CustomDataTypes.JobPost;
 import com.example.group_7_proj.CustomDataTypes.PaypalIndex;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,117 +60,76 @@ public class PaymentStatus extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
-
-        showDetails(intent.getStringExtra("Amount"),intent.getStringExtra("JobID"));
-
-
-
-
-
-
-
-
-
+        final String jobID = intent.getStringExtra("JobID");
 
         final String paypalUserNum =  intent.getStringExtra("userNumPaypal");
 
+        String paymentAmount = intent.getStringExtra("Amount");
 
-
-
+        showDetails(paymentAmount,jobID);
 
         // Creating a back to dashboard button at the bottom of all the posts
-        reff = FirebaseDatabase.getInstance().getReference();
+
         paymentStatusBacktoMain = findViewById(R.id.pmtStatusBacktoMain);
         paymentStatusBacktoMain.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
-                reff.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
-                        refPayPal.child("jobID").setValue("Empty");
-                        /*
-                        reff2 = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
-
-                        if (snapshot.hasChild("Empty")) {
-                            reff2.child("Empty").removeValue();
-                        }
-                        */
-                        userNumber = snapshot.child("paypalIndex").child("userID").getValue().toString();
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-
-                });
-
-
-
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 intent.putExtra("User",paypalUserNum);
-
                 startActivity(intent);
-
-
             }
         });
-
-
     }
 
-    private void showDetails(String paymentAmount, String jobID) {
+    private void showDetails(String paymentAmount, final String jobID) {
         txtId.setText("ID -- "+responseData.getResponse().getId());
         txtStatus.setText("Status -- "+responseData.getResponse().getState());
         reff2 = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         refPayPal = FirebaseDatabase.getInstance().getReference().child("paypalIndex");
         reff2.child(jobID).child("paymentStatus").setValue("Paid");
-        /*
-        refPayPal.addValueEventListener(new ValueEventListener() {
+
+        // when a job is completed and paid, it should will be deleted
+        reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
+        reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("jobID").getValue().toString();
-                String userNumber =snapshot.child("userID").getValue().toString();
-                String checker = txtStatus.getText().toString();
+                long maxPost = (snapshot.getChildrenCount());
+                System.out.print(maxPost);
+                if ((snapshot.child(jobID).child("completionStatus").getValue().toString()).equals("Completed")) {
 
-                if(checker.equals("Status -- approved")){
-                    reff2.child(name).child("paymentStatus").setValue("Paid");
 
+                    DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + maxPost);
+                    DatabaseReference toPath = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child(jobID);
+
+
+                    String Emname = snapshot.child("JOBPOST-" + maxPost).child("employerName").getValue().toString();
+                    String jobtitle1 = snapshot.child("JOBPOST-" + maxPost).child("jobTitle").getValue().toString();
+                    String salary = snapshot.child("JOBPOST-" + maxPost).child("salary").getValue().toString();
+                    String detail = snapshot.child("JOBPOST-" + maxPost).child("jobDetails").getValue().toString();
+                    String jobType = snapshot.child("JOBPOST-" + maxPost).child("jobType").getValue().toString();
+                    int intUserNum = Integer.parseInt(snapshot.child("JOBPOST-" + maxPost).child("userID").getValue().toString());
+                    String completionStatus = snapshot.child("JOBPOST-" + maxPost).child("completionStatus").getValue().toString();
+                    String paymentStatus = snapshot.child("JOBPOST-" + maxPost).child("paymentStatus").getValue().toString();
+                    Object geoLocation = snapshot.child("JOBPOST-" + maxPost).child("geoLocation").getValue();
+                    //int employeeID = Integer.parseInt(snapshot.child("JOBPOST-" + maxPost).child("employeeID").getValue().toString());
+                    String employeeID = snapshot.child("JOBPOST-" + maxPost).child("employeeID").getValue().toString();
+
+                    final JobPost j1 = new JobPost(Emname, jobtitle1, jobType, salary, detail, intUserNum, paymentStatus, completionStatus);
+
+                    toPath.setValue(j1);
+                    toPath.child("employeeID").setValue(employeeID);
+                    toPath.child("geoLocation").setValue(geoLocation);
+
+                    lastNode.removeValue();
                 }
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
-
-
         });
-        */
-
-
-
-
-
-
-
-
-
 
         txtAmount.setText("Amount -- $" + paymentAmount);
-
-        //intentChecker.setText("Checker" + name);
-
-
-
-
 
         }
 }

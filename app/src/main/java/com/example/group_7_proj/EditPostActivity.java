@@ -1,11 +1,14 @@
 package com.example.group_7_proj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditPostActivity extends AppCompatActivity {
@@ -37,6 +42,11 @@ public class EditPostActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         jobID = callerIntent.getStringExtra("postID");
         userNumber = callerIntent.getStringExtra("User");
+
+        Spinner jobTypeList = (Spinner) findViewById(R.id.editJobType);
+        this.addJobTypeList(jobTypeList);
+
+
 
 
         reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
@@ -58,14 +68,14 @@ public class EditPostActivity extends AppCompatActivity {
                 editEmployeeNameField = findViewById(R.id.editEmpName);
                 editDetailsField = findViewById(R.id.editJobDetails);
                 editSalaryField = findViewById(R.id.editSalary);
-                editTypeField = findViewById(R.id.editJobType);
+                //editTypeField = findViewById(R.id.editJobType);
 
                 // Set the values that were received from the database to the text views
                 editTitleField.setText(jobTitle);
                 editEmployeeNameField.setText(employerName);
                 editDetailsField.setText(jobDetails);
                 editSalaryField.setText(salary);
-                editTypeField.setText(jobType);
+                //editTypeField.setText(jobType);
 
                 // Creating a back to History button at the bottom of all the posts
                 editPostBackToMainBtn = findViewById(R.id.editPostCancelBtn);
@@ -88,13 +98,14 @@ public class EditPostActivity extends AppCompatActivity {
                         employerNameText = findViewById(R.id.editEmpName);
                         jobDetailsText = findViewById(R.id.editJobDetails);
                         jobSalaryText = findViewById(R.id.editSalary);
-                        jobTypeText = findViewById(R.id.editJobType);
+                        Spinner jobTypeList = (Spinner) findViewById(R.id.editJobType);
+
 
                         String newTitle = jobTitleText.getText().toString();
                         String newEmpName = employerNameText.getText().toString();
                         String newDetails = jobDetailsText.getText().toString();
                         String newSalary = jobSalaryText.getText().toString();
-                        String newType = jobTypeText.getText().toString();
+                        String newType = jobTypeList.getSelectedItem().toString();
 
                         reff.child(jobID).child("jobTitle").setValue(newTitle);
                         reff.child(jobID).child("employerName").setValue(newEmpName);
@@ -109,5 +120,20 @@ public class EditPostActivity extends AppCompatActivity {
 
             }
     });
+    }
+
+    public void addJobTypeList(Spinner jobTypeList) {
+        List<String> jobTypes = new ArrayList<String>();
+        jobTypes.add("--Please select--");
+        jobTypes.add("Dog walking");
+        jobTypes.add("Babysitting");
+        jobTypes.add("Cleaning");
+        jobTypes.add("Computer");
+        jobTypes.add("Delivery");
+        jobTypes.add("Other");
+
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobTypeListAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, jobTypes);
+        jobTypeListAdapter.setDropDownViewResource(R.layout.spinner_item);
+        jobTypeList.setAdapter(jobTypeListAdapter);
     }
 }
