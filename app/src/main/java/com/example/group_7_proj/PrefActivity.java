@@ -8,14 +8,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PrefActivity extends AppCompatActivity {
     String userNumber = "";
+    final String firebaseFirstLevel = "user";
+    String firebaseSecondLevel = "";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -28,57 +34,101 @@ public class PrefActivity extends AppCompatActivity {
 
         final TextView title;
         final Button backBtn, submitBtn;
-
-        // checkbox section {
         final CheckBox babysitting = (CheckBox) findViewById(R.id.pref_babysitting);
-        if (babysitting.isChecked()) { //database shows as true
-            babysitting.setChecked(true);
-        }
-        else{
-            babysitting.setChecked(false);
-        }
         final CheckBox cleaning = (CheckBox) findViewById(R.id.pref_cleaning);
-        if (babysitting.isChecked()) { //database shows as true
-            cleaning.setChecked(true);
-        }
-        else{
-            cleaning.setChecked(false);
-        }
         final CheckBox computer = (CheckBox) findViewById(R.id.pref_computer);
-        if (babysitting.isChecked()) { //database shows as true
-            computer.setChecked(true);
-        }
-        else{
-            computer.setChecked(false);
-        }
         final CheckBox delivery = (CheckBox) findViewById(R.id.pref_delivery);
-        if (babysitting.isChecked()) { //database shows as true
-            delivery.setChecked(true);
-        }
-        else{
-            delivery.setChecked(false);
-        }
         final CheckBox dogWalking = (CheckBox) findViewById(R.id.pref_dog);
-        if (babysitting.isChecked()) { //database shows as true
-            dogWalking.setChecked(true);
-        }
-        else{
-            dogWalking.setChecked(false);
-        }
         final CheckBox otherCheck = (CheckBox) findViewById(R.id.pref_other);
-        if (babysitting.isChecked()) { //database shows as true
-            otherCheck.setChecked(true);
-        }
-        else{
-            otherCheck.setChecked(false);
-        }
-        //}
 
-        String firebaseFirstLevel = "user";
-        final String firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
+        firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel).child("Job Preferences");
+
+        //fills the checkboxes bases on database.
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(String.valueOf(1))){
+                    if (snapshot.child("1").getValue().equals("Babysitting")) { //database shows as true
+                        babysitting.setChecked(true);
+                    }
+                    else{
+                        babysitting.setChecked(false);
+                    }
+                }
+                else{
+                    babysitting.setChecked(false);
+                }
+                if (snapshot.hasChild("2")){
+                    if (snapshot.child("2").getValue().equals("Cleaning")) { //database shows as true
+                        cleaning.setChecked(true);
+                    }
+                    else{
+                        cleaning.setChecked(false);
+                    }
+                }
+                else{
+                    cleaning.setChecked(false);
+                }
+
+                if (snapshot.hasChild("3")){
+                    if (snapshot.child("3").getValue().equals("Computer")) { //database shows as true
+                        computer.setChecked(true);
+                    }
+                    else{
+                        computer.setChecked(false);
+                    }
+                }
+                else{
+                    computer.setChecked(false);
+                }
+
+                if (snapshot.hasChild("4")){
+                    if (snapshot.child("4").getValue().equals("Delivery")) { //database shows as true
+                        delivery.setChecked(true);
+                    }
+                    else{
+                        delivery.setChecked(false);
+                    }
+                }
+                else{
+                    delivery.setChecked(false);
+                }
+
+                if (snapshot.hasChild("5")){
+                    if (snapshot.child("5").getValue().equals("Dog Walking")) { //database shows as true
+                        dogWalking.setChecked(true);
+                    }
+                    else{
+                        dogWalking.setChecked(false);
+                    }
+                }
+                else{
+                    dogWalking.setChecked(false);
+                }
+
+                if (snapshot.hasChild("6")){
+                    if (snapshot.child("6").getValue().equals("Other")) { //database shows as true
+                        otherCheck.setChecked(true);
+                    }
+                    else{
+                        otherCheck.setChecked(false);
+                    }
+                }
+                else{
+                    otherCheck.setChecked(false);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError){
+
+            }
+        });
+
+
+
 
 
         title = (TextView)findViewById(R.id.pref_title);
@@ -89,6 +139,7 @@ public class PrefActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 intent.putExtra("User", userNumber);
+                intent.putExtra("Pref", "true");
                 startActivity(intent);
             }
         });
@@ -96,53 +147,58 @@ public class PrefActivity extends AppCompatActivity {
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel).child("Job Preferences");
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.pref_babysitting:
                 if (checked) {
-                    // push to database
+                    rootRef.child("1").setValue("Babysitting");
                 }
                 else {
-                    // also push to database
+                    rootRef.child("1").setValue(null);
                 }
                 break;
             case R.id.pref_cleaning:
                 if (checked) {
-                    // push to database
+                    rootRef.child("2").setValue("Cleaning");
                 }
                 else{
-                    // push to database
+                    rootRef.child("2").setValue(null);
                 }
                 break;
             case R.id.pref_computer:
                 if (checked){
-
+                    rootRef.child("3").setValue("Computer");
                 }
                 else{
-
+                    rootRef.child("3").setValue(null);
                 }
+                break;
             case R.id.pref_delivery:
                 if (checked){
-
+                    rootRef.child("4").setValue("Delivery");
                 }
                 else{
-
+                    rootRef.child("4").setValue(null);
                 }
+                break;
             case R.id.pref_dog:
                 if (checked){
-
+                    rootRef.child("5").setValue("Dog Walking");
                 }
                 else{
-
+                    rootRef.child("5").setValue(null);
                 }
+                break;
             case R.id.pref_other:
                 if (checked){
-
+                    rootRef.child("6").setValue("Other");
                 }
                 else{
-
+                    rootRef.child("6").setValue(null);
                 }
+                break;
         }
     }
 }
