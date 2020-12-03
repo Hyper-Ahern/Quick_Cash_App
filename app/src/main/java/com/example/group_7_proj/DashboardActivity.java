@@ -76,20 +76,19 @@ public class DashboardActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     preferenceCount = (snapshot.getChildrenCount());
                     prelist = new ArrayList<>((int) preferenceCount);
+                    int count = 0;
                     for (int i = 0; i < 7; i++) {
                         String str = String.valueOf(i);
                         if (snapshot.hasChild(str)) {
-
-                            //prelist.add((String) snapshot.child(str).getValue());
+                            count++;
                             displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
                         }
-                        //prelist.add((String) snapshot.child(str).getValue());
-                        //displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
 
                     }
-                    //if (ifpopup)
+                    if (count>0) { // to make sure no popup if no preferences selected
                         prefCall[0] = "false";
                         SeeMatchedJobPostDialog(displayallPreference);
+                    }
                 }
 
                 @Override
