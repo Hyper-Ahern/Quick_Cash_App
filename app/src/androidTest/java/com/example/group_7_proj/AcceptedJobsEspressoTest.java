@@ -58,7 +58,6 @@ public class AcceptedJobsEspressoTest {
 
     @Test
     public void clickMarkAsCompleted(){
-
         onView(withId(R.id.login));
         onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
         pressBack();

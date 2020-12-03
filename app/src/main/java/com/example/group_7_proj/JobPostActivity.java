@@ -153,7 +153,7 @@ public class JobPostActivity extends AppCompatActivity {
                     validTextview.setText("Job Posted Successfully");
                     Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
                     validTextview.setVisibility(View.GONE);
-                    int potEmpCount = calculatePotEmpCount(userRef, jobType);
+                    potEmpCount = calculatePotEmpCount(userRef, jobType);
                     potentialEmpDialogPopUp(String.valueOf(potEmpCount));
 
                 }
@@ -184,7 +184,7 @@ public class JobPostActivity extends AppCompatActivity {
         displayjobpreferencetextview = PopupView.findViewById(R.id.matchpreferencetextview);
         popupyes = PopupView.findViewById(R.id.seematchedjobbutton);
         popupno = PopupView.findViewById(R.id.cancelmatchbutton);
-        displayjobpreferencetextview.setText("We detected "+potEmpCount+" potential employees. Do you want to see the matches?");
+        displayjobpreferencetextview.setText("Would like to check the potential employees?");
         dialogBuilder.setView(PopupView);
         dialog = dialogBuilder.create();
         dialog.show();
