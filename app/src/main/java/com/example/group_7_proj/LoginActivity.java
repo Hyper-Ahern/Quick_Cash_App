@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (found) {
                                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                                     intent.putExtra("User", String.valueOf(userID));
+                                    intent.putExtra("Pref", "false");
                                     startActivity(intent);
                                     Toast.makeText(LoginActivity.this, "You are signed in", Toast.LENGTH_LONG).show();
                                 } else {

@@ -120,6 +120,7 @@ public class JobPreferenceMatchActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                         intent.putExtra("User", userNumber);
+                        intent.putExtra("Pref", "false");
                         startActivity(intent);
                     }
                 });

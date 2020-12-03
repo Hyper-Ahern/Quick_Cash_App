@@ -222,6 +222,7 @@ public class JobPostActivity extends AppCompatActivity {
                                 userPref.add(currPref.toString());
                             }
                         }
+
                         if(userPref.contains(jobType)){
                             potEmpCount+= 1;
                         }

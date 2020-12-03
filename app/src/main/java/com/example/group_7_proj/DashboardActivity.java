@@ -66,26 +66,33 @@ public class DashboardActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference().child("user");
         Intent callerIntent = getIntent();
         userNumber = callerIntent.getStringExtra("User");
-        userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
-        userpreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                preferenceCount = (snapshot.getChildrenCount());
-                prelist = new ArrayList<>((int) preferenceCount);
-                for (long i = 0; i < preferenceCount; i++) {
-                    String str = String.valueOf(i);
-                    prelist.add((String) snapshot.child(str).getValue());
-                    displayallPreference = displayallPreference + prelist.get((int) i) + " ";
+
+
+            userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
+            userpreference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    preferenceCount = (snapshot.getChildrenCount());
+                    prelist = new ArrayList<>((int) preferenceCount);
+                    int count = 0;
+                    for (int i = 0; i < 7; i++) {
+                        String str = String.valueOf(i);
+                        if (snapshot.hasChild(str)) {
+                            count++;
+                            displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
+                        }
+
+                    }
+                    if (count > 0 && ifpopup) { // to make sure no popup if no preferences selected
+                        SeeMatchedJobPostDialog(displayallPreference);
+                    }
                 }
-                if (ifpopup)
-                    SeeMatchedJobPostDialog(displayallPreference);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
 
         locationFinder();
@@ -228,6 +235,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 // added by AZ on Dec 01
                 intent.putExtra("User", userNumber);
+                intent.putExtra("Pref", "false");
                 startActivity(intent);
             }
         });
