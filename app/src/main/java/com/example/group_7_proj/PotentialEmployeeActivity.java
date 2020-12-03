@@ -41,12 +41,16 @@ public class PotentialEmployeeActivity extends AppCompatActivity {
                 final LinearLayout myLayout = (LinearLayout) findViewById(R.id.layoutDisplaySearchInner);
                 int potEmpCount = 0;
                 ArrayList<String> userPref;
+                Object currPref;
 
                 for(long userID = 1; userID < maxUser+1; userID++) {
                     userPref = new ArrayList<String>();
-                    int maxPref = (int) snapshot.child("USER-" + userID).child("Job Preferences").getChildrenCount();
-                    for (int p = 0; p < maxPref; p++) {
-                        userPref.add(snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue().toString());
+                    int maxPref = 6;
+                    for (int p = 0; p < maxPref+1; p++) {
+                        currPref = snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue();
+                        if(currPref!=null) {
+                            userPref.add(currPref.toString());
+                        }
                     }
 
                     String userName = snapshot.child("USER-" + userID).child("name").getValue().toString();

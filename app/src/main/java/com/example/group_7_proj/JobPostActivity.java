@@ -211,12 +211,16 @@ public class JobPostActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     maxID = (snapshot.getChildrenCount());
                     ArrayList<String> userPref;
+                    Object currPref;
 
                     for (int userID = 1; userID < maxID + 1; userID++) {
                         userPref = new ArrayList<String>();
-                        int maxPref = (int) snapshot.child("USER-" + userID).child("Job Preferences").getChildrenCount();
-                        for (int p = 0; p < maxPref; p++) {
-                            userPref.add(snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue().toString());
+                        int maxPref = 6;
+                        for (int p = 0; p < maxPref+1; p++) {
+                            currPref = snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue();
+                            if(currPref!=null) {
+                                userPref.add(currPref.toString());
+                            }
                         }
                         if(userPref.contains(jobType)){
                             potEmpCount+= 1;

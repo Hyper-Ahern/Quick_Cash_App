@@ -185,6 +185,8 @@ public class JobPostEspressoTest {
         onView(withId(R.id.inputStatusTextview)).check(matches(withText("Job Posted Successfully")));
     }
 
+
+
     @AfterClass
     public static void teardown(){
         database = null;
