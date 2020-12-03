@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class PrefActivity extends AppCompatActivity {
-    String userNumber = "";
+    String userNumber = "1";
     final String firebaseFirstLevel = "user";
     String firebaseSecondLevel = "";
 
@@ -31,7 +31,9 @@ public class PrefActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preference);
         Intent callerIntent = getIntent();
-        userNumber = callerIntent.getStringExtra("User");
+        if(callerIntent.getStringExtra("User")!=null){
+            userNumber = callerIntent.getStringExtra("User");
+        }
 
         final TextView title;
         final Button backBtn, submitBtn;
