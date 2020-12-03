@@ -7,6 +7,7 @@ import com.example.group_7_proj.CustomDataTypes.Password;
 import android.app.Activity;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.After;
@@ -44,6 +45,20 @@ public class SignUpFragmentTest {
         onView(withId(R.id.reenterPassword)).perform(click()).perform(typeText(uPassword));
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
+        onView(withId(R.id.paymentInfo));
+        onView(withId(R.id.cardNumber)).perform(typeText("1111222233334444"));
+        onView(withId(R.id.expiryDate)).perform(typeText("10/22"));
+        onView(withId(R.id.CVV)).perform(typeText("100"));
+        onView(withId(R.id.cardHolderName)).perform(typeText("john doe")).perform(ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.paymentSubmitButton)).perform(click());
+        onView((withId(R.id.preference)));
+        onView(withId(R.id.pref_babysitting)).perform(click());
+        onView(withId(R.id.pref_delivery)).perform(click());
+        onView(withId(R.id.pref_other)).perform(click());
+        onView(withId(R.id.pref_backdashBtn)).perform(click());
+        onView(withId(R.id.popuplayout));
+        onView(withId(R.id.cancelmatchbutton)).perform(click());
+        onView(withId(R.id.dashboard));
     }
     @Test
     public void NegativeNameSignUp() { //display name error message

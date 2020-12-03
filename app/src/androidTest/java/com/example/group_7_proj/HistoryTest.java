@@ -29,7 +29,7 @@ public class HistoryTest {
         // checks if the details text box is empty and displays appropriate message
         public void HistoryButtonCanBackToDash() {
             closeSoftKeyboard();
-            onView(withId(R.id.jobPostView)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
+            onView(withId(R.id.history)).perform(swipeUp()).perform(swipeUp()).perform(swipeUp()).perform(swipeUp());
             onView(withId(R.id.historyBackToDBBtn)).perform(click());
             onView(withId(R.id.dashboard));
 

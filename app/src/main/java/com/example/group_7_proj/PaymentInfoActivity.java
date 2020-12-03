@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentInfoActivity extends AppCompatActivity {
-    String userNumber = "";
+    String userNumber = "1";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -50,7 +50,9 @@ public class PaymentInfoActivity extends AppCompatActivity {
         String firebaseFirstLevel = "user";
         //Intent callerIntent = getIntent();
         Intent callerIntent = getIntent();
-        userNumber = callerIntent.getStringExtra("User");
+        if(callerIntent.getStringExtra("User")!=null){
+            userNumber = callerIntent.getStringExtra("User");
+        }
         final String firebaseSecondLevel = ("USER-" + String.valueOf(userNumber));
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -104,7 +106,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
                             statusButton.setText("Error with Signup");
                         }
                     });
-                    Intent intent = new Intent(getApplicationContext(), ChooseJobPrefActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
                     //Bundle bundle = new Bundle();
                     //bundle.putLong("User", userNumber);
                     intent.putExtra("User",userNumber);
