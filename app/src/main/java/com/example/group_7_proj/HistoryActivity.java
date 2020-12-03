@@ -70,6 +70,10 @@ public class HistoryActivity extends AppCompatActivity {
                 // Iterarate through all the job posts and render only those that are user created
                 for (jobID = 1; jobID < maxPost+1; jobID++) {
                     if (snapshot.hasChild("JOBPOST-" + jobID)) {
+                        if(!snapshot.child("JOBPOST-" + jobID).hasChild("employeeID")){
+                            reff.child("JOBPOST-" + jobID).child("employeeID").setValue("0");
+                            setContentView(R.layout.history);
+                        }
                     String trigger = snapshot.child("JOBPOST-" + jobID).child("userID").getValue().toString();
                     //final DataSnapshot lastNode = (DataSnapshot) snapshot.child("JOBPOST-" + maxPost).getValue();
 
