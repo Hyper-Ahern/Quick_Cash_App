@@ -41,20 +41,7 @@ public class AcceptedJobsEspressoTest {
     public ActivityScenarioRule<LoginActivity> checkTheFunctionalityOfButton
             = new ActivityScenarioRule<>(LoginActivity.class);
 
-    @Test
-    public void loginAndCheckAcceptedJobs(){
-        onView(withId(R.id.login));
-        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
-        pressBack();
-        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD12#$"));
-        pressBack();
-        onView(withId(R.id.loginBtn)).perform(click());
-        SystemClock.sleep(2000);
-        onView(withId(R.id.popuplayout));
-        onView(withId(R.id.cancelmatchbutton)).perform(click());
-        SystemClock.sleep(1000);
-        onView(withId(R.id.acceptedJobsBtn)).perform(click());
-    }
+
 
     @Test
     public void clickMarkAsCompleted(){
