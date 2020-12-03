@@ -153,7 +153,7 @@ public class JobPostActivity extends AppCompatActivity {
                     validTextview.setText("Job Posted Successfully");
                     Toast.makeText(JobPostActivity.this, "Job Posted Successfully",Toast.LENGTH_LONG).show();
                     validTextview.setVisibility(View.GONE);
-                    int potEmpCount = calculatePotEmpCount(jobType);
+                    potEmpCount = calculatePotEmpCount(userRef, jobType);
                     potentialEmpDialogPopUp(String.valueOf(potEmpCount));
 
                 }
@@ -184,7 +184,7 @@ public class JobPostActivity extends AppCompatActivity {
         displayjobpreferencetextview = PopupView.findViewById(R.id.matchpreferencetextview);
         popupyes = PopupView.findViewById(R.id.seematchedjobbutton);
         popupno = PopupView.findViewById(R.id.cancelmatchbutton);
-        displayjobpreferencetextview.setText("We detected "+potEmpCount+" potential employees. Do you want to see the matches?");
+        displayjobpreferencetextview.setText("Would like to check the potential employees?");
         dialogBuilder.setView(PopupView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -204,19 +204,23 @@ public class JobPostActivity extends AppCompatActivity {
         });
     }
 
-    public int calculatePotEmpCount(final String jobType){
-        userRef.addValueEventListener(new ValueEventListener() {
+    public int calculatePotEmpCount(DatabaseReference userRefP, final String jobType){
+        userRefP.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     maxID = (snapshot.getChildrenCount());
                     ArrayList<String> userPref;
+                    Object currPref;
 
                     for (int userID = 1; userID < maxID + 1; userID++) {
                         userPref = new ArrayList<String>();
-                        int maxPref = (int) snapshot.child("USER-" + userID).child("Job Preferences").getChildrenCount();
-                        for (int p = 0; p < maxPref; p++) {
-                            userPref.add(snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue().toString());
+                        int maxPref = 6;
+                        for (int p = 0; p < maxPref+1; p++) {
+                            currPref = snapshot.child("USER-" + userID).child("Job Preferences").child(String.valueOf(p)).getValue();
+                            if(currPref!=null) {
+                                userPref.add(currPref.toString());
+                            }
                         }
                         if(userPref.contains(jobType)){
                             potEmpCount+= 1;
