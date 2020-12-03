@@ -95,4 +95,16 @@ public class LoginActivityTest {
         onView(withText("Login with Google")).check(matches(isDisplayed()));
     }
 
+    @Test
+// checks if app is able to successfully navigate to dashboard
+    public void popupexist() {
+        onView(withId(R.id.login));
+        onView(withId(R.id.emailText)).perform(click()).perform(typeText("abc@xyz.com"));
+        pressBack();
+        onView(withId(R.id.passwordText)).perform(click()).perform(typeText("abCD12#$"));
+        pressBack();
+        onView(withId(R.id.loginBtn)).perform(click());
+        onView(withId(R.id.popuplayout));
+    }
+
 }
