@@ -16,26 +16,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class AcceptedJobsEspressoTest {
-    /*
-    @Rule
-    public ActivityScenarioRule<AcceptedJobsActivity> checkThePage
-            = new ActivityScenarioRule<>(AcceptedJobsActivity.class);
-    //clicked category displays check?
-    //if clicked after clicked, is unchecked
-    @Test
-    public void checkTheActivityExistence(){
-        onView(withId(R.id.acceptedjobs));
-
-    }
-
-    @Test
-    public void checkTheButtonBackToMain(){
-        onView(withId(R.id.acceptedJobsBackToDBBtn)).perform(click());
-
-    }
-
-     */
-
     //need data of user ID to do the following test
     @Rule
     public ActivityScenarioRule<LoginActivity> checkTheFunctionalityOfButton
@@ -57,11 +37,5 @@ public class AcceptedJobsEspressoTest {
         SystemClock.sleep(1000);
         onView(withId(R.id.acceptedJobsBtn)).perform(click());
         onView(withId(R.id.acceptedjobs));
-        //SystemClock.sleep(1000);
-
     }
-
-
-
-
 }

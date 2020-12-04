@@ -44,7 +44,6 @@ public class PaymentStatus extends AppCompatActivity {
         txtId = findViewById(R.id.txtId);
         txtAmount = findViewById(R.id.txtAmount);
         txtStatus = findViewById(R.id.txtStatus);
-        intentChecker = findViewById(R.id.intentChecker);
 
         Intent intent = getIntent();
 

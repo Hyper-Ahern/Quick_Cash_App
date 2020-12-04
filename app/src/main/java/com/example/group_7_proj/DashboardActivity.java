@@ -42,6 +42,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static androidx.constraintlayout.motion.widget.Debug.getLocation;
+
 public class DashboardActivity extends AppCompatActivity {
     Button backBtn, postAJobBtn, payEmployeeBtn, allJobPostBtn, historyBtn, acceptedJobsBtn, preferenceBtn,popupyes, popupno;
     private TextView displayjobpreferencetextview;
@@ -68,33 +70,6 @@ public class DashboardActivity extends AppCompatActivity {
         userNumber = callerIntent.getStringExtra("User");
 
 
-            userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
-            userpreference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    preferenceCount = (snapshot.getChildrenCount());
-                    prelist = new ArrayList<>((int) preferenceCount);
-                    int count = 0;
-                    for (int i = 0; i < 7; i++) {
-                        String str = String.valueOf(i);
-                        if (snapshot.hasChild(str)) {
-                            count++;
-                            displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
-                        }
-
-                    }
-                    if (count > 0 && ifpopup) { // to make sure no popup if no preferences selected
-                        SeeMatchedJobPostDialog(displayallPreference);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-
         locationFinder();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -112,6 +87,29 @@ public class DashboardActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED) {
             getLocation();
         }
+        userpreference = FirebaseDatabase.getInstance().getReference().child("user").child("USER-" + userNumber).child("Job Preferences");
+        userpreference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                preferenceCount = (snapshot.getChildrenCount());
+                prelist = new ArrayList<>((int) preferenceCount);
+                int count = 0;
+                for (int i = 0; i < 7; i++) {
+                    String str = String.valueOf(i);
+                    if (snapshot.hasChild(str)) {
+                        count++;
+                        displayallPreference = displayallPreference + ((String) snapshot.child(str).getValue()) + " ";
+                    }
+
+                }
+                if (count > 0 && ifpopup) { // to make sure no popup if no preferences selected
+                    SeeMatchedJobPostDialog(displayallPreference);
+                }
+
+            }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
