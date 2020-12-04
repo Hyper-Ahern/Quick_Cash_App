@@ -31,17 +31,14 @@ import java.sql.Ref;
 public class SignUpActivity extends AppCompatActivity {
     private Button signUpBtn;
     private Button captchaBtn;
-
     private EditText etName;
     private EditText etEmail;
     private EditText etPassword;
     private EditText etReEnterPassword;
-
     private Name name;
     private Email email;
     private Password password, reEnterPassword;
     private User user;
-
     private Boolean nameValid, emailValid, passwordValid, reEnterPasswordValid;
 
     AlertDialog.Builder builder;
@@ -57,7 +54,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         String firebaseFirstLevel = "user";
         rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel);
-
 
         etName  = findViewById(R.id.name);
         etEmail  = findViewById(R.id.email);
@@ -171,7 +167,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     if(email.getValue().equals(emailFB)){
                                         found = true;
                                         System.out.println("signup: email found in db="+found);
-                                        //Toast.makeText(SignUpActivity.this, "An account is already associated with this email", Toast.LENGTH_LONG).show();
                                     }
                                 }
                                 if(!found){

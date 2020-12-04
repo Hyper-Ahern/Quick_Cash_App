@@ -46,10 +46,10 @@ public class SignUpFragmentTest {
         closeSoftKeyboard();
         onView(withId(R.id.signUpBtn)).perform(click());
         onView(withId(R.id.paymentInfo));
-        onView(withId(R.id.cardNumber)).perform(typeText("1111222233334444"));
-        onView(withId(R.id.expiryDate)).perform(typeText("10/22"));
-        onView(withId(R.id.CVV)).perform(typeText("100"));
-        onView(withId(R.id.cardHolderName)).perform(typeText("john doe")).perform(ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.cardNumber)).perform(click()).perform(typeText("1111222233334444"));
+        onView(withId(R.id.expiryDate)).perform(click()).perform(typeText("10/22"));
+        onView(withId(R.id.CVV)).perform(click()).perform(typeText("100"));
+        onView(withId(R.id.cardHolderName)).perform(click()).perform(typeText("john doe")).perform(ViewActions.closeSoftKeyboard());
         onView(withId(R.id.paymentSubmitButton)).perform(click());
         onView((withId(R.id.preference)));
         onView(withId(R.id.pref_babysitting)).perform(click());

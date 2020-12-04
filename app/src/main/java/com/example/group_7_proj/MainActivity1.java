@@ -40,15 +40,10 @@ public class MainActivity1 extends AppCompatActivity {
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(Config.PAYPAL_CLIENT_ID);
 
-
     Button btnPayNow;
     EditText edtAmount;
-
     String amount = "";
-
-
     private PaypalIndex paypalIndex = new PaypalIndex();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +53,6 @@ public class MainActivity1 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //start paypal service
-
-        //final String getID = getIntent().getStringExtra("JobID");
-
         Intent fromHist =getIntent();
 
         String jobID = fromHist.getStringExtra("JobID");
@@ -69,7 +61,6 @@ public class MainActivity1 extends AppCompatActivity {
         paypalIndex.setJID(jobID);
         paypalIndex.setUID(userNumPaypal);
 
-
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
 
@@ -77,21 +68,12 @@ public class MainActivity1 extends AppCompatActivity {
 
         btnPayNow = findViewById(R.id.btnPay);
         edtAmount = findViewById(R.id.edtAmount);
-
-
-
-
-
-
         btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 processPayment();
             }
         });
-
-
-
     }
 
     @Override
@@ -112,7 +94,6 @@ public class MainActivity1 extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

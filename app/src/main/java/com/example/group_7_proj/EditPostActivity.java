@@ -46,9 +46,6 @@ public class EditPostActivity extends AppCompatActivity {
         Spinner jobTypeList = (Spinner) findViewById(R.id.editJobType);
         this.addJobTypeList(jobTypeList);
 
-
-
-
         reff = FirebaseDatabase.getInstance().getReference().child("JOBPOST");
         reff.addValueEventListener(new ValueEventListener() {
 
@@ -62,7 +59,6 @@ public class EditPostActivity extends AppCompatActivity {
                 String jobDetails = snapshot.child(jobID).child("jobDetails").getValue().toString();
                 final String salary = snapshot.child(jobID).child("salary").getValue().toString();
                 String jobType = snapshot.child(jobID).child("jobType").getValue().toString();
-
 
                 editTitleField = findViewById(R.id.editJobTitle);
                 editEmployeeNameField = findViewById(R.id.editEmpName);

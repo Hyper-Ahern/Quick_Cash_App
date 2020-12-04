@@ -130,13 +130,8 @@ public class PrefActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         title = (TextView)findViewById(R.id.pref_title);
         backBtn = (Button) findViewById(R.id.pref_backdashBtn);
-
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -177,8 +172,6 @@ public class PrefActivity extends AppCompatActivity {
                 else{
                     rootRef.child("6").setValue(null);
                 }
-
-
 
                 Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 intent.putExtra("User", userNumber);

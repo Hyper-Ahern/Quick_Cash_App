@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordHint = (TextView)findViewById(R.id.passwordHint);
         emailHint.setVisibility(View.GONE);
         passwordHint.setVisibility(View.GONE);
-
         builder = new AlertDialog.Builder(this);
 
         // login

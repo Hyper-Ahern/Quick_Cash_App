@@ -34,7 +34,6 @@ public class PaymentStatus extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus, intentChecker;
     DatabaseReference reff,reff2,refPayPal;
-
     PaymentModel responseData;
 
     @Override
@@ -54,12 +53,6 @@ public class PaymentStatus extends AppCompatActivity {
 
         responseData = mGson.fromJson(intent.getStringExtra("PaymentDetails"),PaymentModel.class);
 
-       /* try {
-            JSONObject jsonObject = new JSONObject(intent.getStringExtra("PaymentDetails"));
-            showDetails(jsonObject.getJSONObject("response"),intent.getStringExtra("PaymentAmount"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         final String jobID = intent.getStringExtra("JobID");
 
         final String paypalUserNum =  intent.getStringExtra("userNumPaypal");
@@ -69,7 +62,6 @@ public class PaymentStatus extends AppCompatActivity {
         showDetails(paymentAmount,jobID);
 
         // Creating a back to dashboard button at the bottom of all the posts
-
         paymentStatusBacktoMain = findViewById(R.id.pmtStatusBacktoMain);
         paymentStatusBacktoMain.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,7 +92,6 @@ public class PaymentStatus extends AppCompatActivity {
 
                     DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + maxPost);
                     DatabaseReference toPath = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child(jobID);
-
 
                     String Emname = snapshot.child("JOBPOST-" + maxPost).child("employerName").getValue().toString();
                     String jobtitle1 = snapshot.child("JOBPOST-" + maxPost).child("jobTitle").getValue().toString();

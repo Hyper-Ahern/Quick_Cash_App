@@ -76,7 +76,6 @@ public class HistoryJobTextSearchResultActivity extends AppCompatActivity {
                         salaryTextview.setText("Salary: " + salary + "\n");
                         salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
 
-
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobIDTextview);
                         myLayout.addView(jobTypeTextview);
@@ -102,7 +101,6 @@ public class HistoryJobTextSearchResultActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
             }
 
             @Override

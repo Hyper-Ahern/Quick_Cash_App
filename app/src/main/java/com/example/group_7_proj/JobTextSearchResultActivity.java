@@ -47,8 +47,6 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                     String salary = snapshot.child("JOBPOST-"+jobID).child("salary").getValue().toString();
                     String jobType = snapshot.child("JOBPOST-"+jobID).child("jobType").getValue().toString();
 
-
-                    //System.out.println(searchTextFound);
                     // made search non-case sensitive
                     searchTextFound = jobTitle.toLowerCase().contains(searchText.toLowerCase())
                             || jobDetails.toLowerCase().contains(searchText.toLowerCase())
@@ -80,7 +78,6 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                         salaryTextview.setText("Salary: " + salary + "\n");
                         salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
 
-
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobIDTextview);
                         myLayout.addView(jobTypeTextview);
@@ -88,7 +85,6 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                         myLayout.addView(jobDetailsTextview);
                         myLayout.addView(salaryTextview);
                     }
-
                 }
 
                 if(resultCount == 0){
@@ -106,12 +102,10 @@ public class JobTextSearchResultActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 

@@ -74,7 +74,6 @@ public class JobPostViewActivity extends AppCompatActivity {
                     myLayout.addView(employerNameTextview);
                     myLayout.addView(jobDetailsTextview);
                     myLayout.addView(salaryTextview);
-
                 }
 
                 backToMainBtn = findViewById(R.id.historyBackToDBBtn);

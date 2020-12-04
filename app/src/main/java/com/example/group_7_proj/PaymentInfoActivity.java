@@ -48,7 +48,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
         card = new Card();
 
         String firebaseFirstLevel = "user";
-        //Intent callerIntent = getIntent();
         Intent callerIntent = getIntent();
         if(callerIntent.getStringExtra("User")!=null){
             userNumber = callerIntent.getStringExtra("User");
@@ -57,8 +56,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(firebaseFirstLevel).child(firebaseSecondLevel);
-        //DatabaseReference cardRef = rootRef.child("cards");
-
 
         cardNumberField = (EditText) findViewById(R.id.cardNumber);
         expiryDateField = (EditText) findViewById(R.id.expiryDate);
@@ -66,7 +63,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
         nameField = (EditText) findViewById(R.id.cardHolderName);
         statusButton = (TextView)findViewById(R.id.statusBtn);
         submitBtn = (Button) findViewById(R.id.paymentSubmitButton);
-
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -84,7 +80,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
                     card.setExpiryDate(expiryDate);
                     card.setCVV(cvv);
                     card.setCardHolderName(cardName);
-                    //rootRef.push().setValue(card);
                       /*
                     check if the user has card info stored, if no, add card info to the user's information
                      */
@@ -92,11 +87,8 @@ public class PaymentInfoActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             if (!snapshot.hasChild("Card Info")) {
-
                                 Map<String, Object> userCardInfoUpdates = new HashMap<>();
-
                                 userCardInfoUpdates.put("Card Info",card);
-
                                 rootRef.updateChildren(userCardInfoUpdates);
                             }
                         }
@@ -107,10 +99,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
                         }
                     });
                     Intent intent = new Intent(getApplicationContext(), PrefActivity.class);
-                    //Bundle bundle = new Bundle();
-                    //bundle.putLong("User", userNumber);
                     intent.putExtra("User",userNumber);
-
                     statusButton.setText("Card info OK");
                     Toast.makeText(PaymentInfoActivity.this, "Card registration complete",Toast.LENGTH_LONG).show();
                     startActivity(intent);
@@ -118,11 +107,8 @@ public class PaymentInfoActivity extends AppCompatActivity {
                 else {
                     statusButton.setText("Invalid Card info");
                 }
-
             }
 
         });
-
-
     }
 }

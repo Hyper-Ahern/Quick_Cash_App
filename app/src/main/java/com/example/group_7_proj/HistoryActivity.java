@@ -113,7 +113,6 @@ public class HistoryActivity extends AppCompatActivity {
                         salaryTextview.setText("Salary: " + salary + "\n");
                         salaryTextview.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.common_google_signin_btn_text_dark_default));
 
-
                         // Add those text views to the layout so the user can see them
                         myLayout.addView(jobTitleTextview);
                         myLayout.addView(jobIDTextview);
@@ -168,15 +167,8 @@ public class HistoryActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 System.out.println("JOBPOST-" + jobID);
 
-
-
-
-
                                     DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + maxPost);
                                     DatabaseReference toPath = FirebaseDatabase.getInstance().getReference().child("JOBPOST").child("JOBPOST-" + deleteJobIDMinusOne);
-
-
-
 
                                     String Emname = snapshot.child("JOBPOST-" + maxPost).child("employerName").getValue().toString();
                                     String jobtitle1 = snapshot.child("JOBPOST-" + maxPost).child("jobTitle").getValue().toString();
@@ -229,7 +221,6 @@ public class HistoryActivity extends AppCompatActivity {
                                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                                         .setAutoCancel(true);
 
-
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(HistoryActivity.this);
 
                                 // notificationId is a unique int for each notification that you must define
@@ -243,7 +234,6 @@ public class HistoryActivity extends AppCompatActivity {
                         });
                     }
                 }
-                    //else{jobID++;}
             }
 
                 // Creating a back to dashboard button at the bottom of all the posts

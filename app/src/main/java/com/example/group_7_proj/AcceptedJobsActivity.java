@@ -67,8 +67,6 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                                 String jobType = snapshot.child("JOBPOST-" + jobID).child("jobType").getValue().toString();
                                 String salary = snapshot.child("JOBPOST-" + jobID).child("salary").getValue().toString();
 
-                                // String completionStatus = snapshot.child("JOBPOST-" + jobID).child("completionStatus").getValue().toString();
-
                                 // Create the text views
                                 final TextView jobIDTextview = new TextView(getApplicationContext());
                                 final TextView jobTitleTextview = new TextView(getApplicationContext());
@@ -146,12 +144,6 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                                 }
                             }
                         }
-                    /*
-                    else{
-                            jobID++;
-                    }
-
-                     */
                     }
                 }
 
@@ -165,8 +157,6 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                         startActivity(intent);
                     }
                 });
-
-
             }
 
             @Override
@@ -174,11 +164,6 @@ public class AcceptedJobsActivity extends AppCompatActivity{
                 Log.w( "loadPost:onCancelled", error.toException());
             }
         });
-
-
-
-
-
     }
 
 }
