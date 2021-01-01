@@ -1,3 +1,3 @@
-# 3130_Group_7_Proj
+# Quick Cash App
 
-3130_Group_7_Proj
+Project for CSCI 3130
